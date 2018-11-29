@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+	<!-->public folder define<-->
+	<RootFolder>$(MSBuildThisFileDirectory)..\</RootFolder>
+	<ProjFolder>$(RootFolder)projects\</ProjFolder>
+	<third>$(RootFolder)3rd\</third>
+	<LwInclude>$(RootFolder)include\</LwInclude>
+	<LwLibs>$(RootFolder)libs\</LwLibs>
+	<LwOutputDir>$(RootFolder)output\$(Platform)\$(Configuration)\</LwOutputDir>
+	
+	<!-->redefine the vs default value<-->
+	<OutDir>$(LwOutputDir)bin\</OutDir>
+    <IntDir>$(LwOutputDir)temp\$(ProjectName)</IntDir>
+	
+	<!-->output libs<-->
+	<LwLibDir>$(LwOutputDir)lib\</LwLibDir>
+	
+	<!-->depends libs<-->
+    <lwUtil_Include></lwUtil_Include>
+    <lwUtil_Lib></lwUtil_Lib>
+	
+	<!-->unit test<-->
+    <test_lwUtil_Include>$(ProjFolder)lw_util;</test_lwUtil_Include>
+    <test_lwUtil_Lib>lw_util.lib</test_lwUtil_Lib>
+		
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+		<AdditionalIncludeDirectories>$(LwInclude);$(ProjFolder);$(MSBuildProjectDirectory)</AdditionalIncludeDirectories>
+		<DisableSpecificWarnings>4251;4275;4996;4273;4800;4309;4101;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+		<AdditionalLibraryDirectories>$(LwLibs);$(LwLibDir)</AdditionalLibraryDirectories>
+		<ImportLibrary>$(LwLibDir)/$(TargetName).lib</ImportLibrary>
+		<IgnoreSpecificDefaultLibraries>atlsd</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
