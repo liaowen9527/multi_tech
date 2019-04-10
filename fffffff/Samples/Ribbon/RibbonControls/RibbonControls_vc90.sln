@@ -1,0 +1,4 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RibbonControls", ".\RibbonControls_vc90.vcproj", "{44584378-3688-3143-1314-937326663539}"
+EndProject

@@ -1,0 +1,4 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SearchOptions", ".\SearchOptions_vc90.vcproj", "{25653894-6824-3882-4559-668225494377}"
+EndProject

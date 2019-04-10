@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CustomDrawReport", "..\..\Samples\ReportControl\ReportCustomDraw\CustomDrawReport_vc71.vcproj", "{25787365-1734-8615-3598-258649734677}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReportAddRecordEx", "..\..\Samples\ReportControl\ReportAddRecordEx\ReportAddRecordEx_vc71.vcproj", "{22676423-8995-8815-3984-819347588335}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReportCustomHeap", "..\..\Samples\ReportControl\ReportCustomHeap\ReportCustomHeap_vc71.vcproj", "{15922415-6648-1495-7313-862228285576}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReportDataBinding", "..\..\Samples\ReportControl\ReportDataBinding\ReportDataBinding_vc71.vcproj", "{49737149-3714-9597-3964-191172514536}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReportDataBinding2", "..\..\Samples\ReportControl\ReportDataBinding2\ReportDataBinding2_vc71.vcproj", "{15245455-1463-3284-2137-585817646474}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReportDialog", "..\..\Samples\ReportControl\ReportDialog\ReportDialog_vc71.vcproj", "{92124524-8623-2483-1522-256516592932}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReportItemControls", "..\..\Samples\ReportControl\ReportItemControls\ReportItemControls_vc71.vcproj", "{96369596-6276-5173-5841-218486188273}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReportSample", "..\..\Samples\ReportControl\ReportSample\ReportSample_vc71.vcproj", "{31275349-3433-3266-2682-446349517233}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TrackControl", "..\..\Samples\ReportControl\TrackControl\TrackControl_vc71.vcproj", "{86583646-1181-6862-9665-832176649172}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirtualList", "..\..\Samples\ReportControl\VirtualList\VirtualList_vc71.vcproj", "{83463714-8341-5151-8259-593774494639}"
+EndProject

@@ -1,0 +1,5 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CalendarDemo", "..\..\Samples\Calendar\CalendarDemo\CalendarDemo_vc71.vcproj", "{37357837-1944-9642-9618-541132862159}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DatePickerDemo", "..\..\Samples\Calendar\DatePickerDemo\DatePickerDemo_vc71.vcproj", "{34346995-7294-8841-9194-292749726617}"
+EndProject

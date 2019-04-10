@@ -1,0 +1,12 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChartBrowser", "..\..\Samples\Chart\ChartBrowser\ChartBrowser_vc90.vcproj", "{98964458-2996-8729-1671-446544256771}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChartDialog", "..\..\Samples\Chart\ChartDialog\ChartDialog_vc90.vcproj", "{54362755-9654-2426-8743-831379398539}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlowGraphSample", "..\..\Samples\FlowGraph\FlowGraphSample\FlowGraphSample_vc90.vcproj", "{51251823-6825-1515-7248-592178143187}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleChart", "..\..\Samples\Chart\SimpleChart\SimpleChart_vc90.vcproj", "{85445522-1992-2696-5938-342442522877}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StockSample", "..\..\Samples\Chart\StockSample\StockSample_vc90.vcproj", "{19261265-8158-9799-2779-579295831927}"
+EndProject

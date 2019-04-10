@@ -1,0 +1,7 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkinControls", "..\..\Samples\SkinFramework\SkinControls\SkinControls_vc71.vcproj", "{79746748-5189-7866-3143-348471524333}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkinMDISample", "..\..\Samples\SkinFramework\SkinMDISample\SkinMDISample_vc71.vcproj", "{45244145-3747-2552-2116-744216656172}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkinSDISample", "..\..\Samples\SkinFramework\SkinSDISample\SkinSDISample_vc71.vcproj", "{18897465-1899-8658-4113-539214531523}"
+EndProject
