@@ -1,9 +1,0 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BindSample", "..\..\Samples\PropertyGrid\BindSample\BindSample_vc71.vcproj", "{38162244-2829-1617-6514-537538614444}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DrawCli", "..\..\Samples\PropertyGrid\DrawClient\drawcli_vc71.vcproj", "{53987877-9176-8811-3355-756482923584}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OwnerDraw", "..\..\Samples\PropertyGrid\OwnerDraw\OwnerDraw_vc71.vcproj", "{28385384-7734-2596-1328-251117165343}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PropertyGrid", "..\..\Samples\PropertyGrid\GridSample\PropertyGrid_vc71.vcproj", "{81948614-5885-9593-4325-836125949785}"
-EndProject

@@ -1,6 +1,0 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TaskPanel", "..\..\Samples\TaskPanel\TaskPanel\TaskPanel_vc90.vcproj", "{15511138-4784-8634-2914-325397183622}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ToolBox", "..\..\Samples\TaskPanel\ToolBox\ToolBox_vc90.vcproj", "{92499296-2845-7734-2518-186916847269}"
-EndProject
