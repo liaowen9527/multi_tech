@@ -1,6 +1,7 @@
 #include "putty_client.h"
 #include "connector.h"
 #include "putty_gen.h"
+#include "vtterminal.h"
 
 extern "C" {
 
@@ -16,6 +17,8 @@ extern "C" {
 #include "tree234.h"
 #include "winsecur.h"
 #include "ssh.h"
+#include "vt_ex.h"
+#include "terminal.h"
 
 #define WM_AGENT_CALLBACK (WM_APP + 4)
 
@@ -157,7 +160,7 @@ extern "C" {
 
 #pragma endregion callback
 	
-
+#pragma region putty_client
 	PuttyClient::PuttyClient()
 		: conf(nullptr)
  		, backhandle(nullptr)
@@ -615,8 +618,10 @@ extern "C" {
 
 		m_condVar.notify_one();
 	}
-
+#pragma endregion putty_client
 	
+
+#pragma region putty_gen
 
 	PuttyGen::PuttyGen()
 	{
@@ -816,6 +821,208 @@ extern "C" {
 
 		return true;
 	}
+
+#pragma endregion putty_gen
+
+#pragma region terminal
+
+	Terminal* GetTerminal(void* handle)
+	{
+		if (handle == nullptr)
+		{
+			return nullptr;
+		}
+		return (Terminal*)(handle);
+	}
+
+	CVtTerminal::CVtTerminal()
+		: m_term(nullptr)
+		, m_pCallback(nullptr)
+	{
+
+	}
+
+	CVtTerminal::~CVtTerminal()
+	{
+		if (m_term)
+		{
+			term_free(GetTerminal(m_term));
+		}
+	}
+
+	void CVtTerminal::SetCallback(CVtCallback* pCallback)
+	{
+		m_pCallback = pCallback;
+	}
+
+	void CVtTerminal::Init(int rows, int cols)
+	{
+		//flags = FLAG_VERBOSE | FLAG_INTERACTIVE;
+		Terminal * term = NULL;
+		struct conf_tag * conf = conf_new();
+		do_defaults(NULL, conf);
+
+		//struct miscdata * data = init_misc_data(conf);
+		//data->cb = cb;
+		struct unicode_data * uc_data = snew(struct unicode_data);
+		memset(uc_data, 0, sizeof(struct unicode_data));
+		init_ucs(conf, uc_data);
+
+		conf_set_int(conf, CONF_logtype, LGTYP_NONE);
+		//conf_set_int(conf, CONF_lfhascr, 1);
+		conf_set_int(conf, CONF_height, rows);
+		conf_set_int(conf, CONF_width, cols);
+		conf_set_int(conf, CONF_savelines, rows);
+
+		/*
+		* Initialise the fonts, simultaneously correcting the guesses
+		* for font_{width,height}.
+		*/
+		//init_fonts(0, 0);
+
+	/*
+	* Initialise the terminal. (We have to do this _after_
+	* creating the window, since the terminal is the first thing
+	* which will call schedule_timer(), which will in turn call
+	* timer_change_notify() which will expect hwnd to exist.)
+	*/
+		term = term_init(conf, uc_data, NULL);
+#ifdef TODO_PUTTY_LOG
+		term_provide_logctx(term, data->logctx);
+#endif // TODO_PUTTY_LOG
+		term_size(term, conf_get_int(conf, CONF_height),
+			conf_get_int(conf, CONF_width),
+			conf_get_int(conf, CONF_savelines));
+
+		m_term = term;
+		/*
+		* Set up the session-control options on the system menu.
+		*/
+
+		//start_backend();
+
+		/*
+		* Set up the initial input locale.
+		*/
+
+
+		//term_set_focus(term, GetForegroundWindow() == hwnd);
+
+		//run_toplevel_callbacks();
+	}
+
+	void CVtTerminal::GetCursorPos(int& x, int& y)
+	{
+		Terminal* pTerm = GetTerminal(m_term);
+		if (pTerm)
+		{
+			x = pTerm->curs.x;
+			y = pTerm->curs.y;
+		}
+	}
+
+	bool CVtTerminal::IsAlternateScreen()
+	{
+		Terminal* pTerm = GetTerminal(m_term);
+		if (nullptr == pTerm)
+		{
+			return false;
+		}
+
+		return pTerm->alt_which;
+	}
+
+	void CVtTerminal::GetBuffer(std::vector<VtLine>& buffer)
+	{
+		Terminal* pTerm = GetTerminal(m_term);
+		if (nullptr == pTerm)
+		{
+			return;
+		}
+
+		int rows = pTerm->rows;
+		int cols = pTerm->cols;
+
+		for (int i = 0; i < rows; ++i)
+		{
+			buffer.push_back(VtLine());
+			VtLine& vtLine = buffer.back();
+
+			termline *cline = (lineptr2)(pTerm, i, __LINE__);
+
+			GetTermLine(cline, vtLine);
+		}
+	}
+
+	void CVtTerminal::GetTermLine(void* line, VtLine& vtLine)
+	{
+		if (nullptr == line)
+		{
+			return;
+		}
+		termline* cline = (termline*)line;
+
+		Terminal* pTerm = GetTerminal(m_term);
+		if (nullptr == pTerm)
+		{
+			return;
+		}
+
+		std::wstring& wstr = vtLine.str;
+
+		int cols = pTerm->cols;
+
+		for (int j = 0; j < cols; ++j)
+		{
+			termchar* chars_temp = cline->chars + j;
+			unsigned long tattr = chars_temp->attr;
+			unsigned long tchar = chars_temp->chr;
+
+			//copy from terminal.c, function do_paint
+			//if (j < term->cols-1 && d[1].chr == UCSWIDE)
+			if (j < cols - 1 && chars_temp[1].chr == UCSWIDE)
+			{
+				wchar_t ch = (wchar_t)tchar;
+				wstr.push_back(ch);
+				++j;
+
+				vtLine.hasWchar = true;
+			}
+			else
+			{
+				wchar_t ch = (wchar_t)(char)tchar;
+				wstr.push_back(ch);
+			}
+		}
+
+		vtLine.hasCrLf = HasCrLf(line);
+	}
+
+	bool CVtTerminal::HasCrLf(void* line)
+	{
+		if (nullptr == line)
+		{
+			return false;
+		}
+
+		termline* cline = (termline*)line;
+		if (!(cline->lattr & LATTR_WRAPPED))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	int CVtTerminal::TermData(const char *data, int len)
+	{
+		int is_stderr = 0;
+		term_data(GetTerminal(m_term), is_stderr, data, len);
+
+		return is_stderr;
+	}
+
+#pragma endregion terminal
 
 }
 

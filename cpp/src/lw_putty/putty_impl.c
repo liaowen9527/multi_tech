@@ -37,10 +37,6 @@ void cmdline_error(const char *p, ...)
 
 }
 
-int term_ldisc(Terminal *term, int mode)
-{
-	return FALSE;
-}
 void frontend_echoedit_update(void *frontend, int echo, int edit)
 {
 }

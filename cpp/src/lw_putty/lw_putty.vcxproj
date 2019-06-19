@@ -140,9 +140,10 @@
     <ClCompile Include="..\..\3rd\putty-src\errsock.c" />
     <ClCompile Include="..\..\3rd\putty-src\import.c" />
     <ClCompile Include="..\..\3rd\putty-src\ldisc.c" />
+    <ClCompile Include="..\..\3rd\putty-src\ldiscucs.c" />
     <ClCompile Include="..\..\3rd\putty-src\logging.c" />
+    <ClCompile Include="..\..\3rd\putty-src\minibidi.c" />
     <ClCompile Include="..\..\3rd\putty-src\miscucs.c" />
-    <ClCompile Include="..\..\3rd\putty-src\noterm.c" />
     <ClCompile Include="..\..\3rd\putty-src\pgssapi.c" />
     <ClCompile Include="..\..\3rd\putty-src\pinger.c" />
     <ClCompile Include="..\..\3rd\putty-src\portfwd.c" />
@@ -176,6 +177,7 @@
     <ClCompile Include="..\..\3rd\putty-src\timing.c" />
     <ClCompile Include="..\..\3rd\putty-src\tree234.c" />
     <ClCompile Include="..\..\3rd\putty-src\version.c" />
+    <ClCompile Include="..\..\3rd\putty-src\wcwidth.c" />
     <ClCompile Include="..\..\3rd\putty-src\wildcard.c" />
     <ClCompile Include="..\..\3rd\putty-src\windows\wincapi.c" />
     <ClCompile Include="..\..\3rd\putty-src\windows\windefs.c" />
@@ -210,6 +212,11 @@
     <ClCompile Include="putty_telnet.cpp" />
     <ClCompile Include="lw_putty.cpp" />
     <ClCompile Include="sshrand_ex.c" />
+    <ClCompile Include="terminal_ex.c" />
+    <ClCompile Include="terminal_noui.c" />
+    <ClCompile Include="vt_ex.cpp" />
+    <ClCompile Include="vtcharfilter.cpp" />
+    <ClCompile Include="vtline.cpp" />
     <ClCompile Include="wincons_ex.c" />
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +230,10 @@
     <ClInclude Include="putty_telnet.h" />
     <ClInclude Include="lw_putty_dll.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="vt_ex.h" />
+    <ClInclude Include="vtcharfilter.h" />
+    <ClInclude Include="vtline.h" />
+    <ClInclude Include="vtterminal.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lw_putty.def" />

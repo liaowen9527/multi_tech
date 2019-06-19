@@ -19,12 +19,15 @@
     <Filter Include="dll_export">
       <UniqueIdentifier>{da3df3fa-91ea-4382-828d-cf573a799431}</UniqueIdentifier>
     </Filter>
+    <Filter Include="modify">
+      <UniqueIdentifier>{f827949a-57ff-4eee-b72a-a9baf5a0dce5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ref\windows">
+      <UniqueIdentifier>{622ebc75-e732-4a9e-a956-ecbfaf9b76c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="misc_ex.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="putty_client.cpp">
@@ -40,12 +43,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="putty_telnet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sshrand_ex.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="wincons_ex.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -97,9 +94,6 @@
       <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="..\..\3rd\putty-src\miscucs.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\noterm.c">
       <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="..\..\3rd\putty-src\pgssapi.c">
@@ -201,63 +195,6 @@
     <ClCompile Include="..\..\3rd\putty-src\wildcard.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\wincapi.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\windefs.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\wingss.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winhandl.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winhsock.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winmisc.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winnet.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winnoise.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winnojmp.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winnpc.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winnps.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winpgntc.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winproxy.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winsecur.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winser.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winshare.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winstore.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\wintime.c">
-      <Filter>ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winucs.c">
-      <Filter>ref</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\3rd\putty-src\windows\winx11.c">
       <Filter>ref</Filter>
     </ClCompile>
@@ -268,6 +205,96 @@
       <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="..\..\3rd\putty-src\sshbcrypt.c">
+      <Filter>ref</Filter>
+    </ClCompile>
+    <ClCompile Include="misc_ex.c">
+      <Filter>modify</Filter>
+    </ClCompile>
+    <ClCompile Include="sshrand_ex.c">
+      <Filter>modify</Filter>
+    </ClCompile>
+    <ClCompile Include="wincons_ex.c">
+      <Filter>modify</Filter>
+    </ClCompile>
+    <ClCompile Include="vtcharfilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vtline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vt_ex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="terminal_ex.c">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\wincapi.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\windefs.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\wingss.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winhandl.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winhsock.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winmisc.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winnet.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winnoise.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winnojmp.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winnpc.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winnps.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winpgntc.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winproxy.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winsecur.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winser.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winshare.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winstore.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\wintime.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\windows\winucs.c">
+      <Filter>ref\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="terminal_noui.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\ldiscucs.c">
+      <Filter>ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\wcwidth.c">
+      <Filter>ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\putty-src\minibidi.c">
       <Filter>ref</Filter>
     </ClCompile>
   </ItemGroup>
@@ -301,6 +328,18 @@
     </ClInclude>
     <ClInclude Include="lw_putty_dll.h">
       <Filter>dll_export</Filter>
+    </ClInclude>
+    <ClInclude Include="vtcharfilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vtline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vtterminal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vt_ex.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
