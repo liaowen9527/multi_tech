@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{B7258051-2725-4C5B-9911-09BC82CE448F}</ProjectGuid>
+    <RootNamespace>lwputty</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\vsprops\path.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\vsprops\path.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\vsprops\path.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\vsprops\path.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>
+      </SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <ForcedIncludeFiles>
+      </ForcedIncludeFiles>
+      <PreprocessorDefinitions>LWPutty_DLL;_AFXDLL;WIN32;_DEBUG;_WINDOWS;POSIX;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(lw_putty_include);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(lw_putty_lib);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\3rd\putty-src\aqsync.c" />
+    <ClCompile Include="..\..\3rd\putty-src\be_all_s.c" />
+    <ClCompile Include="..\..\3rd\putty-src\be_misc.c" />
+    <ClCompile Include="..\..\3rd\putty-src\callback.c" />
+    <ClCompile Include="..\..\3rd\putty-src\cmdline.c" />
+    <ClCompile Include="..\..\3rd\putty-src\conf.c" />
+    <ClCompile Include="..\..\3rd\putty-src\cproxy.c" />
+    <ClCompile Include="..\..\3rd\putty-src\errsock.c" />
+    <ClCompile Include="..\..\3rd\putty-src\import.c" />
+    <ClCompile Include="..\..\3rd\putty-src\ldisc.c" />
+    <ClCompile Include="..\..\3rd\putty-src\logging.c" />
+    <ClCompile Include="..\..\3rd\putty-src\miscucs.c" />
+    <ClCompile Include="..\..\3rd\putty-src\noterm.c" />
+    <ClCompile Include="..\..\3rd\putty-src\pgssapi.c" />
+    <ClCompile Include="..\..\3rd\putty-src\pinger.c" />
+    <ClCompile Include="..\..\3rd\putty-src\portfwd.c" />
+    <ClCompile Include="..\..\3rd\putty-src\proxy.c" />
+    <ClCompile Include="..\..\3rd\putty-src\raw.c" />
+    <ClCompile Include="..\..\3rd\putty-src\rlogin.c" />
+    <ClCompile Include="..\..\3rd\putty-src\settings.c" />
+    <ClCompile Include="..\..\3rd\putty-src\ssh.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshaes.c" />
+    <ClCompile Include="..\..\3rd\putty-src\ssharcf.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshbcrypt.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshblowf.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshbn.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshccp.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshcrc.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshcrcda.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshdes.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshdh.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshdss.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshecc.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshgssc.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshmd5.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshpubk.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshrsa.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshsh256.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshsh512.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshsha.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshshare.c" />
+    <ClCompile Include="..\..\3rd\putty-src\sshzlib.c" />
+    <ClCompile Include="..\..\3rd\putty-src\telnet.c" />
+    <ClCompile Include="..\..\3rd\putty-src\timing.c" />
+    <ClCompile Include="..\..\3rd\putty-src\tree234.c" />
+    <ClCompile Include="..\..\3rd\putty-src\version.c" />
+    <ClCompile Include="..\..\3rd\putty-src\wildcard.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\wincapi.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\windefs.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\wingss.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winhandl.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winhsock.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winmisc.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winnet.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winnoise.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winnojmp.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winnpc.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winnps.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winpgntc.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winproxy.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winsecur.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winser.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winshare.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winstore.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\wintime.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winucs.c" />
+    <ClCompile Include="..\..\3rd\putty-src\windows\winx11.c" />
+    <ClCompile Include="..\..\3rd\putty-src\x11fwd.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="connector.cpp" />
+    <ClCompile Include="misc_ex.c" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="putty_client.cpp" />
+    <ClCompile Include="putty_conf.c" />
+    <ClCompile Include="putty_impl.c" />
+    <ClCompile Include="putty_ssh.cpp" />
+    <ClCompile Include="putty_telnet.cpp" />
+    <ClCompile Include="lw_putty.cpp" />
+    <ClCompile Include="sshrand_ex.c" />
+    <ClCompile Include="wincons_ex.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="connector.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="putty_client.h" />
+    <ClInclude Include="putty_conf.h" />
+    <ClInclude Include="putty_gen.h" />
+    <ClInclude Include="putty_impl.h" />
+    <ClInclude Include="putty_ssh.h" />
+    <ClInclude Include="putty_telnet.h" />
+    <ClInclude Include="lw_putty_dll.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lw_putty.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,6 +1,0 @@
-; util.def : Declares the module parameters for the DLL.
-
-LIBRARY      "lw_util"
-
-EXPORTS
-    ; Explicit exports can go here

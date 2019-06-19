@@ -1,5 +1,5 @@
 #ifdef WIN32
-#include "stdafx.h"
+#include "pch.h"
 #include <afxdllx.h>
 #include <iostream>
 
@@ -32,7 +32,7 @@ public:
 			return (OnProcessDetach(hInstance, lpReserved));
 		}
 
-		return 0;
+		return 1;
 	}
 
 	HMODULE GetModule()
@@ -66,6 +66,10 @@ protected:
 
 	int OnProcessDetach(HINSTANCE hInstance, LPVOID lpReserved)
 	{
+		SafeFreeDynLinkLib();
+
+		AfxTermExtensionModule(m_extmodule);
+
 		return 1;
 	}
 
@@ -76,10 +80,6 @@ protected:
 
 	int OnThreadDetach(HINSTANCE hInstance, LPVOID lpReserved)
 	{
-		SafeFreeDynLinkLib();
-
-		AfxTermExtensionModule(m_extmodule);
-
 		return 1;
 	}
 

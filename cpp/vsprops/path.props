@@ -19,12 +19,14 @@
 	<LwLibDir>$(LwOutputDir)lib\</LwLibDir>
 	
 	<!-->depends libs<-->
-    <lwUtil_Include></lwUtil_Include>
-    <lwUtil_Lib></lwUtil_Lib>
+    <lw_util_include></lw_util_include>
+    <lw_util_lib></lw_util_lib>
+	<lw_putty_include>$(third)putty-src;$(third)putty-src\charset;$(third)putty-src\windows;$(third)putty-src\unix;</lw_putty_include>
+    <lw_putty_lib></lw_putty_lib>
 	
 	<!-->unit test<-->
-    <test_lwUtil_Include>$(ProjFolder)lw_util;</test_lwUtil_Include>
-    <test_lwUtil_Lib>lw_util.lib</test_lwUtil_Lib>
+    <lw_util_test_include>$(ProjFolder)lw_util;</lw_util_test_include>
+    <lw_util_test_lib>lw_util.lib</lw_util_test_lib>
 		
   </PropertyGroup>
   <ItemDefinitionGroup>
