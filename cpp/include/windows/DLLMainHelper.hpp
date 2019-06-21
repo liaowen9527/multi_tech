@@ -1,5 +1,4 @@
 #ifdef WIN32
-#include "pch.h"
 #include <afxdllx.h>
 #include <iostream>
 

@@ -1,0 +1,6 @@
+; lw_ui.def : Declares the module parameters for the DLL.
+
+LIBRARY      "lw_ui"
+
+EXPORTS
+    ; Explicit exports can go here
