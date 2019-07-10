@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include <sstream>
 #include "filesystem/process.h"
-
+#include "log4cpp/Category.hh"
 
 namespace lw_util {
 
@@ -57,15 +57,21 @@ namespace lw_util {
 		std::stringstream ss;
 		ss << "[" << m_pid << ":" << CurrentThread::GetTid() << "] [" << funcName  << "] " << str;
 
+		log4cpp::Category& logger = log4cpp::Category::getInstance(inst);
+
 		switch (nLevel)
 		{
 		case LOG_DEBUG:
+			logger.debug(ss.str());
 			break;
 		case LOG_INFO:
+			logger.info(ss.str());
 			break;
 		case LOG_WARN:
+			logger.warn(ss.str());
 			break;
 		case LOG_ERROR:
+			logger.error(ss.str());
 			break;
 		default:
 			break;

@@ -11,7 +11,8 @@ public:
 	DLLMainHelper()
 	{
 		m_module = NULL;
-		memset(&m_extmodule, 0, sizeof(AFX_EXTENSION_MODULE));
+		m_extmodule = { NULL, NULL };
+		//memset(&m_extmodule, 0, sizeof(AFX_EXTENSION_MODULE));
 		m_dll = NULL;
 	}
 	~DLLMainHelper()
@@ -101,7 +102,5 @@ protected:
 	CDynLinkLibrary* m_dll;
 	CString m_strModuleName;
 };
-
-
 
 #endif

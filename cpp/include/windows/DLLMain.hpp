@@ -1,6 +1,8 @@
 #include "PlatformMacros.h"
 
 #if TARGET_PLATFORM == PLATFORM_WIN32
+
+#ifdef _AFXDLL
 #include "DLLMainHelper.hpp"
 
 static DLLMainHelper helper;
@@ -13,5 +15,8 @@ DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 
 	return helper.DllMain(hInstance, dwReason, lpReserved);
 }
+
+#endif
+
 
 #endif

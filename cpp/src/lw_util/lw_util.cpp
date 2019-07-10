@@ -1,2 +1,2 @@
 #include "stdafx.h"
-#include "windows/DLLMainHelper.hpp"
+#include "windows/DLLMain.hpp"

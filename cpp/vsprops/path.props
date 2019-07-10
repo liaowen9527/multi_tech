@@ -22,8 +22,8 @@
 	<LwLibDir>$(LwOutputDir)lib\</LwLibDir>
 	
 	<!-->depends libs<-->
-    <lw_util_include></lw_util_include>
-    <lw_util_lib></lw_util_lib>
+    <lw_util_include>$(third_include)log4cpp\include</lw_util_include>
+    <lw_util_lib>log4cpp.lib</lw_util_lib>
 	<lw_putty_include>$(third_include)putty-src;$(third_include)putty-src\charset;$(third_include)putty-src\windows;$(third_include)putty-src\unix;</lw_putty_include>
     <lw_putty_lib></lw_putty_lib>
 	<lw_client_include>$(LwUtilFolder)lw_util;</lw_client_include>

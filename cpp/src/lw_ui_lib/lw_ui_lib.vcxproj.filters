@@ -14,37 +14,57 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="dll_export">
-      <UniqueIdentifier>{85713e2f-3ab1-4674-bc83-7243c27a8f3a}</UniqueIdentifier>
+      <UniqueIdentifier>{2608e84d-8fd1-49de-b67f-63b35f8d7b51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="controls">
-      <UniqueIdentifier>{0f40cafe-871b-4281-beea-1d599190daae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="controls\terminal">
-      <UniqueIdentifier>{79de0048-a75f-4181-8c51-cad293b1b3e0}</UniqueIdentifier>
+    <Filter Include="terminal">
+      <UniqueIdentifier>{f20739a8-2deb-4f8f-8f3e-c74e5417d5bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lw_ui.cpp">
-      <Filter>dll_export</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lw_ui_lib.cpp">
+      <Filter>dll_export</Filter>
+    </ClCompile>
+    <ClCompile Include="terminal\Terminal.cpp">
+      <Filter>terminal</Filter>
+    </ClCompile>
+    <ClCompile Include="terminal\TerminalPaintManager.cpp">
+      <Filter>terminal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="lw_ui.def">
+    <None Include="res\lw_ui_lib.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lw_ui_lib.def">
       <Filter>dll_export</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lw_ui_dll.h">
-      <Filter>dll_export</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lw_ui_lib.h">
+      <Filter>dll_export</Filter>
+    </ClInclude>
+    <ClInclude Include="terminal\Terminal.h">
+      <Filter>terminal</Filter>
+    </ClInclude>
+    <ClInclude Include="terminal\TerminalPaintManager.h">
+      <Filter>terminal</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="lw_ui_lib.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
