@@ -7,11 +7,11 @@
 #include <condition_variable>
 #include <set>
 
-#include "util_dll.h"
+#include "lw_util.h"
 
 namespace lwutil {
 
-	class UTIL_API multi_thread_wrapper
+	class LWUtil_API multi_thread_wrapper
 	{
 	public:
 		multi_thread_wrapper();

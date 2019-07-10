@@ -1,0 +1,6 @@
+; lw_client.def : Declares the module parameters for the DLL.
+
+LIBRARY      "lw_client"
+
+EXPORTS
+    ; Explicit exports can go here

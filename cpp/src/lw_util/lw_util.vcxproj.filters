@@ -25,12 +25,33 @@
     <Filter Include="windows">
       <UniqueIdentifier>{525a5e98-598f-4865-8367-75c1ab6d8fd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="log">
+      <UniqueIdentifier>{b824b4d8-8e19-4391-8887-ab6163fd6194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="filesystem">
+      <UniqueIdentifier>{0899dc22-bd14-45da-8d88-f15978b0db86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dll_export">
+      <UniqueIdentifier>{64c66dfd-f940-4925-9541-d23b233f8bc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="thread\multi_thread_wrapper.cpp">
       <Filter>thread</Filter>
     </ClCompile>
-    <ClCompile Include="util.cpp">
+    <ClCompile Include="filesystem\file_system.cpp">
+      <Filter>filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="lw_util.cpp">
+      <Filter>dll_export</Filter>
+    </ClCompile>
+    <ClCompile Include="log\logger.cpp">
+      <Filter>log</Filter>
+    </ClCompile>
+    <ClCompile Include="filesystem\process.cpp">
+      <Filter>filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,16 +59,28 @@
     <ClInclude Include="thread\multi_thread_wrapper.h">
       <Filter>thread</Filter>
     </ClInclude>
-    <ClInclude Include="util_dll.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="filesystem\file_system.h">
+      <Filter>filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="lw_util.h">
+      <Filter>dll_export</Filter>
+    </ClInclude>
+    <ClInclude Include="log\logger.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\logger_define.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="filesystem\process.h">
+      <Filter>filesystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="lw_util.def">
-      <Filter>Source Files</Filter>
+      <Filter>dll_export</Filter>
     </None>
   </ItemGroup>
 </Project>

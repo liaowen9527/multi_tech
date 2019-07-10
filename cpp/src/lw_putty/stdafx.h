@@ -1,10 +1,8 @@
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently, but
-// are changed infrequently
-
 #pragma once
 
-#ifndef NB_LINUX
+#include "PlatformMacros.h"
+
+#if TARGET_PLATFORM == PLATFORM_WIN32
 
 	#ifndef VC_EXTRALEAN
 	#define VC_EXTRALEAN		// Exclude rarely-used stuff from Windows headers
@@ -57,5 +55,8 @@
 	#pragma warning (disable: 4311)
 	#pragma warning (disable: 4267)
 	#pragma warning (disable: 4244)
+
+
 #endif
+
 

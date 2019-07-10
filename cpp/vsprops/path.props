@@ -6,10 +6,13 @@
 	<!-->public folder define<-->
 	<RootFolder>$(MSBuildThisFileDirectory)..\</RootFolder>
 	<ProjFolder>$(RootFolder)projects\</ProjFolder>
-	<third>$(RootFolder)3rd\</third>
-	<LwInclude>$(RootFolder)include\</LwInclude>
+	<LwUtilFolder>$(RootFolder)src\</LwUtilFolder>
+	<third>$(RootFolder)..\..\3rd\</third>
+	<third_include>$(third)src\</third_include>
+	<third_lib>$(third)lib\$(Platform)\$(Configuration)\</third_lib>
+	<LwInclude>$(RootFolder)include\;$(third_include);$(LwUtilFolder)</LwInclude>
 	<LwLibs>$(RootFolder)libs\</LwLibs>
-	<LwOutputDir>$(RootFolder)output\$(Platform)\$(Configuration)\</LwOutputDir>
+	<LwOutputDir>$(SolutionDir)output\$(Platform)\$(Configuration)\</LwOutputDir>
 	
 	<!-->redefine the vs default value<-->
 	<OutDir>$(LwOutputDir)bin\</OutDir>
@@ -21,8 +24,10 @@
 	<!-->depends libs<-->
     <lw_util_include></lw_util_include>
     <lw_util_lib></lw_util_lib>
-	<lw_putty_include>$(third)putty-src;$(third)putty-src\charset;$(third)putty-src\windows;$(third)putty-src\unix;</lw_putty_include>
+	<lw_putty_include>$(third_include)putty-src;$(third_include)putty-src\charset;$(third_include)putty-src\windows;$(third_include)putty-src\unix;</lw_putty_include>
     <lw_putty_lib></lw_putty_lib>
+	<lw_client_include>$(LwUtilFolder)lw_util;</lw_client_include>
+    <lw_client_lib>lw_putty.lib;lw_util.lib</lw_client_lib>
 	
 	<!-->unit test<-->
     <lw_util_test_include>$(ProjFolder)lw_util;</lw_util_test_include>
@@ -35,7 +40,7 @@
 		<DisableSpecificWarnings>4251;4275;4996;4273;4800;4309;4101;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-		<AdditionalLibraryDirectories>$(LwLibs);$(LwLibDir)</AdditionalLibraryDirectories>
+		<AdditionalLibraryDirectories>$(LwLibs);$(LwLibDir);$(third_lib)</AdditionalLibraryDirectories>
 		<ImportLibrary>$(LwLibDir)/$(TargetName).lib</ImportLibrary>
 		<IgnoreSpecificDefaultLibraries>atlsd</IgnoreSpecificDefaultLibraries>
     </Link>

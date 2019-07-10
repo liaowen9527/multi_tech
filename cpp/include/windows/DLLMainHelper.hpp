@@ -1,4 +1,7 @@
-#ifdef WIN32
+#include "PlatformMacros.h"
+
+#if TARGET_PLATFORM == PLATFORM_WIN32
+
 #include <afxdllx.h>
 #include <iostream>
 

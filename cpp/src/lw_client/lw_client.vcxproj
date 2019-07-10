@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{696B4923-DB1C-4B21-A154-6EF48B7F883C}</ProjectGuid>
-    <RootNamespace>lwuilib</RootNamespace>
+    <ProjectGuid>{C919F43D-6937-469E-B4DC-C5B1F634BCB4}</ProjectGuid>
+    <RootNamespace>lwclient</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -43,7 +43,6 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -81,10 +80,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(lw_client_include);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PreprocessorDefinitions>_WINDOWS;_DEBUG;LWUI_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <PreprocessorDefinitions>_AFXDLL;LWClient_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(lw_client_lib);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -123,18 +126,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="lw_ui.cpp" />
+    <ClCompile Include="ssh_client.cpp" />
+    <ClCompile Include="telnet_client.cpp" />
+    <ClCompile Include="wait_event.cpp" />
+    <ClCompile Include="client.cpp" />
+    <ClCompile Include="notify.cpp" />
+    <ClCompile Include="status.cpp" />
+    <ClCompile Include="parameter.cpp" />
+    <ClCompile Include="lw_client.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="lw_ui.def" />
+    <None Include="lw_client.def" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lw_ui_dll.h" />
+    <ClInclude Include="ssh_client.h" />
+    <ClInclude Include="telnet_client.h" />
+    <ClInclude Include="wait_event.h" />
+    <ClInclude Include="client.h" />
+    <ClInclude Include="notify.h" />
+    <ClInclude Include="status.h" />
+    <ClInclude Include="parameter.h" />
+    <ClInclude Include="lw_client.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
+    <ClInclude Include="defines.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

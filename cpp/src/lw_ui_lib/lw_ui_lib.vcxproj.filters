@@ -30,12 +30,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="terminal\Terminal.cpp">
-      <Filter>controls\terminal</Filter>
-    </ClCompile>
-    <ClCompile Include="terminal\TerminalPaintManager.cpp">
-      <Filter>controls\terminal</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lw_ui.def">
@@ -51,12 +45,6 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="terminal\Terminal.h">
-      <Filter>controls\terminal</Filter>
-    </ClInclude>
-    <ClInclude Include="terminal\TerminalPaintManager.h">
-      <Filter>controls\terminal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

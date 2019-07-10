@@ -21,7 +21,7 @@
 #define PLATFORM_WINRT             13
 
 // Determine target platform by compile environment macro.
-#define TARGET_PLATFORM             PLATFORM_UNKNOWN
+#define TARGET_PLATFORM             PLATFORM_WIN32
 
 // Apple: Mac and iOS
 #if defined(__APPLE__) && !defined(ANDROID) // exclude android for binding generator.

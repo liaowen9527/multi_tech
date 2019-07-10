@@ -45,14 +45,8 @@
     <ClCompile Include="putty_telnet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lw_putty.cpp">
       <Filter>dll_export</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\aqsync.c">
-      <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="connector.cpp">
       <Filter>Source Files</Filter>
@@ -66,145 +60,148 @@
     <ClCompile Include="sshrand_ex.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\be_all_s.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\aqsync.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\be_misc.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\be_all_s.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\callback.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\be_misc.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\cmdline.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\callback.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\conf.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\cmdline.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\cproxy.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\conf.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\errsock.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\cproxy.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\ldisc.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\errsock.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\logging.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\ldisc.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\miscucs.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\logging.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\pgssapi.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\miscucs.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\pinger.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\pgssapi.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\portfwd.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\pinger.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\proxy.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\portfwd.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\raw.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\proxy.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\rlogin.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\raw.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\settings.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\rlogin.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\ssh.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\settings.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshaes.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\ssh.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\ssharcf.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshaes.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshblowf.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\ssharcf.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshbn.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshblowf.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshccp.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshbn.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshcrc.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshccp.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshcrcda.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshcrc.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshdes.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshcrcda.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshdh.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshdes.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshdss.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshdh.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshecc.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshdss.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshgssc.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshecc.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshmd5.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshgssc.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshpubk.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshmd5.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshrsa.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshpubk.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshsh256.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshrsa.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshsh512.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshsh256.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshsha.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshsh512.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshshare.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshsha.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshzlib.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshshare.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\telnet.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshzlib.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\timing.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\telnet.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\tree234.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\timing.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\version.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\tree234.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\wildcard.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\version.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winx11.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\wildcard.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\x11fwd.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winx11.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\import.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\x11fwd.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\sshbcrypt.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\import.c">
+      <Filter>ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\sshbcrypt.c">
       <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="misc_ex.c">
@@ -228,74 +225,77 @@
     <ClCompile Include="terminal_ex.c">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\wincapi.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\wincapi.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\windefs.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\windefs.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\wingss.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\wingss.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winhandl.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winhandl.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winhsock.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winhsock.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winmisc.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winmisc.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winnet.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winnet.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winnoise.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winnoise.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winnojmp.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winnojmp.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winnpc.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winnpc.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winnps.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winnps.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winpgntc.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winpgntc.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winproxy.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winproxy.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winsecur.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winsecur.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winser.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winser.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winshare.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winshare.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winstore.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winstore.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\wintime.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\wintime.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\windows\winucs.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winucs.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
     <ClCompile Include="terminal_noui.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\ldiscucs.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\ldiscucs.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\wcwidth.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\wcwidth.c">
       <Filter>ref</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\3rd\putty-src\minibidi.c">
+    <ClCompile Include="..\..\..\..\3rd\src\putty-src\minibidi.c">
       <Filter>ref</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -320,12 +320,6 @@
     <ClInclude Include="putty_telnet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="lw_putty_dll.h">
       <Filter>dll_export</Filter>
     </ClInclude>
@@ -339,6 +333,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vt_ex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
