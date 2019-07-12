@@ -1,0 +1,258 @@
+#include "interaction.h"
+#include <sstream>
+#include <fstream>
+#include "log/logger_define.h"
+#include "std/guid.h"
+#include "putty_gen.h"
+#include "live_client_handler.h"
+
+namespace lw_live {
+
+	Interaction::Interaction()
+		: m_clientPtr(nullptr)
+		, m_displayPtr(nullptr)
+		, m_destPtr(nullptr)
+	{
+		
+	}
+
+	Interaction::~Interaction()
+	{
+		m_lstPriKey.Clear();
+	}
+
+	DisplayPtr Interaction::GetDisplay()
+	{
+		return m_displayPtr;
+	}
+
+	void Interaction::SetDisplay(DisplayPtr displayPtr)
+	{
+		m_displayPtr = displayPtr;
+	}
+
+	DestinationPtr Interaction::GetDestination()
+	{
+		return m_destPtr;
+	}
+
+	void Interaction::SetDestination(DestinationPtr destPtr)
+	{
+		m_destPtr = destPtr;
+	}
+
+	void Interaction::SetDataFolder(const std::string& strFolder)
+	{
+		m_strDataFolder = strFolder;
+	}
+
+	bool Interaction::IsConnected()
+	{
+		ClientPtr clientPtr = GetClient();
+		return clientPtr->IsConnected();
+	}
+
+	bool Interaction::Connect()
+	{
+		ClientPtr clientPtr = GetClient();
+		if (clientPtr)
+		{
+			EasyLog(InstLive, LOG_WARN, "the client is already exists, please close it first.");
+			return false;
+		}
+
+		DestinationPtr destPtr = GetDestination();
+		if (nullptr == destPtr)
+		{
+			EasyLog(InstLive, LOG_ERROR, "please set the destination.");
+			return false;
+		}
+
+		ClientParamPtr clientParam = destPtr->GetClientParam();
+		if (nullptr == clientParam)
+		{
+			EasyLog(InstLive, LOG_ERROR, "error destination.");
+			return false;
+		}
+
+		EasyLog(InstLive, LOG_INFO, "create client, host:%s, port:%d.", clientParam->GetHost().c_str(), clientParam->GetPort());
+		clientPtr = ClientFactory::Create(clientParam.get());
+		SetClient(clientPtr);
+
+		if (nullptr == clientPtr)
+		{
+			EasyLog(InstLive, LOG_ERROR, "failed create client.");
+			return false;
+		}
+
+		LiveClientHandlerPtr liveHandler = std::make_shared<LiveClientHandler>();
+		clientPtr->SetHandler(liveHandler);
+		if (!clientPtr->Connect(clientParam.get()))
+		{
+			EasyLog(InstLive, LOG_ERROR, "failed to connect the destination.");
+			return false;
+		}
+
+		SavePriKeyFile(nullptr);
+
+		return true;
+	}
+
+	bool Interaction::DisConnect()
+	{
+		ClientPtr clientPtr = GetClient();
+		if (nullptr == clientPtr)
+		{
+			EasyLog(InstLive, LOG_WARN, "the client is already closed.");
+			return false;
+		}
+
+		return clientPtr->AsyncDisConnect();
+	}
+
+	void Interaction::SendData(const std::string& str, bool bComplete/* = true*/)
+	{
+		ClientPtr clientPtr = GetClient();
+		if (nullptr == clientPtr)
+		{
+			EasyLog(InstLive, LOG_WARN, "are you sure the client exist?");
+			return;
+		}
+
+		//you need add "\r" to confirm the input. such as input a enter
+		if (bComplete)
+		{
+			std::stringstream ss;
+			ss << str << "\r";
+
+			clientPtr->Send(ss.str());
+		}
+		else
+		{
+			clientPtr->Send(str);
+		}
+	}
+	
+	void Interaction::WriteData(const char* str, int count)
+	{
+		m_filter.Parse(str, count);
+
+		int nClipLines = 0;
+		std::vector<VtLine> buffer;
+		m_filter.GetClipLines(buffer, true);
+		m_filter.ClearClipLines();
+
+		nClipLines = buffer.size();
+
+		m_filter.GetTerminal().GetBuffer(buffer);
+
+		int row = 0, col = 0;
+		m_filter.GetTerminal().GetCursorPos(col, row);
+
+		DisplayPtr displayPtr = GetDisplay();
+		if (displayPtr)
+		{
+			displayPtr->TrimLines(buffer, nClipLines + row, col);
+			displayPtr->ReWriteLines(m_offsetRow, buffer);
+
+			m_offsetRow += nClipLines;
+
+			displayPtr->SeekP(m_offsetRow + row, col);
+		}
+	}
+
+	void Interaction::SavePriKeyFile(ClientParam* pClientParam)
+	{
+		SshClientParam* pSshClientParam = dynamic_cast<SshClientParam*>(pClientParam);
+		if (nullptr == pSshClientParam)
+		{
+			return;
+		}
+
+		std::string strTemp = pSshClientParam->GetPriKeyFile();
+		if (!strTemp.empty())
+		{
+			return;
+		}
+
+		std::string strKeyName, strPriKey;
+		pSshClientParam->GetPrivateKey(strKeyName, strPriKey);
+		if (strPriKey.empty())
+		{
+			return;
+		}
+
+		GUID guid(true);
+		std::string strFileName = guid.ToString();
+		std::string strFilePath = m_strDataFolder + strFileName;
+
+		{
+			std::fstream file;
+			file.open(strFilePath.c_str(), std::ios_base::out | std::ios_base::trunc | std::ios::binary);
+			file << strPriKey;
+		}
+
+		PuttyGen gen;
+		if (!gen.IsPpkFile(strFilePath))
+		{
+			gen.SetPassphrase(pSshClientParam->GetPassword());
+
+			std::string strErrMsg;
+			if (!gen.LoadKeyFile(strFilePath, strErrMsg))
+			{
+				EasyLog(InstLive, LOG_ERROR, "ip:%s, failed to load private key file:%s, err:%s",
+					pSshClientParam->GetHost().c_str(), strFilePath.c_str(), strErrMsg.c_str());
+			}
+			else
+			{
+				::remove(strFilePath.c_str());
+				if (!gen.SavePpkFile(strFilePath, strErrMsg))
+				{
+					EasyLog(InstLive, LOG_ERROR, "ip:%s, failed to save private key file:%s, err:%s",
+						pSshClientParam->GetHost().c_str(), strFilePath.c_str(), strErrMsg.c_str());
+				}
+			}
+		}
+
+		pSshClientParam->SetPriKeyFile(strFilePath);
+		m_lstPriKey.Append(strFilePath);
+
+		EasyLog(InstLive, LOG_INFO, "ip:%s, private key file:%s", pSshClientParam->GetHost().c_str(), strFilePath.c_str());
+	}
+
+	bool Interaction::CanAccept_unsafe(Interface* intf)
+	{
+		ClientPtr clientPtr = GetClient();
+		if (nullptr == clientPtr)
+		{
+			return false;
+		}
+
+		LiveInterface* liveIntf = dynamic_cast<LiveInterface*>(intf);
+		if (nullptr == intf)
+		{
+			return false;
+		}
+
+		ClientHandlerPtr handler = clientPtr->GetHandler();
+		if (nullptr == handler)
+		{
+			return false;
+		}
+		
+		return handler.get() == liveIntf->m_handler;
+	}
+
+	ClientPtr Interaction::GetClient()
+	{
+		return m_clientPtr;
+	}
+
+	void Interaction::SetClient(ClientPtr client)
+	{
+		m_clientPtr = client;
+	}
+
+}
+
+

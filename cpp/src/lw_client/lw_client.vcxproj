@@ -126,13 +126,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="client_factory.cpp" />
     <ClCompile Include="ssh_client.cpp" />
+    <ClCompile Include="ssh_client_param.cpp" />
     <ClCompile Include="telnet_client.cpp" />
+    <ClCompile Include="telnet_client_param.cpp" />
     <ClCompile Include="wait_event.cpp" />
     <ClCompile Include="client.cpp" />
-    <ClCompile Include="notify.cpp" />
+    <ClCompile Include="client_handler.cpp" />
     <ClCompile Include="status.cpp" />
-    <ClCompile Include="parameter.cpp" />
+    <ClCompile Include="client_param.cpp" />
     <ClCompile Include="lw_client.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -142,16 +145,18 @@
     <None Include="lw_client.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="client_factory.h" />
     <ClInclude Include="ssh_client.h" />
+    <ClInclude Include="ssh_client_param.h" />
     <ClInclude Include="telnet_client.h" />
+    <ClInclude Include="telnet_client_param.h" />
     <ClInclude Include="wait_event.h" />
     <ClInclude Include="client.h" />
-    <ClInclude Include="notify.h" />
+    <ClInclude Include="client_handler.h" />
     <ClInclude Include="status.h" />
-    <ClInclude Include="parameter.h" />
+    <ClInclude Include="client_param.h" />
     <ClInclude Include="lw_client.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="defines.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

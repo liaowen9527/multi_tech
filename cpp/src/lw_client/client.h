@@ -5,9 +5,8 @@
 #include <condition_variable>
 #include "lw_client.h"
 #include "status.h"
-#include "parameter.h"
-#include "defines.h"
-#include "notify.h"
+#include "client_param.h"
+#include "client_handler.h"
 
 namespace lw_client {
 
@@ -18,14 +17,13 @@ namespace lw_client {
 		virtual ~Client();
 
 	public:
-		void SetNotify(Notify* pNotify);
-
-		virtual void SetTermSize(int nWidth, int nHeight);
+		ClientHandlerPtr GetHandler();
+		void SetHandler(ClientHandlerPtr handle);
 
 	public:
 		bool IsConnected();
-		virtual bool Connect(Parameter* pConnParam);
-		virtual bool AsyncConnect(Parameter* pConnParam);
+		virtual bool Connect(ClientParam* pConnParam);
+		virtual bool AsyncConnect(ClientParam* pConnParam);
 
 		virtual bool DisConnect();
 		virtual bool AsyncDisConnect();
@@ -33,7 +31,7 @@ namespace lw_client {
 		virtual bool Send(const std::string& data) = 0;
 
 	protected:
-		NotifyEx* m_pNotify;
+		ClientHandlerPtr m_handler;
 		AsyncStatus m_connStatus;
 	};
 	typedef std::shared_ptr<Client> ClientPtr;

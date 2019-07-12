@@ -28,6 +28,8 @@
     <lw_putty_lib></lw_putty_lib>
 	<lw_client_include>$(LwUtilFolder)lw_util;</lw_client_include>
     <lw_client_lib>lw_putty.lib;lw_util.lib</lw_client_lib>
+	<lw_live_include>$(LwUtilFolder)lw_util;$(LwUtilFolder)lw_client;$(LwUtilFolder)lw_putty;</lw_live_include>
+    <lw_live_lib>lw_client.lib;lw_util.lib;lw_putty.lib;</lw_live_lib>
 	
 	<!-->unit test<-->
     <lw_util_test_include>$(ProjFolder)lw_util;</lw_util_test_include>

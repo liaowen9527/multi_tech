@@ -24,13 +24,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="parameter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="status.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="notify.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="client.cpp">
@@ -43,6 +37,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="telnet_client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="client_handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="client_param.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ssh_client_param.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="telnet_client_param.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="client_factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -58,13 +67,7 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="parameter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="status.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="notify.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="client.h">
@@ -73,13 +76,25 @@
     <ClInclude Include="wait_event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="defines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ssh_client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="telnet_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="client_handler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="client_param.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ssh_client_param.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="telnet_client_param.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="client_factory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

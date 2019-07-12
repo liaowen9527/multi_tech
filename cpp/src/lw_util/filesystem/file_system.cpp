@@ -21,17 +21,64 @@ namespace lw_util {
 		return boost::filesystem::exists(strPath);
 	}
 
-	bool FileSystem::Delete(const std::string& strPath)
+	bool FileSystem::DeleteFile(const std::string& strPath)
 	{
 		boost::system::error_code ec;
 		boost::filesystem::remove_all(strPath, ec);
 
 		if (ec)
 		{
+			EasyLog(InstFilesystem, LOG_ERROR, "path=%s; reason=%s", strPath.c_str(), ec.message().c_str());
 			return false;
 		}
 
 		return true;
+	}
+
+	bool FileSystem::DeleteFile(const std::string& strPath, std::string& err_msg)
+	{
+		boost::system::error_code ec;
+		boost::filesystem::remove_all(strPath, ec);
+
+		if (ec)
+		{
+			err_msg = ec.message();
+			return false;
+		}
+
+		return true;
+	}
+
+	template<class Container>
+	bool DeleteFiles_Impl(const Container& files, bool skip_error /*= true*/)
+	{
+		boost::system::error_code ec;
+		for (auto path : files)
+		{
+			boost::system::error_code ec;
+			boost::filesystem::remove_all(path, ec);
+
+			if (ec)
+			{
+				EasyLog(InstFilesystem, LOG_ERROR, "path=%s; reason=%s", path.c_str(), ec.message().c_str());
+				if (!skip_error)
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	bool FileSystem::DeleteFiles(const std::vector<std::string>& files, bool skip_error /*= true*/)
+	{
+		return DeleteFiles_Impl(files, skip_error);
+	}
+
+	bool FileSystem::DeleteFiles(const std::list<std::string>& files, bool skip_error /*= true*/)
+	{
+		return DeleteFiles_Impl(files, skip_error);
 	}
 
 	bool FileSystem::CreateFolder(const std::string& strPath)
@@ -42,8 +89,22 @@ namespace lw_util {
 			return true;
 		}
 
-		EasyLog(InstFilesystem, LOG_WARN, "failed to create directory, path=%s; reason=%s", strPath.c_str(), err.message().c_str());
+		EasyLog(InstFilesystem, LOG_ERROR, "failed to create directory, path=%s; reason=%s", strPath.c_str(), err.message().c_str());
 		return false;
+	}
+
+	bool FileSystem::DeleteFolder(const std::string& strPath)
+	{
+		boost::system::error_code ec;
+		boost::filesystem::remove_all(strPath, ec);
+
+		if (ec)
+		{
+			EasyLog(InstFilesystem, LOG_ERROR, "path=%s; reason=%s", strPath.c_str(), ec.message().c_str());
+			return false;
+		}
+
+		return true;
 	}
 
 	std::string FileSystem::GetRootFolder(bool bCreate /*= true*/)
@@ -78,7 +139,7 @@ namespace lw_util {
 				break;
 			}
 
-			EasyLog(InstFilesystem, LOG_WARN, "failed to create directory, path=%s; reason=%s", strFolderAbsolute.c_str(), err.message().c_str());
+			EasyLog(InstFilesystem, LOG_ERROR, "failed to create directory, path=%s; reason=%s", strFolderAbsolute.c_str(), err.message().c_str());
 		} while (0);
 
 		return *strFolderAbsolute.rbegin() == '/' ? strFolderAbsolute : strFolderAbsolute + "/";

@@ -54,6 +54,21 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="filesystem\filelist.cpp">
+      <Filter>filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="std\guid.cpp">
+      <Filter>filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="filesystem\interface_svr.cpp">
+      <Filter>filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="std\time_helper.cpp">
+      <Filter>std</Filter>
+    </ClCompile>
+    <ClCompile Include="std\string_convert.cpp">
+      <Filter>std</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="thread\multi_thread_wrapper.h">
@@ -76,6 +91,27 @@
     </ClInclude>
     <ClInclude Include="filesystem\process.h">
       <Filter>filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="std\sortable_shared_ptr.h">
+      <Filter>std</Filter>
+    </ClInclude>
+    <ClInclude Include="filesystem\filelist.h">
+      <Filter>filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="std\guid.h">
+      <Filter>filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="filesystem\interface_svr.h">
+      <Filter>filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="std\strhelper.hpp">
+      <Filter>std</Filter>
+    </ClInclude>
+    <ClInclude Include="std\time_helper.h">
+      <Filter>std</Filter>
+    </ClInclude>
+    <ClInclude Include="std\string_convert.h">
+      <Filter>std</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

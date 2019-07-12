@@ -3,7 +3,6 @@
 namespace lw_client {
 
 	Client::Client()
-		: m_pNotify(new NotifyEx)
 	{
 
 	}
@@ -13,14 +12,14 @@ namespace lw_client {
 
 	}
 
-	void Client::SetNotify(Notify* pNotify)
+	ClientHandlerPtr Client::GetHandler()
 	{
-		m_pNotify->SetNotify(pNotify);
+		return m_handler;
 	}
 
-	void Client::SetTermSize(int nWidth, int nHeight)
+	void Client::SetHandler(ClientHandlerPtr handle)
 	{
-
+		m_handler = handle;
 	}
 
 	bool Client::IsConnected()
@@ -28,7 +27,7 @@ namespace lw_client {
 		return m_connStatus.is_connected();
 	}
 
-	bool Client::Connect(Parameter* pConnParam)
+	bool Client::Connect(ClientParam* pConnParam)
 	{
 		if (!AsyncConnect(pConnParam))
 		{
@@ -44,7 +43,7 @@ namespace lw_client {
 		return true;
 	}
 
-	bool Client::AsyncConnect(Parameter* pConnParam)
+	bool Client::AsyncConnect(ClientParam* pConnParam)
 	{
 		m_connStatus.connecting();
 		return true;

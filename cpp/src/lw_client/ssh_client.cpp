@@ -1,4 +1,5 @@
 #include "ssh_client.h"
+#include "ssh_client_param.h"
 #include "lw_util/log/logger_define.h"
 
 namespace lw_client {
@@ -14,16 +15,11 @@ namespace lw_client {
 
 	}
 
-	void SshClient::SetTermSize(int nWidth, int nHeight)
-	{
-		m_clientPtr->SetTermSize(nWidth, nHeight);
-	}
-
-	bool SshClient::AsyncConnect(Parameter* pConnParam)
+	bool SshClient::AsyncConnect(ClientParam* pConnParam)
 	{
 		EasyLog(InstClient, LOG_DEBUG, "begin");
 
-		SshConnParam* pSshParam = dynamic_cast<SshConnParam*>(pConnParam);
+		SshClientParam* pSshParam = dynamic_cast<SshClientParam*>(pConnParam);
 		if (nullptr == pSshParam)
 		{
 			return false;
@@ -81,9 +77,9 @@ namespace lw_client {
 		EasyLog(InstClient, LOG_DEBUG, "begin");
 		m_connStatus.connected();
 
-		if (m_pNotify)
+		if (m_handler)
 		{
-			m_pNotify->OnConnected();
+			m_handler->OnConnected();
 		}
 	}
 
@@ -92,35 +88,35 @@ namespace lw_client {
 		EasyLog(InstClient, LOG_INFO, "message:%s", err_msg.c_str());
 		m_connStatus.disconnected();
 
-		if (m_pNotify)
+		if (m_handler)
 		{
-			m_pNotify->OnDisconnected(nErrCode, err_msg);
+			m_handler->OnDisconnected(nErrCode, err_msg);
 		}
 	}
 
 	void SshClient::OnReceived(const char* str, int nLen)
 	{
-		if (m_pNotify)
+		if (m_handler)
 		{
-			m_pNotify->OnReceived(str, nLen);
+			m_handler->OnReceived(str, nLen);
 		}
 	}
 
 	void SshClient::OnError(int nErrCode, const std::string& err_msg)
 	{
 		EasyLog(InstClient, LOG_ERROR, "err_code:%d, err_msg:%s", nErrCode, err_msg.c_str());
-		if (m_pNotify)
+		if (m_handler)
 		{
-			m_pNotify->OnError(nErrCode, err_msg);
+			m_handler->OnError(nErrCode, err_msg);
 		}
 	}
 
 	void SshClient::OnLoginResult(bool bValue)
 	{
 		EasyLog(InstClient, LOG_INFO, "is login: %d", bValue);
-		if (m_pNotify)
+		if (m_handler)
 		{
-			m_pNotify->OnLoginResult(bValue);
+			m_handler->OnLoginResult(bValue);
 		}
 	}
 

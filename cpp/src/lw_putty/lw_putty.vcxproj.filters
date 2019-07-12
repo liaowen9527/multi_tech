@@ -222,9 +222,6 @@
     <ClCompile Include="vt_ex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="terminal_ex.c">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\wincapi.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
@@ -282,9 +279,6 @@
     <ClCompile Include="..\..\..\..\3rd\src\putty-src\windows\winucs.c">
       <Filter>ref\windows</Filter>
     </ClCompile>
-    <ClCompile Include="terminal_noui.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\3rd\src\putty-src\ldiscucs.c">
       <Filter>ref</Filter>
     </ClCompile>
@@ -295,6 +289,12 @@
       <Filter>ref</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="terminal_ex.c">
+      <Filter>modify</Filter>
+    </ClCompile>
+    <ClCompile Include="terminal_event.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -333,9 +333,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vt_ex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

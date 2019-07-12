@@ -124,21 +124,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="filesystem\filelist.cpp" />
     <ClCompile Include="filesystem\file_system.cpp" />
+    <ClCompile Include="filesystem\interface_svr.cpp" />
     <ClCompile Include="filesystem\process.cpp" />
     <ClCompile Include="log\logger.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="std\guid.cpp" />
+    <ClCompile Include="std\string_convert.cpp" />
+    <ClCompile Include="std\time_helper.cpp" />
     <ClCompile Include="thread\multi_thread_wrapper.cpp" />
     <ClCompile Include="lw_util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="filesystem\filelist.h" />
     <ClInclude Include="filesystem\file_system.h" />
+    <ClInclude Include="filesystem\interface_svr.h" />
     <ClInclude Include="filesystem\process.h" />
     <ClInclude Include="log\logger.h" />
     <ClInclude Include="log\logger_define.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="std\sortable_shared_ptr.h" />
+    <ClInclude Include="std\strhelper.hpp" />
+    <ClInclude Include="std\guid.h" />
+    <ClInclude Include="std\string_convert.h" />
+    <ClInclude Include="std\time_helper.h" />
     <ClInclude Include="thread\multi_thread_wrapper.h" />
     <ClInclude Include="lw_util.h" />
   </ItemGroup>

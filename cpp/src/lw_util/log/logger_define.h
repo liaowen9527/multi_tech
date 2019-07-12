@@ -9,6 +9,7 @@
 #define InstNet "net"
 #define InstServer "server"
 #define InstClient "client"
+#define InstLive "live"
 
 #ifdef Log
 #undef Log

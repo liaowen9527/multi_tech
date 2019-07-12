@@ -3,6 +3,8 @@
 
 #include "lw_util.h"
 #include <string>
+#include <vector>
+#include <list>
 
 namespace lw_util {
 
@@ -14,8 +16,15 @@ namespace lw_util {
 
 	public:
 		static bool Exists(const std::string& strPath);
-		static bool Delete(const std::string& strPath);
+
+		static bool DeleteFile(const std::string& strPath);
+		static bool DeleteFile(const std::string& strPath, std::string& err_msg);
+
+		static bool DeleteFiles(const std::vector<std::string>& files, bool skip_error = true);
+		static bool DeleteFiles(const std::list<std::string>& files, bool skip_error = true);
+
 		static bool CreateFolder(const std::string& strPath);
+		static bool DeleteFolder(const std::string& strPath);
 
 	public:
 		std::string GetRootFolder(bool bCreate = true);

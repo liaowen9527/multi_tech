@@ -10,10 +10,8 @@ namespace lw_client {
 		SshClient();
 		~SshClient();
 
-		virtual void SetTermSize(int nWidth, int nHeight);
-
 	public:
-		virtual bool AsyncConnect(Parameter* pConnParam);
+		virtual bool AsyncConnect(ClientParam* pConnParam);
 		virtual bool AsyncDisConnect();
 
 		virtual bool Send(const std::string& data);
