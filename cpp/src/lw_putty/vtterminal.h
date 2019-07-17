@@ -12,8 +12,14 @@ public:
 	CVtTerminal();
 	~CVtTerminal();
 
+	static CVtTerminal* Find(void* terminal);
+	static void Register(CVtTerminal* terminal);
+	static void UnRegister(CVtTerminal* terminal);
+
 public:
+	CVtCallback* GetCallback();
 	void SetCallback(CVtCallback* pCallback);
+
 	void Init(int rows, int cols);
 
 	void GetCursorPos(int& x, int& y);
@@ -32,3 +38,5 @@ protected:
 	void* m_term;
 	CVtCallback* m_pCallback;
 };
+
+

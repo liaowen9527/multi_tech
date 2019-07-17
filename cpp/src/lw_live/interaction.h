@@ -4,9 +4,11 @@
 #include "destination.h"
 #include "lw_client.h"
 #include "display.h"
-#include "filelist.h"
+#include "filesystem/filelist.h"
 #include "filesystem/interface_svr.h"
 #include "vtcharfilter.h"
+#include "client.h"
+#include "destination.h"
 
 namespace lw_live {
 
@@ -21,7 +23,10 @@ namespace lw_live {
 		void SetDisplay(DisplayPtr displayPtr);
 
 		DestinationPtr GetDestination();
-		void SetDestination(DestinationPtr destPtr);
+		void SetDestination(DestinationPtr dest);
+
+		bool IsLiveSucc();
+		void SetLiveSucc(bool bSucc);
 
 		void SetDataFolder(const std::string& strFolder);
 
@@ -29,25 +34,37 @@ namespace lw_live {
 
 	public:
 		bool IsConnected();
-		bool Connect();
+		bool Connect(bool isRetry = false);
 		bool DisConnect();
 
 		void SendData(const std::string& str, bool bComplete = true);
 
+		bool JumpClient(bool bChild);
+
 	public:
-		void SavePriKeyFile(ClientParam* pClientParam);
+		void SavePriKeyFile(lw_client::ClientParam* pClientParam);
 
 	protected:
-		virtual bool CanAccept_unsafe(Interface* intf);
+		virtual bool CanAccept_unsafe(lw_util::Interface* intf);
 
 	protected:
-		ClientPtr GetClient();
-		void SetClient(ClientPtr client);
+		lw_client::ClientPtr GetClient();
+		void SetClient(lw_client::ClientPtr client);
+
+		LiveParamPtr GetLiveParam();
+		void SetLiveParam(LiveParamPtr liveParam);
+
+		bool ConnectClient(LiveParamPtr liveParam);
+		bool JumpClient(LiveParamPtr liveParam);
 
 	protected:
-		ClientPtr m_clientPtr;
-		DestinationPtr m_destPtr;
+		lw_client::ClientPtr m_clientPtr;
 		DisplayPtr m_displayPtr;
+
+		DestinationPtr m_destPtr;
+		LiveParamPtr m_liveParam;
+
+		bool m_bLiveSucc;
 
 	protected:
 		CVtCharFilter m_filter;
@@ -55,7 +72,7 @@ namespace lw_live {
 
 	protected:
 		std::string m_strDataFolder;
-		FileList m_lstPriKey;
+		lw_util::FileList m_lstPriKey;
 	};
 
 	typedef std::shared_ptr<Interaction> InteractionPtr;
@@ -63,7 +80,9 @@ namespace lw_live {
 	class LiveInterface : public lw_util::Interface
 	{
 	public:
-		ClientHandler* m_handler;
+		LiveInterface(lw_util::InterfaceSvrPtr svr) : lw_util::Interface(svr) {}
+		~LiveInterface(){}
+		lw_client::ClientHandler* m_handler;
 	};
 	
 

@@ -67,6 +67,8 @@ namespace lw_util {
 		}
 
 		m_files.clear();
+
+		return true;
 	}
 
 }

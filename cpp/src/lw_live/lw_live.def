@@ -1,6 +1,6 @@
-; lw_client.def : Declares the module parameters for the DLL.
+; lw_live.def : Declares the module parameters for the DLL.
 
-LIBRARY      "lw_client"
+LIBRARY      "lw_live"
 
 EXPORTS
     ; Explicit exports can go here

@@ -5,6 +5,11 @@
 #include "std/guid.h"
 #include "putty_gen.h"
 #include "live_client_handler.h"
+#include "client_factory.h"
+#include "ssh_client_param.h"
+
+using namespace lw_util;
+using namespace lw_client;
 
 namespace lw_live {
 
@@ -12,12 +17,17 @@ namespace lw_live {
 		: m_clientPtr(nullptr)
 		, m_displayPtr(nullptr)
 		, m_destPtr(nullptr)
+		, m_bLiveSucc(false)
 	{
-		
+		m_filter.GetTerminal().Init(20, 240);
+		m_offsetRow = 0;
 	}
 
 	Interaction::~Interaction()
 	{
+		WaitFree();
+
+		SetClient(nullptr);
 		m_lstPriKey.Clear();
 	}
 
@@ -36,9 +46,19 @@ namespace lw_live {
 		return m_destPtr;
 	}
 
-	void Interaction::SetDestination(DestinationPtr destPtr)
+	void Interaction::SetDestination(DestinationPtr dest)
 	{
-		m_destPtr = destPtr;
+		m_destPtr = dest;
+	}
+
+	bool Interaction::IsLiveSucc()
+	{
+		return m_bLiveSucc;
+	}
+
+	void Interaction::SetLiveSucc(bool bSucc)
+	{
+		m_bLiveSucc = bSucc;
 	}
 
 	void Interaction::SetDataFolder(const std::string& strFolder)
@@ -52,50 +72,56 @@ namespace lw_live {
 		return clientPtr->IsConnected();
 	}
 
-	bool Interaction::Connect()
+	bool Interaction::Connect(bool isRetry/* = false*/)
 	{
-		ClientPtr clientPtr = GetClient();
-		if (clientPtr)
+		if (isRetry && IsLiveSucc())
 		{
-			EasyLog(InstLive, LOG_WARN, "the client is already exists, please close it first.");
 			return false;
 		}
 
-		DestinationPtr destPtr = GetDestination();
-		if (nullptr == destPtr)
+		SetLiveSucc(false);
+		LiveParamPtr liveParam = nullptr;
+		if (isRetry)
 		{
-			EasyLog(InstLive, LOG_ERROR, "please set the destination.");
+			liveParam = m_destPtr->GetNextClient(GetLiveParam());
+		}
+		else
+		{
+			liveParam = m_destPtr->GetClient();
+		}
+
+		while (liveParam)
+		{
+			if (ConnectClient(liveParam))
+			{
+				return true;
+			}
+
+			liveParam = m_destPtr->GetNextClient(GetLiveParam());
+		}
+
+		return false;
+	}
+
+	bool Interaction::JumpClient(bool bChild)
+	{
+		if (!IsLiveSucc())
+		{
 			return false;
 		}
 
-		ClientParamPtr clientParam = destPtr->GetClientParam();
-		if (nullptr == clientParam)
+		LiveParamPtr currLiveParam = GetLiveParam();
+		LiveParamPtr liveParam = nullptr;
+		if (bChild)
 		{
-			EasyLog(InstLive, LOG_ERROR, "error destination.");
-			return false;
+			liveParam = m_destPtr->GetNextClient(currLiveParam);
+		}
+		else
+		{
+			liveParam = m_destPtr->GetRetryClient(currLiveParam);
 		}
 
-		EasyLog(InstLive, LOG_INFO, "create client, host:%s, port:%d.", clientParam->GetHost().c_str(), clientParam->GetPort());
-		clientPtr = ClientFactory::Create(clientParam.get());
-		SetClient(clientPtr);
-
-		if (nullptr == clientPtr)
-		{
-			EasyLog(InstLive, LOG_ERROR, "failed create client.");
-			return false;
-		}
-
-		LiveClientHandlerPtr liveHandler = std::make_shared<LiveClientHandler>();
-		clientPtr->SetHandler(liveHandler);
-		if (!clientPtr->Connect(clientParam.get()))
-		{
-			EasyLog(InstLive, LOG_ERROR, "failed to connect the destination.");
-			return false;
-		}
-
-		SavePriKeyFile(nullptr);
-
-		return true;
+		return JumpClient(liveParam);
 	}
 
 	bool Interaction::DisConnect()
@@ -251,6 +277,68 @@ namespace lw_live {
 	void Interaction::SetClient(ClientPtr client)
 	{
 		m_clientPtr = client;
+	}
+
+	LiveParamPtr Interaction::GetLiveParam()
+	{
+		return m_liveParam;
+	}
+
+	void Interaction::SetLiveParam(LiveParamPtr liveParam)
+	{
+		m_liveParam = liveParam;
+	}
+
+	bool Interaction::ConnectClient(LiveParamPtr liveParam)
+	{
+		SetLiveParam(liveParam);
+		if (nullptr == liveParam)
+		{
+			EasyLog(InstLive, LOG_ERROR, "error live param.");
+			return false;
+		}
+
+		ClientParamPtr clientParam = liveParam->GetClientParam();
+		if (nullptr == clientParam)
+		{
+			EasyLog(InstLive, LOG_ERROR, "error client param.");
+			return false;
+		}
+
+		EasyLog(InstLive, LOG_INFO, "create client, host:%s, port:%d.", clientParam->GetHost().c_str(), clientParam->GetPort());
+		ClientPtr clientPtr = ClientFactory::Create(clientParam.get());
+		SetClient(clientPtr);
+
+		if (nullptr == clientPtr)
+		{
+			EasyLog(InstLive, LOG_ERROR, "failed create client.");
+			return false;
+		}
+
+		LiveClientHandlerPtr liveHandler = std::make_shared<LiveClientHandler>();
+		liveHandler->SetInteraction(this);
+		clientPtr->SetHandler(liveHandler);
+		if (!clientPtr->Connect(clientParam.get()))
+		{
+			EasyLog(InstLive, LOG_ERROR, "failed to connect the destination.");
+			return false;
+		}
+
+		SavePriKeyFile(nullptr);
+
+		return true;
+	}
+
+	bool Interaction::JumpClient(LiveParamPtr liveParam)
+	{
+		SetLiveParam(liveParam);
+		if (nullptr == liveParam)
+		{
+			EasyLog(InstLive, LOG_ERROR, "error live param.");
+			return false;
+		}
+
+		return true;
 	}
 
 }

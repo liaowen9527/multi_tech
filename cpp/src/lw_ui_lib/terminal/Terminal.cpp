@@ -18,13 +18,6 @@ namespace lw_ui
 		SetPaintManager(NULL);
 	}
 
-
-	BOOL CTerminal::PreCreateWindow(CREATESTRUCT& cs)
-	{
-		cs.dwExStyle = cs.dwExStyle | SS_NOTIFY | WS_TABSTOP;
-		return __super::PreCreateWindow(cs);
-	}
-
 	LRESULT CTerminal::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		if (message == WM_NCHITTEST || message == WM_NCLBUTTONDOWN || message == WM_NCLBUTTONDBLCLK)
@@ -33,22 +26,28 @@ namespace lw_ui
 		return __super::WindowProc(message, wParam, lParam);
 	}
 
-	BOOL CTerminal::PreTranslateMessage(MSG* pMsg)
+	BOOL CTerminal::PreCreateWindow(CREATESTRUCT& cs)
 	{
-		if (pMsg->message == WM_KEYDOWN)
-		{
-			OnKeyDown(pMsg->wParam, 0, 0);
-			return TRUE;
-		}
-		return __super::PreTranslateMessage(pMsg);
+		cs.dwExStyle = cs.dwExStyle | SS_NOTIFY | WS_TABSTOP;
+		return __super::PreCreateWindow(cs);
+	}
+
+	void CTerminal::PreSubclassWindow()
+	{
+		__super::PreSubclassWindow();
+
+		SetTimer(1, 1, NULL);
 	}
 
 	BEGIN_MESSAGE_MAP(CTerminal, CStatic)
 		ON_WM_PAINT()
 		ON_WM_SIZE()
+		ON_WM_TIMER()
 		ON_WM_LBUTTONDOWN()
 		ON_WM_MOUSEWHEEL()
+		ON_WM_GETDLGCODE()
 		ON_WM_KEYDOWN()
+		ON_WM_CHAR()
 		ON_WM_VSCROLL()
 		ON_WM_SETCURSOR()
 	END_MESSAGE_MAP()
@@ -72,6 +71,40 @@ namespace lw_ui
 	void CTerminal::SetDelegate(TerminalDelegate* pDelegate)
 	{
 		m_pDelegate = pDelegate;
+	}
+
+	void CTerminal::SetCurPos(int row, int col, BOOL bForceVisible/* = TRUE*/)
+	{
+		m_curPos.x = row;
+		m_curPos.y = col;
+		
+		if (bForceVisible)
+		{
+			EnsureVisible(row, col);
+		}
+	}
+
+	void CTerminal::EnsureVisible(int row, int col)
+	{
+		auto func = [this, row]() {
+			SCROLLINFO info;
+			ZeroMemory(&info, sizeof(SCROLLINFO));
+			info.cbSize = sizeof(SCROLLINFO);
+			info.fMask = SIF_ALL;
+
+			GetScrollInfo(SB_VERT, &info);
+
+			if (row < info.nPos)
+			{
+				ScrollToLine(row);
+			}
+			else if (info.nPage > 0 && row - info.nPage >= info.nPos)
+			{
+				ScrollToLine(row - info.nPage + 1);
+			}
+		};
+
+		ScheduleTimer(0, func);
 	}
 
 	void CTerminal::ScrollToLine(int nLine)
@@ -98,6 +131,15 @@ namespace lw_ui
 		Invalidate();
 	}
 
+	void CTerminal::ScheduleTimer(int ticks, std::function<void()> func)
+	{
+		time_t now = GetTickCount();
+		time_t when = now + ticks;
+
+		std::lock_guard<std::mutex> lck(m_mutex);
+		m_jobs[when] = func;
+	}
+
 	void CTerminal::OnPaint()
 	{
 		CRect rcClient;
@@ -120,13 +162,27 @@ namespace lw_ui
 		if (m_bRecalcScroll)
 		{
 			RecalcScrollBars();
-			m_bRecalcScroll = FALSE;
+			//m_bRecalcScroll = FALSE;
 		}
 	}
 
 	void CTerminal::OnSize(UINT nType, int cx, int cy)
 	{
 		__super::OnSize(nType, cx, cy);
+	}
+
+	void CTerminal::OnTimer(UINT_PTR nIDEvent)
+	{
+		__super::OnTimer(nIDEvent);
+
+		time_t now = GetTickCount();
+		std::lock_guard<std::mutex> lck(m_mutex);
+		auto itrEnd = m_jobs.upper_bound(now);
+		for (auto itr = m_jobs.begin(); itr != itrEnd;)
+		{
+			(itr->second)();
+			itr = m_jobs.erase(itr);
+		}
 	}
 
 	void CTerminal::OnLButtonDown(UINT nFlags, CPoint point)
@@ -156,6 +212,13 @@ namespace lw_ui
 		ScrollToLine(nPos);
 
 		return bRet;
+	}
+
+	UINT CTerminal::OnGetDlgCode()
+	{
+		UINT lRet = __super::OnGetDlgCode();
+		lRet |= DLGC_WANTALLKEYS;
+		return lRet;
 	}
 
 	void CTerminal::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
@@ -212,6 +275,11 @@ namespace lw_ui
 
 	void CTerminal::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	{
+		if (m_pDelegate && m_pDelegate->OnKeyDown(nChar, nRepCnt, nFlags))
+		{
+			return;
+		}
+
 		SCROLLINFO info;
 		ZeroMemory(&info, sizeof(SCROLLINFO));
 		info.cbSize = sizeof(SCROLLINFO);
@@ -243,10 +311,19 @@ namespace lw_ui
 			break;
 		}
 		default:
+			return __super::OnKeyDown(nChar, nRepCnt, nFlags);
 			break;
 		}
 
 		ScrollToLine(iPos);
+	}
+
+	void CTerminal::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
+	{
+		if (m_pDelegate && m_pDelegate->OnChar(nChar, nRepCnt, nFlags))
+		{
+			return;
+		}
 	}
 
 	void CTerminal::GetVisibleLines(int& nFirst, int& nLast)
@@ -318,8 +395,5 @@ namespace lw_ui
 		SetScrollInfo(SB_VERT, &info);
 		EnableScrollBarCtrl(SB_VERT, TRUE);
 	}
-
-
-
 }
 

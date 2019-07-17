@@ -214,6 +214,7 @@
     <ClCompile Include="sshrand_ex.c" />
     <ClCompile Include="terminal_ex.c" />
     <ClCompile Include="terminal_event.c" />
+    <ClCompile Include="vtterminal.cpp" />
     <ClCompile Include="vt_ex.cpp" />
     <ClCompile Include="vtcharfilter.cpp" />
     <ClCompile Include="vtline.cpp" />

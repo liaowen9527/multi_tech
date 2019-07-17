@@ -57,6 +57,20 @@ namespace lw_util {
 		m_condVarIntf.notify_one();
 	}
 
+	void InterfaceSvr::WaitFree()
+	{
+		while (true)
+		{
+			std::unique_lock<std::mutex> lck(m_mutexIntf);
+			if (m_intfs.empty())
+			{
+				break;
+			}
+
+			m_condVarIntf.wait_for(lck, std::chrono::milliseconds(100));
+		}
+	}
+
 	EnumAcceptResult InterfaceSvr::TryAccept_unsafe(Interface* intf)
 	{
 		if (!CanAccept_unsafe(intf))

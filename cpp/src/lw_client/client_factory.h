@@ -11,6 +11,7 @@ namespace lw_client {
 	class LWClient_API ClientFactory
 	{
 	public:
+		static bool InitEnv();
 		static ClientPtr Create(ClientParam* param);
 
 	};

@@ -98,10 +98,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDOWS;_DEBUG;_USRDLL;LWUI_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(lw_ui_include);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>.\lw_ui_lib.def</ModuleDefinitionFile>
+      <AdditionalDependencies>$(lw_ui_lib);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -188,6 +190,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cstring_convert.cpp" />
     <ClCompile Include="lw_ui_lib.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -203,6 +206,7 @@
     <None Include="res\lw_ui_lib.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cstring_convert.h" />
     <ClInclude Include="lw_ui_lib.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />

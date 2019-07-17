@@ -18,7 +18,7 @@ namespace lw_util {
 
 	class Interface;
 
-	class InterfaceSvr
+	class LWUtil_API InterfaceSvr
 	{
 	public:
 		InterfaceSvr(int maxIntf = 1);
@@ -27,6 +27,8 @@ namespace lw_util {
 	public:
 		bool Accept(Interface* intf, int timeout = -1);
 		void Close(Interface* intf);
+
+		void WaitFree();
 
 	protected:
 		EnumAcceptResult TryAccept_unsafe(Interface* intf);
@@ -46,7 +48,7 @@ namespace lw_util {
 	{
 	public:
 		Interface(InterfaceSvrPtr svr);
-		~Interface();
+		virtual ~Interface();
 
 	public:
 		InterfaceSvrPtr m_svr;

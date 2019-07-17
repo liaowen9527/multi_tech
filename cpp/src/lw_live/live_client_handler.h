@@ -5,7 +5,7 @@
 
 namespace lw_live {
 	
-	class LiveClientHandler : public ClientHandler
+	class LiveClientHandler : public lw_client::ClientHandler
 	{
 	public:
 		LiveClientHandler();
@@ -26,6 +26,8 @@ namespace lw_live {
 
 	protected:
 		Interaction* m_interaction;
+
+		DestinationPtr m_currDest;
 	};
 
 	typedef std::shared_ptr<LiveClientHandler> LiveClientHandlerPtr;

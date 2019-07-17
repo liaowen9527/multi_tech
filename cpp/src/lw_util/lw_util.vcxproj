@@ -101,7 +101,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;LWUtil_DLL;BOOST_ALL_DYN_LINK;BOOST_LINKING_PYTHON;BOOST_DEBUG_PYTHON;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;LWUtil_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(lw_util_include);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
@@ -147,10 +147,11 @@
     <ClInclude Include="log\logger_define.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="std\sortable_shared_ptr.h" />
-    <ClInclude Include="std\strhelper.hpp" />
+    <ClInclude Include="std\strhelper.h" />
     <ClInclude Include="std\guid.h" />
     <ClInclude Include="std\string_convert.h" />
     <ClInclude Include="std\time_helper.h" />
+    <ClInclude Include="std\tree.h" />
     <ClInclude Include="thread\multi_thread_wrapper.h" />
     <ClInclude Include="lw_util.h" />
   </ItemGroup>

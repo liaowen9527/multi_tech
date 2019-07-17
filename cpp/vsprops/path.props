@@ -31,6 +31,9 @@
 	<lw_live_include>$(LwUtilFolder)lw_util;$(LwUtilFolder)lw_client;$(LwUtilFolder)lw_putty;</lw_live_include>
     <lw_live_lib>lw_client.lib;lw_util.lib;lw_putty.lib;</lw_live_lib>
 	
+	<lw_ui_include>$(LwUtilFolder)lw_util;</lw_ui_include>
+    <lw_ui_lib>lw_util.lib</lw_ui_lib>
+	
 	<!-->unit test<-->
     <lw_util_test_include>$(ProjFolder)lw_util;</lw_util_test_include>
     <lw_util_test_lib>lw_util.lib</lw_util_test_lib>

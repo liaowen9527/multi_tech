@@ -10,61 +10,67 @@
 #include "display.h"
 
 
-class LWLive_API DisplayBuffer : public Display
-{
-public:
-	DisplayBuffer();
-	virtual ~DisplayBuffer();
+namespace lw_live {
 
-public:
-	virtual void SyncReWriteLines(int nRowFrom, const std::vector<VtLine>& lines);
+	class LWLive_API DisplayBuffer : public Display
+	{
+	public:
+		DisplayBuffer();
+		virtual ~DisplayBuffer();
 
-	virtual void SyncSeekP(size_t nRow, size_t nCol);
+	public:
+		virtual void SyncReWriteLines(int nRowFrom, const std::vector<VtLine>& lines);
 
-	virtual void GetCursorPos(size_t& nRow, size_t& nCol);
-	virtual void GetEndPos(size_t& nRow, size_t& nCol);
+		virtual void SyncSeekP(size_t nRow, size_t nCol);
 
-	virtual void Read(size_t nRowFrom, size_t nColFrom, size_t nRowTo, size_t nColTo, std::vector<std::wstring>& vecStr);
-	virtual void Read(size_t nRowFrom, size_t nColFrom, size_t nRowTo, size_t nColTo, std::wstring& str);
+		virtual void GetCursorPos(size_t& nRow, size_t& nCol);
+		virtual void GetEndPos(size_t& nRow, size_t& nCol);
 
-public:
-	void GetModifyRows(std::vector<int>& vecRow);
-	void SetModify(int nRow, bool bValue);
-	void ClearModify();
+		virtual void Read(size_t nRowFrom, size_t nColFrom, size_t nRowTo, size_t nColTo, std::vector<std::wstring>& vecStr);
+		virtual void Read(size_t nRowFrom, size_t nColFrom, size_t nRowTo, size_t nColTo, std::wstring& str);
 
-	void ReadLines(std::wstring& strLines, bool bCheckCrLf = true);
-	void ReadLines(size_t nRowFrom, size_t nRowTo, std::wstring& strLines, bool bCheckCrLf = true);
+	public:
+		void GetModifyRows(std::vector<int>& vecRow);
+		void SetModify(int nRow, bool bValue);
+		void ClearModify();
 
-	void LimitLines(int nLines, std::vector<VtLine>& vecPop);
-	int LimitLines(int nLines, std::wstring& strLines);
+		void ReadLine(size_t nRow, std::wstring& strLine, bool bCrLf = true);
+		void ReadLines(std::wstring& strLines, bool bCheckCrLf = true);
+		void ReadLines(size_t nRowFrom, size_t nRowTo, std::wstring& strLines, bool bCheckCrLf = true);
 
-protected:
-	void EnsureRow_unsafe(int nRow);
-	void EnsureRowCol_unsafe(int nRow, int nCol);
+		void LimitLines(int nLines, std::vector<VtLine>& vecPop);
+		int LimitLines(int nLines, std::wstring& strLines);
 
-	void SetLine_unsafe(int nLine, const VtLine& vtLine);
+	protected:
+		void EnsureRow_unsafe(int nRow);
+		void EnsureRowCol_unsafe(int nRow, int nCol);
 
-	void SetModify_unsafe(int nRow, bool bValue = true);
+		void SetLine_unsafe(int nLine, const VtLine& vtLine);
 
-	int GetRealCol_unsafe(int nRow, int nLogicCol);
+		virtual void SetModify_unsafe(int nRow, bool bValue = true);
 
-protected:
-	int GetRealIndex(int nIndex);
+		int GetRealCol_unsafe(int nRow, int nLogicCol);
 
-protected:
-	std::deque<VtLine> m_buffer;
-	int m_nIndexRow;
-	int m_nIndexCol;
-	int m_nLogicCol;
+	protected:
+		int GetRealIndex(int nIndex);
 
-	std::set<int> m_modify;
+	protected:
+		std::deque<VtLine> m_buffer;
+		int m_nIndexRow;
+		int m_nIndexCol;
+		int m_nLogicCol;
 
-	std::atomic_int m_nOffsetLine;
+		std::set<int> m_modify;
 
-	//std::recursive_mutex m_mutex;
-	std::mutex m_mutex;
-};
+		std::atomic_int m_nOffsetLine;
 
-typedef std::shared_ptr<DisplayBuffer> STBufferDisplayPtr;
+		//std::recursive_mutex m_mutex;
+		std::mutex m_mutex;
+	};
+
+	typedef std::shared_ptr<DisplayBuffer> DisplayBufferPtr;
+
+}
+
 
 

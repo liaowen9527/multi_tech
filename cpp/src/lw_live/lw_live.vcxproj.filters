@@ -21,9 +21,6 @@
     <ClCompile Include="lw_live.cpp">
       <Filter>dll_export</Filter>
     </ClCompile>
-    <ClCompile Include="destination.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="interaction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,25 +30,16 @@
     <ClCompile Include="display_buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dest_loop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dest_jump.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dest_jump_handler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dest_loop_handler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dest_handler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="live_client_handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="live_param.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="destination.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -64,9 +52,6 @@
     <ClInclude Include="lw_live.h">
       <Filter>dll_export</Filter>
     </ClInclude>
-    <ClInclude Include="destination.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="interaction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -76,25 +61,16 @@
     <ClInclude Include="display_buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dest_loop.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dest_jump.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dest_jump_handler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dest_loop_handler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dest_handler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="live_client_handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="live_param.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="destination.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

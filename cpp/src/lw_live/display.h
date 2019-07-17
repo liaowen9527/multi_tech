@@ -14,6 +14,8 @@ namespace lw_live {
 		Display();
 		virtual ~Display();
 
+		void SetVisibleSize(int row, int col);
+
 	public:
 		virtual bool IsAsync();
 		virtual bool IsNeedSleep();
@@ -44,6 +46,9 @@ namespace lw_live {
 
 	protected:
 		std::wstring m_strEol;
+
+		int m_rows;
+		int m_cols;
 	};
 
 	typedef std::shared_ptr<Display> DisplayPtr;

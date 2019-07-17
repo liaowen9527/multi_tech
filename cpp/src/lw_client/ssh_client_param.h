@@ -40,7 +40,7 @@ namespace lw_client {
 		std::string m_strKeyName;
 		std::string m_strPrivateKey;
 	};
-	typedef std::shared_ptr<SshClientParam> SshConnParamPtr;
+	typedef std::shared_ptr<SshClientParam> SshClientParamPtr;
 
 }
 

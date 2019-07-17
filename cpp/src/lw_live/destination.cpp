@@ -1,51 +1,21 @@
 #include "destination.h"
 
+
 namespace lw_live {
 
-	
-	Destination::Destination()
+	LiveParamPtr Destination::GetClient()
 	{
-
+		return m_clients.GetRootItem();
 	}
 
-	Destination::~Destination()
+	LiveParamPtr Destination::GetRetryClient(LiveParamPtr client)
 	{
-
+		return m_clients.GetNextSiblingItem(client);
 	}
 
-	void Destination::GetClientParam() const
+	LiveParamPtr Destination::GetNextClient(LiveParamPtr client)
 	{
-		return m_clientParam;
-	}
-
-	void Destination::SetClientParam(ClientParamPtr clientParam)
-	{
-		m_clientParam = clientParam;
-	}
-
-	std::string Destination::GetLoginUserName() const
-	{
-		return "";
-	}
-
-	std::string Destination::GetLoginPassword() const
-	{
-		return "";
-	}
-
-	std::string Destination::GetEnableUserName() const
-	{
-		return "";
-	}
-
-	std::string Destination::GetEnablePassword() const
-	{
-		return "";
-	}
-
-	bool Destination::IsAutoLogin() const
-	{
-		return true;
+		return m_clients.GetChildItem(client);
 	}
 
 }

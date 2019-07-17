@@ -1,18 +1,25 @@
 #include "display.h"
-#include "std/strhelper.hpp"
+#include "std/strhelper.h"
 
-using namespace lw_util;
 
 namespace lw_live {
 
 	Display::Display()
 	{
 		m_strEol = L"\r\n";
+		m_rows = 20;
+		m_cols = 240;
 	}
 
 	Display::~Display()
 	{
 
+	}
+
+	void Display::SetVisibleSize(int row, int col)
+	{
+		m_rows = row;
+		m_cols = col;
 	}
 
 	bool Display::IsAsync()
@@ -103,7 +110,7 @@ namespace lw_live {
 				if (i == cursorRow)
 				{
 					int nIndexTemp = Col2Index(vtLine, cursorCol);
-					StrHelper::TrimRight(str, nIndexTemp);
+					StrHelper<wchar_t>::TrimRight(str, nIndexTemp);
 				}
 				else
 				{
@@ -123,11 +130,11 @@ namespace lw_live {
 				if (i == cursorRow)
 				{
 					int nIndexTemp = Col2Index(vtLine, cursorCol);
-					StrHelper::TrimRight(str, nIndexTemp);
+					StrHelper<wchar_t>::TrimRight(str, nIndexTemp);
 				}
 				else
 				{
-					StrHelper::TrimRight(str, 0);
+					StrHelper<wchar_t>::TrimRight(str, 0);
 				}
 			}
 		}

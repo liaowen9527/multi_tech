@@ -8,7 +8,7 @@
 
 namespace lw_util {
 
-	class FileList
+	class LWUtil_API FileList
 	{
 	public:
 		FileList();

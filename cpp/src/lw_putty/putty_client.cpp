@@ -844,15 +844,11 @@ extern "C" {
 
 	CVtTerminal::~CVtTerminal()
 	{
+		CVtTerminal::UnRegister(this);
 		if (m_term)
 		{
 			term_free(GetTerminal(m_term));
 		}
-	}
-
-	void CVtTerminal::SetCallback(CVtCallback* pCallback)
-	{
-		m_pCallback = pCallback;
 	}
 
 	void CVtTerminal::Init(int rows, int cols)
@@ -895,20 +891,7 @@ extern "C" {
 			conf_get_int(conf, CONF_savelines));
 
 		m_term = term;
-		/*
-		* Set up the session-control options on the system menu.
-		*/
-
-		//start_backend();
-
-		/*
-		* Set up the initial input locale.
-		*/
-
-
-		//term_set_focus(term, GetForegroundWindow() == hwnd);
-
-		//run_toplevel_callbacks();
+		CVtTerminal::Register(this);
 	}
 
 	void CVtTerminal::GetCursorPos(int& x, int& y)

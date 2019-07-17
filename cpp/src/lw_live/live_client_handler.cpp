@@ -1,13 +1,14 @@
 #include "live_client_handler.h"
 #include "std/string_convert.h"
 
+using namespace lw_util;
 
 namespace lw_live {
 
 	
 	LiveClientHandler::LiveClientHandler()
 	{
-
+		m_interaction = nullptr;
 	}
 
 	LiveClientHandler::~LiveClientHandler()
@@ -31,22 +32,32 @@ namespace lw_live {
 
 	void LiveClientHandler::OnDisconnected(int nErrCode, const std::string& err_msg)
 	{
-		DisplayPtr displayPtr = m_interaction->GetDisplay();
-		if (displayPtr)
+		DestinationPtr destPtr = m_interaction->GetDestination();
+		if (nullptr == destPtr)
 		{
-			displayPtr->OnDisconnected(nErrCode, StringConverter::utf_to_utf(err_msg));
+			return;
+		}
+
+		if (!m_interaction->Connect(true))
+		{
+			DisplayPtr displayPtr = m_interaction->GetDisplay();
+			if (displayPtr)
+			{
+				displayPtr->OnDisconnected(nErrCode, StringConverter::utf_to_utf(err_msg));
+			}
 		}
 	}
 
 	void LiveClientHandler::OnReceived(const char* str, int nLen)
 	{
-		DisplayPtr displayPtr = m_interaction->GetDisplay();
-		
+		m_interaction->SetLiveSucc(true);
+
+		m_interaction->WriteData(str, nLen);
 	}
 
 	void LiveClientHandler::OnError(int nErrCode, const std::string& err_msg)
 	{
-
+		m_interaction->WriteData(err_msg.c_str(), err_msg.length());
 	}
 
 	void LiveClientHandler::OnLoginResult(bool bValue)

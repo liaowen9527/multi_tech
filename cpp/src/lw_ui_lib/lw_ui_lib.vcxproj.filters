@@ -33,6 +33,9 @@
     <ClCompile Include="terminal\TerminalPaintManager.cpp">
       <Filter>terminal</Filter>
     </ClCompile>
+    <ClCompile Include="cstring_convert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\lw_ui_lib.rc2">
@@ -60,6 +63,9 @@
     </ClInclude>
     <ClInclude Include="terminal\TerminalPaintManager.h">
       <Filter>terminal</Filter>
+    </ClInclude>
+    <ClInclude Include="cstring_convert.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -297,6 +297,9 @@
     <ClCompile Include="terminal_event.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="vtterminal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connector.h">

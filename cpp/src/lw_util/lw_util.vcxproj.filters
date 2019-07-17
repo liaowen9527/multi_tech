@@ -104,13 +104,16 @@
     <ClInclude Include="filesystem\interface_svr.h">
       <Filter>filesystem</Filter>
     </ClInclude>
-    <ClInclude Include="std\strhelper.hpp">
-      <Filter>std</Filter>
-    </ClInclude>
     <ClInclude Include="std\time_helper.h">
       <Filter>std</Filter>
     </ClInclude>
     <ClInclude Include="std\string_convert.h">
+      <Filter>std</Filter>
+    </ClInclude>
+    <ClInclude Include="std\strhelper.h">
+      <Filter>std</Filter>
+    </ClInclude>
+    <ClInclude Include="std\tree.h">
       <Filter>std</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,6 +7,11 @@
 
 namespace lw_client {
 
+	bool ClientFactory::InitEnv()
+	{
+		return PuttyClient::InitEnv();
+	}
+
 	ClientPtr ClientFactory::Create(ClientParam* param)
 	{
 		ClientPtr clientPtr = nullptr;
