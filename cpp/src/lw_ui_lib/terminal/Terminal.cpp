@@ -1,5 +1,11 @@
 #include "Terminal.h"
 #include <algorithm>
+#include "Clipboard.h"
+#include "FontDC.h"
+
+#define TIMER_SCHEDULE 100
+#define TIMER_SELECTION_ID 101
+
 
 namespace lw_ui
 {
@@ -8,9 +14,7 @@ namespace lw_ui
 	{
 		m_pPaintManager = new TerminalPaintManager(this);
 		m_pDelegate = NULL;
-		m_offsetLine = 0;
-
-		m_bRecalcScroll = TRUE;
+		m_vscrollPos = 0;
 	}
 
 	CTerminal::~CTerminal()
@@ -36,7 +40,7 @@ namespace lw_ui
 	{
 		__super::PreSubclassWindow();
 
-		SetTimer(1, 1, NULL);
+		SetTimer(TIMER_SCHEDULE, 1, NULL);
 	}
 
 	BEGIN_MESSAGE_MAP(CTerminal, CStatic)
@@ -44,6 +48,8 @@ namespace lw_ui
 		ON_WM_SIZE()
 		ON_WM_TIMER()
 		ON_WM_LBUTTONDOWN()
+		ON_WM_MOUSEMOVE()
+		ON_WM_LBUTTONUP()
 		ON_WM_MOUSEWHEEL()
 		ON_WM_GETDLGCODE()
 		ON_WM_KEYDOWN()
@@ -75,13 +81,19 @@ namespace lw_ui
 
 	void CTerminal::SetCurPos(int row, int col, BOOL bForceVisible/* = TRUE*/)
 	{
-		m_curPos.x = row;
-		m_curPos.y = col;
+		m_curPos.y = row;
+		m_curPos.x = col;
 		
 		if (bForceVisible)
 		{
 			EnsureVisible(row, col);
 		}
+	}
+
+	void CTerminal::SelectWords(CPoint ptStart, CPoint ptEnd)
+	{
+		m_selectionStart = ptStart;
+		m_selectionEnd = ptEnd;
 	}
 
 	void CTerminal::EnsureVisible(int row, int col)
@@ -109,7 +121,7 @@ namespace lw_ui
 
 	void CTerminal::ScrollToLine(int nLine)
 	{
-		if (nLine == m_offsetLine)
+		if (nLine == m_vscrollPos)
 		{
 			return;
 		}
@@ -124,9 +136,9 @@ namespace lw_ui
 		nLine = std::min<int>(nLine, info.nMax + 1 - info.nPage);
 		nLine = std::max<int>(nLine, info.nMin);
 
-		m_offsetLine = nLine;
+		m_vscrollPos = nLine;
 
-		SetScrollPos(SB_VERT, m_offsetLine);
+		SetScrollPos(SB_VERT, m_vscrollPos);
 
 		Invalidate();
 	}
@@ -140,6 +152,80 @@ namespace lw_ui
 		m_jobs[when] = func;
 	}
 
+	void CTerminal::Copy()
+	{
+		CString strContent = GetSelectionText();
+
+		CClipboard board(this);
+		board.Copy(strContent);
+	}
+
+	CString CTerminal::GetSelectionText()
+	{
+		CPoint ptStart, ptEnd;
+		if (!GetSelectionRegion(ptStart, ptEnd))
+		{
+			return _T("");
+		}
+
+		return m_pDelegate->GetWindowText(ptStart, ptEnd);
+	}
+
+	BOOL CTerminal::IsSelected(int row)
+	{
+		if (row == m_curPos.y)
+		{
+			return TRUE;
+		}
+
+		CPoint ptStart, ptEnd;
+		if (!GetSelectionRegion(ptStart, ptEnd))
+		{
+			return FALSE;
+		}
+
+		return row >= ptStart.y && row <= ptEnd.y;
+	}
+
+	BOOL CTerminal::IsSelected(int row, int col)
+	{
+		if (row == m_curPos.y && col == m_curPos.x)
+		{
+			return TRUE;
+		}
+
+		CPoint ptStart, ptEnd;
+		if (!GetSelectionRegion(ptStart, ptEnd))
+		{
+			return FALSE;
+		}
+
+		if (row < ptStart.y || row > ptEnd.y)
+		{
+			return FALSE;
+		}
+		else
+		{
+			if (ptStart.y == ptEnd.y)
+			{
+				return row == ptStart.y && col >= ptStart.x && col < ptEnd.x;
+			}
+			else
+			{
+				if (row == ptStart.y)
+				{
+					return col >= ptStart.x;
+				}
+				else if (row == ptEnd.y)
+				{
+					return col < ptEnd.x;
+				}
+			}
+		}
+
+		return TRUE;
+	}
+
 	void CTerminal::OnPaint()
 	{
 		CRect rcClient;
@@ -149,9 +235,23 @@ namespace lw_ui
 		CMemDC memDC(dc, rcClient);
 
 		CDC* pDC = &memDC.GetDC();
+		pDC->SelectObject(m_pPaintManager->GetFont());
+
+		CDrawTextProcessor* pTextProcessor = m_pPaintManager->GetTextProcessor();
+		pTextProcessor->SetDC(pDC);
+		pTextProcessor->SetTextRect(rcClient);
+		pTextProcessor->RecalcRowHeight(pDC, m_pPaintManager->GetFont());
+
 		m_pPaintManager->DrawBackground(pDC, rcClient);
 
-		m_pPaintManager->RecalcRowHeight(pDC);
+		std::vector<CRect> vecRect = GetSelectionRegion(pDC);
+		for (CRect& rc : vecRect)
+		{
+			m_pPaintManager->DrawSelection(pDC, rc);
+		}
+
+		HWND hwndFocus = ::GetFocus();
+		m_pPaintManager->DrawCursor(pDC, GetCursorRect(pDC), hwndFocus == this->GetSafeHwnd());
 
 		int nFirst = 0;
 		int nLast = 0;
@@ -159,11 +259,9 @@ namespace lw_ui
 
 		m_pPaintManager->DrawLines(pDC, nFirst, nLast);
 
-		if (m_bRecalcScroll)
-		{
-			RecalcScrollBars();
-			//m_bRecalcScroll = FALSE;
-		}
+		RecalcScrollBars();
+
+		pTextProcessor->SetDC(GetDC());
 	}
 
 	void CTerminal::OnSize(UINT nType, int cx, int cy)
@@ -175,14 +273,26 @@ namespace lw_ui
 	{
 		__super::OnTimer(nIDEvent);
 
-		time_t now = GetTickCount();
-		std::lock_guard<std::mutex> lck(m_mutex);
-		auto itrEnd = m_jobs.upper_bound(now);
-		for (auto itr = m_jobs.begin(); itr != itrEnd;)
+		switch (nIDEvent)
 		{
-			(itr->second)();
-			itr = m_jobs.erase(itr);
+		case TIMER_SCHEDULE:
+		{
+			time_t now = GetTickCount();
+			std::lock_guard<std::mutex> lck(m_mutex);
+			auto itrEnd = m_jobs.upper_bound(now);
+			for (auto itr = m_jobs.begin(); itr != itrEnd;)
+			{
+				(itr->second)();
+				itr = m_jobs.erase(itr);
+			}
+			break;
 		}
+		case TIMER_SELECTION_ID:
+			break;
+		default:
+			break;
+		}
+		
 	}
 
 	void CTerminal::OnLButtonDown(UINT nFlags, CPoint point)
@@ -190,6 +300,74 @@ namespace lw_ui
 		__super::OnLButtonDown(nFlags, point);
 
 		SetFocus();
+
+		m_bSelection = TRUE;
+
+		CPoint ptCursor;
+		GetCursorPos(&ptCursor);
+		ScreenToClient(&ptCursor);
+		
+		int row = 0;
+		int col = 0;
+		if (!HitTest(ptCursor, row, col))
+		{
+			return;
+		}
+		
+		m_selectionStart.x = m_selectionEnd.x = col;
+		m_selectionStart.y = m_selectionEnd.y = row;
+	}
+
+	void CTerminal::OnLButtonDblClk(UINT nFlags, CPoint point)
+	{
+		//KillTimer(TIMER_SELECTION_ID);
+	}
+
+	void CTerminal::OnLButtonUp(UINT nFlags, CPoint point)
+	{
+		__super::OnLButtonUp(nFlags, point);
+
+		m_bSelection = FALSE;
+
+		CPoint ptCursor;
+		GetCursorPos(&ptCursor);
+		ScreenToClient(&ptCursor);
+
+		int row = 0;
+		int col = 0;
+		if (!HitTest(ptCursor, row, col))
+		{
+			return;
+		}
+
+		m_selectionEnd.x = col;
+		m_selectionEnd.y = row;
+		Invalidate(TRUE);
+	}
+
+	void CTerminal::OnMouseMove(UINT nFlags, CPoint point)
+	{
+		__super::OnMouseMove(nFlags, point);
+
+		if (!m_bSelection)
+		{
+			return;
+		}
+
+		CPoint ptCursor;
+		GetCursorPos(&ptCursor);
+		ScreenToClient(&ptCursor);
+
+		int row = 0;
+		int col = 0;
+		if (!HitTest(ptCursor, row, col))
+		{
+			return;
+		}
+
+		m_selectionEnd.x = col;
+		m_selectionEnd.y = row;
+		Invalidate(TRUE);
 	}
 
 	BOOL CTerminal::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
@@ -207,7 +385,7 @@ namespace lw_ui
 		GetClientRect(&rcClient);
 
 		int nOffset = (int)zDelta * (int)info.nPage / rcClient.Height();
-		int nPos = m_offsetLine - nOffset;
+		int nPos = m_vscrollPos - nOffset;
 		
 		ScrollToLine(nPos);
 
@@ -230,7 +408,7 @@ namespace lw_ui
 
 		GetScrollInfo(SB_VERT, &info);
 
-		int iPos = m_offsetLine;
+		int iPos = m_vscrollPos;
 
 		switch (nSBCode) {
 		case SB_LINEDOWN:
@@ -287,7 +465,7 @@ namespace lw_ui
 
 		GetScrollInfo(SB_VERT, &info);
 
-		int iPos = m_offsetLine;
+		int iPos = m_vscrollPos;
 		switch (nChar)
 		{
 		case VK_UP:
@@ -328,12 +506,12 @@ namespace lw_ui
 
 	void CTerminal::GetVisibleLines(int& nFirst, int& nLast)
 	{
-		nFirst = m_offsetLine;
+		nFirst = m_vscrollPos;
 
 		int nLines = GetVisibleRowsCount();
 		int nMaxLine = GetMaxLines();
 
-		nLast = std::min<int>(m_offsetLine + nLines, nMaxLine);
+		nLast = std::min<int>(m_vscrollPos + nLines, nMaxLine);
 		nLast -= 1;
 	}
 
@@ -342,7 +520,7 @@ namespace lw_ui
 		CRect rcClient;
 		GetClientRect(&rcClient);
 
-		int nRowHeight = m_pPaintManager->GetRowHeight();;
+		int nRowHeight = m_pPaintManager->GetTextProcessor()->GetRowHeight();;
 		int nLines = rcClient.Height() / nRowHeight;
 		if (bExtend && rcClient.Height() % nRowHeight != 0)
 		{
@@ -363,6 +541,21 @@ namespace lw_ui
 		}
 
 		return std::max<int>(nLines, nTotalLines);
+	}
+
+	void CTerminal::SelectWord(CPoint point)
+	{
+		int nRow = 0, nCol = 0;
+
+		if (!RowColFromPoint(point, &nRow, &nCol))
+			return;
+
+		
+	}
+
+	BOOL CTerminal::RowColFromPoint(CPoint pt, int *pRow, int *pCol, int *pDispRow /*= NULL*/, int *pDispCol /*= NULL*/)
+	{
+		return TRUE;
 	}
 
 	void CTerminal::RecalcScrollBars()
@@ -390,10 +583,141 @@ namespace lw_ui
 		info.nMin = 0;
 		info.nMax = nMaxLine - 1;
 		info.nPage = nLines;
-		info.nPos = m_offsetLine;
+		info.nPos = m_vscrollPos;
 
 		SetScrollInfo(SB_VERT, &info);
 		EnableScrollBarCtrl(SB_VERT, TRUE);
 	}
+
+	BOOL CTerminal::GetSelectionRegion(CPoint& ptStart, CPoint& ptEnd)
+	{
+		if (m_selectionStart.y < m_selectionEnd.y)
+		{
+			ptStart = m_selectionStart;
+			ptEnd = m_selectionEnd;
+		}
+		else if (m_selectionStart.y == m_selectionEnd.y)
+		{
+			if (m_selectionStart.x == m_selectionEnd.x)
+			{
+				return FALSE;
+			}
+
+			ptStart.y = ptEnd.y = m_selectionStart.y;
+			ptStart.x = std::min<int>(m_selectionStart.x, m_selectionEnd.x);
+			ptEnd.x = std::max<int>(m_selectionStart.x, m_selectionEnd.x);
+		}
+		else
+		{
+			ptEnd = m_selectionStart;
+			ptStart = m_selectionEnd;
+		}
+
+		return TRUE;
+	}
+
+	std::vector<CRect> CTerminal::GetSelectionRegion(CDC* pDC)
+	{
+		std::vector<CRect> vecRegion;
+
+		CPoint ptStart, ptEnd;
+		if (!GetSelectionRegion(ptStart, ptEnd))
+		{
+			return vecRegion;
+		}
+		
+		int nFirstRow = ptStart.y;
+		int nLastRow = ptEnd.y;
+		int nMidRows = std::max<int>(0, ptEnd.y - ptStart.y - 1);
+
+		if (nFirstRow == nLastRow)
+		{
+			vecRegion.push_back(GetVisibleRect(pDC, ptStart.y, ptStart.x, ptEnd.x));
+		}
+		else
+		{
+			vecRegion.push_back(GetVisibleRect(pDC, nFirstRow, ptStart.x, -1));
+			vecRegion.push_back(GetRowVisibleRect(nFirstRow + 1, nMidRows));
+			vecRegion.push_back(GetVisibleRect(pDC, nLastRow, 0, ptEnd.x));
+		}
+
+		return vecRegion;
+	}
+
+	CRect CTerminal::GetCursorRect(CDC* pDC)
+	{
+		return GetVisibleRect(pDC, m_curPos.y, m_curPos.x);
+	}
+
+	BOOL CTerminal::HitTest(const CPoint& pt, int& rnRow, int& rnCol)
+	{
+		CDrawTextProcessor* pTextProcessor = m_pPaintManager->GetTextProcessor();
+		CFontDC fontDC(pTextProcessor->GetDC(), m_pPaintManager->GetFont());
+
+		if (!pTextProcessor->HitTestRow(pt.y, rnRow))
+		{
+			return FALSE;
+		}
+
+		rnRow += m_vscrollPos;
+
+		CString strLine = m_pDelegate->GetLineText(rnRow);
+		if (!pTextProcessor->HitTestCol(strLine, pt.x, rnCol))
+		{
+			return FALSE;
+		}
+
+		return TRUE;
+	}
+
+	CRect CTerminal::GetRowVisibleRect(int nRow, int nRowCount/* = 1*/)
+	{
+		CDrawTextProcessor* pTextProcessor = m_pPaintManager->GetTextProcessor();
+		CRect rcText = pTextProcessor->GetTextRect();
+
+		int nFirstRow = std::max<int>(0, nRow - m_vscrollPos);
+		int nLastRow = std::max<int>(0, nRow - m_vscrollPos + nRowCount);
+		int nRowHeight = pTextProcessor->GetRowHeight();
+
+		CRect rc;
+		rc.left = rcText.left;
+		rc.top = rcText.top + nFirstRow * nRowHeight;
+		rc.right = rcText.right;
+		rc.bottom = rcText.top + nLastRow * nRowHeight;
+		rc.bottom = std::min<int>(rc.bottom, rcText.bottom);
+
+		return rc;
+	}
+
+	CRect CTerminal::GetVisibleRect(CDC* pDC, int nRow, int nCol)
+	{
+		CDrawTextProcessor* pTextProcessor = m_pPaintManager->GetTextProcessor();
+
+		CString strLine = m_pDelegate->GetLineText(nRow);
+
+		CRect rc = GetRowVisibleRect(nRow);
+		rc.left = pTextProcessor->GetColPosX(strLine, nCol);
+		rc.right = pTextProcessor->GetColPosX(strLine, nCol + 1);
+		
+		return rc;
+	}
+
+	CRect CTerminal::GetVisibleRect(CDC* pDC, int nRow, int nCol1, int nCol2)
+	{
+		if (nCol1 == nCol2)
+		{
+			return CRect();
+		}
+		CDrawTextProcessor* pTextProcessor = m_pPaintManager->GetTextProcessor();
+
+		CString strLine = m_pDelegate->GetLineText(nRow);
+
+		CRect rc = GetRowVisibleRect(nRow);
+		rc.left = pTextProcessor->GetColPosX(strLine, nCol1);
+		rc.right = pTextProcessor->GetColPosX(strLine, nCol2);
+
+		return rc;
+	}
+
 }
 
