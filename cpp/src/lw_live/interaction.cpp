@@ -83,7 +83,7 @@ namespace lw_live {
 		LiveParamPtr liveParam = nullptr;
 		if (isRetry)
 		{
-			liveParam = m_destPtr->GetNextClient(GetLiveParam());
+			liveParam = m_destPtr->GetRetryClient(GetLiveParam());
 		}
 		else
 		{
@@ -97,7 +97,7 @@ namespace lw_live {
 				return true;
 			}
 
-			liveParam = m_destPtr->GetNextClient(GetLiveParam());
+			liveParam = m_destPtr->GetRetryClient(GetLiveParam());
 		}
 
 		return false;
@@ -275,6 +275,7 @@ namespace lw_live {
 
 	void Interaction::SetClient(ClientPtr client)
 	{
+		m_clientPre = m_clientPtr;
 		m_clientPtr = client;
 	}
 
@@ -324,7 +325,7 @@ namespace lw_live {
 			return false;
 		}
 
-		SavePriKeyFile(nullptr);
+		SavePriKeyFile(clientParam.get());
 
 		return true;
 	}
@@ -337,6 +338,23 @@ namespace lw_live {
 			EasyLog(InstLive, LOG_ERROR, "error live param.");
 			return false;
 		}
+
+		ClientParamPtr clientParam = liveParam->GetClientParam();
+		if (nullptr == clientParam)
+		{
+			EasyLog(InstLive, LOG_ERROR, "error client param.");
+			return false;
+		}
+		std::string strConn = ClientFactory::GetConnectString(clientParam.get());
+		if (strConn.empty())
+		{
+			EasyLog(InstLive, LOG_ERROR, "failed to get connection string.");
+			return false;
+		}
+
+		SendData(strConn, true);
+
+		SavePriKeyFile(clientParam.get());
 
 		return true;
 	}

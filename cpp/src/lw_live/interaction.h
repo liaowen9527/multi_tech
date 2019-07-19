@@ -58,6 +58,7 @@ namespace lw_live {
 		bool JumpClient(LiveParamPtr liveParam);
 
 	protected:
+		lw_client::ClientPtr m_clientPre;	//avoid hung when do the disconnect callback.
 		lw_client::ClientPtr m_clientPtr;
 		DisplayPtr m_displayPtr;
 

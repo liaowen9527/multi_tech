@@ -41,13 +41,7 @@ namespace lw_util {
 
 		const std::list<TreeItemPtr>& GetSiblings(TreeItemPtr item)
 		{
-			static std::list<TreeItemPtr> s_siblings;
-
 			TreeItemPtr parent = GetParentItem(item);
-			if (nullptr == parent)
-			{
-				return s_siblings;
-			}
 
 			return GetChildren(parent);
 		}
@@ -127,17 +121,17 @@ namespace lw_util {
 		{
 			m_items.insert(std::make_pair(item, parentItem));
 
-			auto itr = m_parents.find(item);
+			auto itr = m_parents.find(parentItem);
 			if (m_parents.end() != itr)
 			{
 				std::list<TreeItemPtr>& children = itr->second;
-				if (parentItem == after)
-				{
-					children.push_front(item);
-				}
-				else if (after == nullptr)
+				if (after == nullptr)
 				{
 					children.push_back(item);
+				}
+				else if (parentItem == after)
+				{
+					children.push_front(item);
 				}
 				else
 				{

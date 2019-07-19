@@ -2,9 +2,10 @@
 
 namespace lw_live {
 
-	LiveParam::LiveParam()
+	LiveParam::LiveParam(lw_client::ClientParamPtr clientParam /*= nullptr*/)
 	{
 		m_bAutoLogin = false;
+		SetClientParam(clientParam);
 	}
 
 	LiveParam::~LiveParam()

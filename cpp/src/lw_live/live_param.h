@@ -9,7 +9,7 @@ namespace lw_live {
 	class LWLive_API LiveParam
 	{
 	public:
-		LiveParam();
+		LiveParam(lw_client::ClientParamPtr clientParam = nullptr);
 		virtual ~LiveParam();
 
 	public:

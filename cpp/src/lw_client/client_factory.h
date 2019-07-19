@@ -14,6 +14,7 @@ namespace lw_client {
 		static bool InitEnv();
 		static ClientPtr Create(ClientParam* param);
 
+		static std::string GetConnectString(ClientParam* param);
 	};
 
 }

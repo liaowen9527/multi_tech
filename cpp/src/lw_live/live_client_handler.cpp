@@ -69,6 +69,9 @@ namespace lw_live {
 		if (!UseInteraction(intf)) return;
 
 		m_interaction->WriteData(err_msg.c_str(), err_msg.length());
+
+		std::string str = "\r\n";
+		m_interaction->WriteData(str.c_str(), str.length());
 	}
 
 	void LiveClientHandler::OnLoginResult(bool bValue)

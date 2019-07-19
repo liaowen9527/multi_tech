@@ -1,5 +1,6 @@
 #include "client_factory.h"
 #include <assert.h>
+#include <sstream>
 #include "telnet_client.h"
 #include "telnet_client_param.h"
 #include "ssh_client.h"
@@ -25,11 +26,30 @@ namespace lw_client {
 		}
 		else
 		{
-			assert(false && "can't create undefined connection type");
+			assert(false && "undefined connection type");
 			return nullptr;
 		}
 
 		return clientPtr;
+	}
+
+	std::string ClientFactory::GetConnectString(ClientParam* param)
+	{
+		std::stringstream ss;
+		if (dynamic_cast<TelnetClientParam*>(param))
+		{
+			ss << "telnet " << param->GetHost();
+		}
+		else if (dynamic_cast<SshClientParam*>(param))
+		{
+			ss << "ssh " << param->GetHost();
+		}
+		else
+		{
+			assert(false && "undefined connection type");
+		}
+
+		return ss.str();
 	}
 
 }
