@@ -1,16 +1,32 @@
 #include "interface_svr.h"
+#include "std/find_safe_ptr.h"
 
 namespace lw_util {
 
 	InterfaceSvr::InterfaceSvr(int maxIntf/* = 1*/)
 		: m_nMaxIntf(maxIntf)
 	{
-
+		
 	}
 
 	InterfaceSvr::~InterfaceSvr()
 	{
 
+	}
+
+	InterfaceSvrPtr InterfaceSvr::GetSafeSvr(InterfaceSvr* pSvr)
+	{
+		return FindSafePtr<InterfaceSvr>::Find(pSvr);
+	}
+
+	void InterfaceSvr::Startup()
+	{
+		FindSafePtr<InterfaceSvr>::Register(this->shared_from_this());
+	}
+
+	void InterfaceSvr::Shutdown()
+	{
+		FindSafePtr<InterfaceSvr>::UnRegister(this);
 	}
 
 	bool InterfaceSvr::Accept(Interface* intf, int timeout/* = -1*/)
@@ -93,15 +109,37 @@ namespace lw_util {
 	}
 
 
-	Interface::Interface(InterfaceSvrPtr svr)
-		: m_svr(svr)
+	Interface::Interface()
+		: m_svr(nullptr)
+		, m_userdata(nullptr)
 	{
-		m_svr->Accept(this);
+		
 	}
 
 	Interface::~Interface()
 	{
-		m_svr->Close(this);
+		Close();
+	}
+
+	bool Interface::Open(InterfaceSvrPtr svr)
+	{
+		Close();
+
+		m_svr = svr;
+		if (m_svr)
+		{
+			return m_svr->Accept(this);
+		}
+		return false;
+	}
+
+	void Interface::Close()
+	{
+		if (m_svr)
+		{
+			m_svr->Close(this);
+		}
+		m_svr = nullptr;
 	}
 
 }

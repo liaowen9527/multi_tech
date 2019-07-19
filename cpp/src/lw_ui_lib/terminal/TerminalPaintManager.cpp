@@ -20,6 +20,11 @@ namespace lw_ui
 
 	}
 
+	CDrawTextProcessor* TerminalPaintManager::GetTextProcessor()
+	{
+		return &m_textProcessor;
+	}
+
 	CFont* TerminalPaintManager::GetFont()
 	{
 		return &m_font;
@@ -47,14 +52,46 @@ namespace lw_ui
 		SetFont(logfont);
 	}
 
-	CDrawTextProcessor* TerminalPaintManager::GetTextProcessor()
+	BOOL TerminalPaintManager::IsShowLineNumber()
 	{
-		return &m_textProcessor;
+		return m_bShowNumber;
 	}
 
-	void TerminalPaintManager::DrawBackground(CDC* pDC, const CRect& rc)
+	void TerminalPaintManager::ShowLineNumber(BOOL bShow)
 	{
-		pDC->FillSolidRect(rc, m_clrBack);
+		m_bShowNumber = bShow;
+	}
+
+	void TerminalPaintManager::BeginPaint(CDC* pDC, const CRect& rcClient)
+	{
+		m_rcClient = rcClient;
+
+		CDrawTextProcessor* pTextProcessor = GetTextProcessor();
+		pTextProcessor->SetDC(pDC);
+		pTextProcessor->RecalcRowHeight(pDC, GetFont());
+
+		TerminalDelegate* pDelegate = m_pTerminal->GetDelegate();
+		if (pDelegate)
+		{
+			int nRowCount = pDelegate->GetTotalLines();
+			int nRowNumLen = (nRowCount > 9 ? (int)log10l(nRowCount) : 0) + 1;
+
+			const TEXTMETRIC& tm = pTextProcessor->GetTextMetrics();
+			m_nLineNumLength = (nRowNumLen + 1) * (tm.tmAveCharWidth) + 2;
+		}
+
+		CRect rcText = rcClient;
+		rcText.left += m_nLineNumLength + 4;
+		pTextProcessor->SetTextRect(rcText);
+	}
+
+	void TerminalPaintManager::DrawBackground(CDC* pDC)
+	{
+		pDC->FillSolidRect(m_rcClient, m_clrBack);
+
+		CRect rcNumber = m_rcClient;
+		rcNumber.right = rcNumber.top + m_nLineNumLength;
+		pDC->FillSolidRect(rcNumber, m_clrBackNumer);
 	}
 
 	void TerminalPaintManager::DrawSelection(CDC* pDC, const CRect& rc)
@@ -83,11 +120,17 @@ namespace lw_ui
 			return;
 		}
 
+		CRect rcText = m_textProcessor.GetTextRect();
 		int nRowHeight = m_textProcessor.GetRowHeight();
 		for (int nLine = nFirstLine; nLine <= nLastLine; ++nLine)
 		{
-			int nX = 0;
-			int nY = (nLine - nFirstLine) * nRowHeight;
+			int nX = rcText.left;
+			int nY = rcText.top + (nLine - nFirstLine) * nRowHeight;
+
+			if (IsShowLineNumber())
+			{
+				DrawLineNum(pDC, nY, nLine);
+			}
 
 			std::vector<TextBlock> vecBlock;
 			pDelegate->GetLine(nLine, vecBlock);
@@ -110,6 +153,24 @@ namespace lw_ui
 
 	}
 
+	void TerminalPaintManager::DrawLineNum(CDC* pDC, int nY, int number)
+	{
+		int nRowHeight = m_textProcessor.GetRowHeight();
+
+		CRect rcNum;
+		rcNum.left = m_rcClient.left;
+		rcNum.right = rcNum.right + m_nLineNumLength - 2;
+		rcNum.top = nY;
+		rcNum.bottom = rcNum.top + nRowHeight;
+
+		CString strNum;
+		strNum.Format(_T("%d"), number + 1);
+
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(m_clrNumer);
+		pDC->DrawText(strNum, &rcNum, DT_VCENTER | DT_RIGHT);
+	}
+
 	void TerminalPaintManager::InitStyle()
 	{
 		SetFont(_T("Courier New"), -14);
@@ -118,7 +179,11 @@ namespace lw_ui
 		m_clrForeground = RGB(255, 255, 255);
 		m_clrCursor = RGB(0, 255, 0);
 		m_clrSelection = RGB(229, 229, 229);
+		m_clrBackNumer = RGB(52, 52, 52);
+		m_clrNumer = RGB(255, 255, 255);
 
+		m_bShowNumber = TRUE;
+		m_nLineNumLength = 0;
 	}
 
 }

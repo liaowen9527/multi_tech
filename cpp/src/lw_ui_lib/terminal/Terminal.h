@@ -92,10 +92,11 @@ protected:
 	CRect GetVisibleRect(CDC* pDC, int nRow, int nCol1, int nCol2);
 
 private:
+	std::mutex m_mutex;
+
 	TerminalPaintManager* m_pPaintManager;
 	TerminalDelegate* m_pDelegate;
 
-	std::mutex m_mutex;
 	CPoint m_curPos;
 	CPoint m_selectionStart;
 	CPoint m_selectionEnd;

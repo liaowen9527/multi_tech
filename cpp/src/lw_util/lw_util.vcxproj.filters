@@ -116,6 +116,9 @@
     <ClInclude Include="std\tree.h">
       <Filter>std</Filter>
     </ClInclude>
+    <ClInclude Include="std\find_safe_ptr.h">
+      <Filter>std</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="lw_util.def">

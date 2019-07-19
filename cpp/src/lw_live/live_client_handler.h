@@ -25,6 +25,9 @@ namespace lw_live {
 		virtual void OnLoginResult(bool bValue);
 
 	protected:
+		bool UseInteraction(lw_util::Interface& intf);
+
+	protected:
 		Interaction* m_interaction;
 
 		DestinationPtr m_currDest;

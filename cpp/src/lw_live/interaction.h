@@ -12,7 +12,7 @@
 
 namespace lw_live {
 
-	class LWLive_API Interaction : lw_util::InterfaceSvr
+	class LWLive_API Interaction : public lw_util::InterfaceSvr
 	{
 	public:
 		Interaction();
@@ -76,16 +76,6 @@ namespace lw_live {
 	};
 
 	typedef std::shared_ptr<Interaction> InteractionPtr;
-
-	class LiveInterface : public lw_util::Interface
-	{
-	public:
-		LiveInterface(lw_util::InterfaceSvrPtr svr) : lw_util::Interface(svr) {}
-		~LiveInterface(){}
-		lw_client::ClientHandler* m_handler;
-	};
-	
-
 }
 
 

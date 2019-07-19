@@ -17,14 +17,20 @@ namespace lw_util {
 	};
 
 	class Interface;
-
-	class LWUtil_API InterfaceSvr
+	class InterfaceSvr;
+	typedef std::shared_ptr<InterfaceSvr> InterfaceSvrPtr;
+	class LWUtil_API InterfaceSvr : public std::enable_shared_from_this<InterfaceSvr>
 	{
 	public:
 		InterfaceSvr(int maxIntf = 1);
 		virtual ~InterfaceSvr();
 
+		static InterfaceSvrPtr GetSafeSvr(InterfaceSvr* pSvr);
+
 	public:
+		virtual void Startup();
+		virtual void Shutdown();
+
 		bool Accept(Interface* intf, int timeout = -1);
 		void Close(Interface* intf);
 
@@ -41,17 +47,21 @@ namespace lw_util {
 		std::set<Interface*> m_intfs;
 		int m_nMaxIntf;
 	};
-	typedef std::shared_ptr<InterfaceSvr> InterfaceSvrPtr;
 
 
-	class Interface
+	class LWUtil_API Interface
 	{
 	public:
-		Interface(InterfaceSvrPtr svr);
-		virtual ~Interface();
+		Interface();
+		~Interface();
+
+	public:
+		bool Open(InterfaceSvrPtr svr);
+		void Close();
 
 	public:
 		InterfaceSvrPtr m_svr;
+		void* m_userdata;
 	};
 
 }

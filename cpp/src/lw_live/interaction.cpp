@@ -248,14 +248,13 @@ namespace lw_live {
 
 	bool Interaction::CanAccept_unsafe(Interface* intf)
 	{
-		ClientPtr clientPtr = GetClient();
-		if (nullptr == clientPtr)
+		if (nullptr == intf)
 		{
 			return false;
 		}
 
-		LiveInterface* liveIntf = dynamic_cast<LiveInterface*>(intf);
-		if (nullptr == intf)
+		ClientPtr clientPtr = GetClient();
+		if (nullptr == clientPtr)
 		{
 			return false;
 		}
@@ -266,7 +265,7 @@ namespace lw_live {
 			return false;
 		}
 		
-		return handler.get() == liveIntf->m_handler;
+		return handler.get() == intf->m_userdata;
 	}
 
 	ClientPtr Interaction::GetClient()
@@ -315,6 +314,7 @@ namespace lw_live {
 			return false;
 		}
 
+		Startup();
 		LiveClientHandlerPtr liveHandler = std::make_shared<LiveClientHandler>();
 		liveHandler->SetInteraction(this);
 		clientPtr->SetHandler(liveHandler);

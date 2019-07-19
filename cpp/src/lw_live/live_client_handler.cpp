@@ -4,7 +4,6 @@
 using namespace lw_util;
 
 namespace lw_live {
-
 	
 	LiveClientHandler::LiveClientHandler()
 	{
@@ -23,6 +22,9 @@ namespace lw_live {
 
 	void LiveClientHandler::OnConnected()
 	{
+		Interface intf;
+		if (!UseInteraction(intf)) return;
+
 		DisplayPtr displayPtr = m_interaction->GetDisplay();
 		if (displayPtr)
 		{
@@ -32,6 +34,9 @@ namespace lw_live {
 
 	void LiveClientHandler::OnDisconnected(int nErrCode, const std::string& err_msg)
 	{
+		Interface intf;
+		if (!UseInteraction(intf)) return;
+
 		DestinationPtr destPtr = m_interaction->GetDestination();
 		if (nullptr == destPtr)
 		{
@@ -50,6 +55,9 @@ namespace lw_live {
 
 	void LiveClientHandler::OnReceived(const char* str, int nLen)
 	{
+		Interface intf;
+		if (!UseInteraction(intf)) return;
+
 		m_interaction->SetLiveSucc(true);
 
 		m_interaction->WriteData(str, nLen);
@@ -57,12 +65,28 @@ namespace lw_live {
 
 	void LiveClientHandler::OnError(int nErrCode, const std::string& err_msg)
 	{
+		Interface intf;
+		if (!UseInteraction(intf)) return;
+
 		m_interaction->WriteData(err_msg.c_str(), err_msg.length());
 	}
 
 	void LiveClientHandler::OnLoginResult(bool bValue)
 	{
 
+	}
+
+	bool LiveClientHandler::UseInteraction(lw_util::Interface& intf)
+	{
+		InterfaceSvrPtr svrPtr = InterfaceSvr::GetSafeSvr(m_interaction);
+		if (nullptr == svrPtr)
+		{
+			return false;
+		}
+
+		intf.m_userdata = this;
+
+		return intf.Open(svrPtr);
 	}
 
 }

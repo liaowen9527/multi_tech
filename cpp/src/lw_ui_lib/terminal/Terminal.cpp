@@ -237,12 +237,8 @@ namespace lw_ui
 		CDC* pDC = &memDC.GetDC();
 		pDC->SelectObject(m_pPaintManager->GetFont());
 
-		CDrawTextProcessor* pTextProcessor = m_pPaintManager->GetTextProcessor();
-		pTextProcessor->SetDC(pDC);
-		pTextProcessor->SetTextRect(rcClient);
-		pTextProcessor->RecalcRowHeight(pDC, m_pPaintManager->GetFont());
-
-		m_pPaintManager->DrawBackground(pDC, rcClient);
+		m_pPaintManager->BeginPaint(pDC, rcClient);
+		m_pPaintManager->DrawBackground(pDC);
 
 		std::vector<CRect> vecRect = GetSelectionRegion(pDC);
 		for (CRect& rc : vecRect)
@@ -261,7 +257,7 @@ namespace lw_ui
 
 		RecalcScrollBars();
 
-		pTextProcessor->SetDC(GetDC());
+		m_pPaintManager->GetTextProcessor()->SetDC(GetDC());
 	}
 
 	void CTerminal::OnSize(UINT nType, int cx, int cy)
@@ -509,7 +505,8 @@ namespace lw_ui
 		nFirst = m_vscrollPos;
 
 		int nLines = GetVisibleRowsCount();
-		int nMaxLine = GetMaxLines();
+		//int nMaxLine = GetMaxLines();
+		int nMaxLine = m_pDelegate->GetTotalLines();
 
 		nLast = std::min<int>(m_vscrollPos + nLines, nMaxLine);
 		nLast -= 1;

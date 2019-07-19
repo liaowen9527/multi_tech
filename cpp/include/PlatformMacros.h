@@ -45,3 +45,5 @@ protected: varType varName; public: inline const varType& get##funName(void) con
 #define BREAK_IF(cond)           if(cond) break
 
 
+#define IF_RETURN_VOID(condition) if(condition) return;
+#define IF_RETURN(condition, ret) if(condition) return ret;

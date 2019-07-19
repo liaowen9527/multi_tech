@@ -128,6 +128,7 @@
   <ItemGroup>
     <ClCompile Include="display.cpp" />
     <ClCompile Include="display_buffer.cpp" />
+    <ClCompile Include="display_buffer_limit.cpp" />
     <ClCompile Include="interaction.cpp" />
     <ClCompile Include="live_client_handler.cpp" />
     <ClCompile Include="destination.cpp" />
@@ -143,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="display.h" />
     <ClInclude Include="display_buffer.h" />
+    <ClInclude Include="display_buffer_limit.h" />
     <ClInclude Include="interaction.h" />
     <ClInclude Include="live_client_handler.h" />
     <ClInclude Include="destination.h" />
