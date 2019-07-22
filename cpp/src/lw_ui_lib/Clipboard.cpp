@@ -45,8 +45,7 @@ void CClipboard::Copy(const CString& strContent)
 	// prepare clipboard
 	::EmptyClipboard();
 
-	std::wstring wstr;
-	CStringConverter::to_str(strContent, wstr);
+	std::wstring wstr = CStringConverter::to_wstr(strContent);
 
 	// Copy the buffer to clipboard
 	BYTE *pBytes = (BYTE *)wstr.c_str();

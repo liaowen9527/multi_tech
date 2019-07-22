@@ -7,8 +7,8 @@
 class LWUI_API CStringConverter
 {
 public:
-	static void to_str(const CString& src, std::string& str);
-	static void to_str(const CString& src, std::wstring& str);
+	static std::string to_str(const CString& src);
+	static std::wstring to_wstr(const CString& src);
 
 	static CString to_cstr(const std::string& src);
 	static CString to_cstr(const std::wstring& src);

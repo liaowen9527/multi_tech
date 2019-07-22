@@ -1,0 +1,6 @@
+; lw_util_3rd.def : Declares the module parameters for the DLL.
+
+LIBRARY      "lw_util_3rd"
+
+EXPORTS
+    ; Explicit exports can go here

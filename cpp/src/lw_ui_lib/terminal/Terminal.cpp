@@ -529,7 +529,7 @@ namespace lw_ui
 
 	int CTerminal::GetMaxLines()
 	{
-		int nLines = GetVisibleRowsCount();
+		int nLines = GetVisibleRowsCount(FALSE);
 		int nTotalLines = 0;
 
 		if (m_pDelegate)

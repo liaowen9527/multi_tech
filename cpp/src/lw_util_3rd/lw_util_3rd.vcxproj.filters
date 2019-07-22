@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="jsoncpp">
+      <UniqueIdentifier>{fc8d3f41-772e-4462-be95-a39f761888b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dll_export">
+      <UniqueIdentifier>{eeb7aed7-272a-49d4-9fe5-6b693cd13d31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sqlite">
+      <UniqueIdentifier>{3074d586-322f-4f7c-9862-1dc8d200d70b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="json\autolink.h">
+      <Filter>jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="json\config.h">
+      <Filter>jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="json\features.h">
+      <Filter>jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="json\forwards.h">
+      <Filter>jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="json\json.h">
+      <Filter>jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="json\json_batchallocator.h">
+      <Filter>jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="json\reader.h">
+      <Filter>jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="json\value.h">
+      <Filter>jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="json\writer.h">
+      <Filter>jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="lw_util_3rd.h">
+      <Filter>dll_export</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite\CppSQLite3.h">
+      <Filter>sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite\sqlite3.h">
+      <Filter>sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite\sqlite3ext.h">
+      <Filter>sqlite</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="json\json_reader.cpp">
+      <Filter>jsoncpp</Filter>
+    </ClCompile>
+    <ClCompile Include="json\json_value.cpp">
+      <Filter>jsoncpp</Filter>
+    </ClCompile>
+    <ClCompile Include="json\json_writer.cpp">
+      <Filter>jsoncpp</Filter>
+    </ClCompile>
+    <ClCompile Include="lw_util_3rd.cpp">
+      <Filter>dll_export</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite\CppSQLite3.cpp">
+      <Filter>sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite\sqlite3.c">
+      <Filter>sqlite</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="json\json_internalarray.inl">
+      <Filter>jsoncpp</Filter>
+    </None>
+    <None Include="json\json_internalmap.inl">
+      <Filter>jsoncpp</Filter>
+    </None>
+    <None Include="json\json_valueiterator.inl">
+      <Filter>jsoncpp</Filter>
+    </None>
+    <None Include="json\sconscript">
+      <Filter>jsoncpp</Filter>
+    </None>
+    <None Include="lw_util_3rd.def">
+      <Filter>dll_export</Filter>
+    </None>
+  </ItemGroup>
+</Project>

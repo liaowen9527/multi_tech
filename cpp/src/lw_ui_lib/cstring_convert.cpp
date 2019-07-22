@@ -3,23 +3,23 @@
 
 using namespace lw_util;
 
-void CStringConverter::to_str(const CString& src, std::string& str)
+std::string CStringConverter::to_str(const CString& src)
 {
 #ifdef _UNICODE
 	std::wstring temp = src.GetString();
-	str = StringConverter::utf_to_utf(temp);
+	return StringConverter::utf_to_utf(temp);
 #else
-	str = src.GetString();
+	return src.GetString();
 #endif // _UNICODE
 }
 
-void CStringConverter::to_str(const CString& src, std::wstring& str)
+std::wstring CStringConverter::to_wstr(const CString& src)
 {
 #ifdef _UNICODE
-	str = src.GetString();
+	return src.GetString();
 #else
 	std::string temp = src.GetString();
-	str = StringConverter::utf_to_utf(temp);
+	return StringConverter::utf_to_utf(temp);
 #endif // _UNICODE
 }
 
