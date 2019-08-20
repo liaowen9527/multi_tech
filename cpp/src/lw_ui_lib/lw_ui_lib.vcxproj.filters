@@ -19,6 +19,9 @@
     <Filter Include="terminal">
       <UniqueIdentifier>{f20739a8-2deb-4f8f-8f3e-c74e5417d5bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="controls">
+      <UniqueIdentifier>{c070b25d-73bd-4497-bb0c-fb79004542df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -44,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="FontDC.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="controls\DragTabCtrl.cpp">
+      <Filter>controls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +90,9 @@
     </ClInclude>
     <ClInclude Include="FontDC.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="controls\DragTabCtrl.h">
+      <Filter>controls</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

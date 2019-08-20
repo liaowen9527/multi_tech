@@ -2,15 +2,15 @@
 #include <stdarg.h>
 #include <sstream>
 #include "filesystem/process.h"
-#include "log4cpp/Category.hh"
 
 namespace lw_util {
 
 	Logger* Logger::s_logger = nullptr;
+	int Logger::s_pid = 0;
 
 	Logger::Logger()
 	{
-		m_pid = CurrentProcess::GetPid();
+		
 	}
 
 	Logger::~Logger()
@@ -25,57 +25,46 @@ namespace lw_util {
 			s_logger = new Logger;
 		}
 
+		s_pid = lw_util::CurrentProcess::GetPid();
 		return s_logger;
 	}
 
-	void Logger::log(const char* inst, const char* funcName, LogLevel nLevel, const char* format, ...)
+	void Logger::AddLogger(LoggerImplPtr logPtr)
 	{
-		va_list argList;
-		va_start(argList, format);
-
-		int len = _vscprintf(format, argList) + 1;
-		if (len == 0)
+		if (nullptr == logPtr)
 		{
-			va_end(argList);
 			return;
 		}
-
-		char * buffer = new char[len + 1];
-		vsprintf_s(buffer, len, format, argList);
-		va_end(argList);
-
-		std::string msg(buffer, len);
-		delete[] buffer;
-
-		log(inst, funcName, nLevel, msg);
-
-		return;
+		m_vecLogger.push_back(logPtr);
 	}
 
-	void Logger::log(const char* inst, const char* funcName, LogLevel nLevel, const std::string& str)
+	bool Logger::CanLog(LogLevel nLevel)
 	{
-		std::stringstream ss;
-		ss << "[" << m_pid << ":" << CurrentThread::GetTid() << "] [" << funcName  << "] " << str;
-
-		log4cpp::Category& logger = log4cpp::Category::getInstance(inst);
-
-		switch (nLevel)
+		for (LoggerImplPtr logPtr : m_vecLogger)
 		{
-		case LOG_DEBUG:
-			logger.debug(ss.str());
-			break;
-		case LOG_INFO:
-			logger.info(ss.str());
-			break;
-		case LOG_WARN:
-			logger.warn(ss.str());
-			break;
-		case LOG_ERROR:
-			logger.error(ss.str());
-			break;
-		default:
-			break;
+			if (logPtr->CanLog(nLevel))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	void Logger::Log(LogEntityPtr ptr)
+	{
+		if (nullptr == ptr)
+		{
+			return;
+		}
+		if (ptr->m_pid == 0)
+		{
+			ptr->m_pid = s_pid;
+		}
+
+		for (LoggerImplPtr logPtr : m_vecLogger)
+		{
+			logPtr->Log(ptr);
 		}
 	}
-
 }

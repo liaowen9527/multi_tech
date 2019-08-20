@@ -1,0 +1,35 @@
+{
+	"rabbitmq":{
+		"servers_URL": ["10.10.0.130"],
+		"user":"netbrain",
+		"password": "netbrain",
+		"port" : 5672,
+		"ssl" : false,
+		"cert_verification" : "none"
+	},
+	"redis":{
+		"servers_URL": ["10.10.0.130:6379"],
+		"sentinels_URL":[],
+		"user":"netbrain",
+		"password": "netbrain",
+		"ssl" : false,
+		"cert_verification" : "none"
+	},
+	"mongodb":{
+		"servers_URL": ["127.0.0.1:27017"],
+		"user": "",
+		"password": "",
+		"replicaSet" : "",
+		"ssl" : false,
+		"extraOptions" : "",
+		"cert_verification" : "none"
+	},
+	"elasticsearch":{
+      "servers_URL":["10.10.0.130:9200"],
+      "user":"",
+      "password":"",
+      "ssl":false,
+      "cert_verification":"none"
+   },
+   "useFlowEngine": true
+}

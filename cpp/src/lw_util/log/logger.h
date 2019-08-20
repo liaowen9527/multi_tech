@@ -3,15 +3,9 @@
 
 #include "lw_util.h"
 #include <string>
-
-enum LogLevel
-{
-	LOG_INVALID = -1,
-	LOG_DEBUG = 0,
-	LOG_INFO,
-	LOG_WARN,
-	LOG_ERROR
-};
+#include <vector>
+#include "log_entity.h"
+#include "logger_impl.h"
 
 namespace lw_util {
 
@@ -23,14 +17,16 @@ namespace lw_util {
 
 		static Logger* Instance();
 
-		void log(const char* inst, const char* funcName, LogLevel nLevel, const char* format, ...);
+		void AddLogger(LoggerImplPtr logPtr);
 
-		void log(const char* inst, const char* funcName, LogLevel nLevel, const std::string& str);
+		virtual bool CanLog(LogLevel nLevel);
+		virtual void Log(LogEntityPtr ptr);
 
 	protected:
 		static Logger* s_logger;
-		
-		int m_pid;
-	};
+		static int s_pid;
 
+		std::vector<LoggerImplPtr> m_vecLogger;
+	};
+	
 }

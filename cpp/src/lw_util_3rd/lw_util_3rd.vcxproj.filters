@@ -22,6 +22,21 @@
     <Filter Include="sqlite">
       <UniqueIdentifier>{3074d586-322f-4f7c-9862-1dc8d200d70b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="rabbitmq">
+      <UniqueIdentifier>{24aa6282-1572-4332-a898-90705f61925f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="elk">
+      <UniqueIdentifier>{b3ca07cd-9dbc-4b2c-b312-b60ccf2bf738}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="redis">
+      <UniqueIdentifier>{d849cac8-08a3-47d7-a911-434eef5bebdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mongodb">
+      <UniqueIdentifier>{7bc9a2b9-e46f-49b9-a084-51c10b8a8467}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xson">
+      <UniqueIdentifier>{db074ddf-62fa-43f5-aa0a-cda485342408}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -66,6 +81,27 @@
     <ClInclude Include="sqlite\sqlite3ext.h">
       <Filter>sqlite</Filter>
     </ClInclude>
+    <ClInclude Include="xson\xson.h">
+      <Filter>xson</Filter>
+    </ClInclude>
+    <ClInclude Include="mongo\MongoDBClient.h">
+      <Filter>mongodb</Filter>
+    </ClInclude>
+    <ClInclude Include="mongo\MongoUri.h">
+      <Filter>mongodb</Filter>
+    </ClInclude>
+    <ClInclude Include="xson\xson_bson.h">
+      <Filter>xson</Filter>
+    </ClInclude>
+    <ClInclude Include="xson\xson_element.h">
+      <Filter>xson</Filter>
+    </ClInclude>
+    <ClInclude Include="xson\xson_builder.h">
+      <Filter>xson</Filter>
+    </ClInclude>
+    <ClInclude Include="mongo\MongoQuery.h">
+      <Filter>mongodb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -88,6 +124,27 @@
     </ClCompile>
     <ClCompile Include="sqlite\sqlite3.c">
       <Filter>sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="mongo\testmongo.cpp">
+      <Filter>mongodb</Filter>
+    </ClCompile>
+    <ClCompile Include="xson\xson.cpp">
+      <Filter>xson</Filter>
+    </ClCompile>
+    <ClCompile Include="mongo\MongoDBClient.cpp">
+      <Filter>mongodb</Filter>
+    </ClCompile>
+    <ClCompile Include="mongo\MongoUri.cpp">
+      <Filter>mongodb</Filter>
+    </ClCompile>
+    <ClCompile Include="xson\xson_element.cpp">
+      <Filter>xson</Filter>
+    </ClCompile>
+    <ClCompile Include="xson\xson_builder.cpp">
+      <Filter>xson</Filter>
+    </ClCompile>
+    <ClCompile Include="mongo\MongoQuery.cpp">
+      <Filter>mongodb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

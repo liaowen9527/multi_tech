@@ -1,0 +1,21 @@
+{
+  "categorys": [
+	{
+      "name": "main",
+      "level": "DEBUG",
+      "maxBackupIndex": 10,
+      "maxFileSize": 5242880
+	  "root" : true
+    },
+    {
+      "name": "net",
+      "level": "DEBUG",
+      "maxBackupIndex": 10,
+      "maxFileSize": 5242880
+    }
+  ],
+  "appender": {
+    "filedir": "log",
+    "elasticsearch": "es"
+  }
+}

@@ -11,9 +11,9 @@
 #define InstClient "client"
 #define InstLive "live"
 
-#ifdef Log
-#undef Log
-#endif
 
 #define EasyLog(inst, level, ...) \
-	lw_util::Logger::Instance()->log(inst, __FUNCTION__, level, __VA_ARGS__);
+	lw_util::Logger::Instance()->Log(GetLogEntity(inst, level, __VA_ARGS__))
+
+#define GetLogEntity(inst, level, ...) \
+	lw_util::LogEntity::Create(inst, __FUNCTION__, level, __VA_ARGS__)

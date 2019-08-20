@@ -92,13 +92,15 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;LWUtil3rd_DLL;JSON_DLL_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;LWUtil3rd_DLL;JSON_DLL_BUILD;MONGOCXX_STATIC;BSONCXX_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(lw_util_3rd_include);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(lw_util_3rd_lib);%(AdditionalIncludeDirectories)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -162,16 +164,27 @@
     <ClInclude Include="json\value.h" />
     <ClInclude Include="json\writer.h" />
     <ClInclude Include="lw_util_3rd.h" />
+    <ClInclude Include="mongo\MongoDBClient.h" />
+    <ClInclude Include="mongo\MongoQuery.h" />
+    <ClInclude Include="mongo\MongoUri.h" />
     <ClInclude Include="sqlite\CppSQLite3.h" />
     <ClInclude Include="sqlite\sqlite3.h" />
     <ClInclude Include="sqlite\sqlite3ext.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="xson\xson.h" />
+    <ClInclude Include="xson\xson_bson.h" />
+    <ClInclude Include="xson\xson_builder.h" />
+    <ClInclude Include="xson\xson_element.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="json\json_reader.cpp" />
     <ClCompile Include="json\json_value.cpp" />
     <ClCompile Include="json\json_writer.cpp" />
     <ClCompile Include="lw_util_3rd.cpp" />
+    <ClCompile Include="mongo\MongoDBClient.cpp" />
+    <ClCompile Include="mongo\MongoQuery.cpp" />
+    <ClCompile Include="mongo\MongoUri.cpp" />
+    <ClCompile Include="mongo\testmongo.cpp" />
     <ClCompile Include="sqlite\CppSQLite3.cpp" />
     <ClCompile Include="sqlite\sqlite3.c" />
     <ClCompile Include="stdafx.cpp">
@@ -180,6 +193,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="xson\xson.cpp" />
+    <ClCompile Include="xson\xson_builder.cpp" />
+    <ClCompile Include="xson\xson_element.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="json\json_internalarray.inl" />

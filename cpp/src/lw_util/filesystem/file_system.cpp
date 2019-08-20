@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include "boost/filesystem.hpp"
-#include "log/logger_define.h"
+#include "log/easylog.h"
 
 namespace lw_util {
 
