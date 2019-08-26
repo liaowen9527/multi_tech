@@ -25,14 +25,17 @@ public:
 	inline void append(double val);
 	inline void append(const std::string& key, double val);
 
+	inline void append(const char* str);
+	inline void append(const std::string& key, const char* str);
+
 	inline void append(const std::string& val);
 	inline void append(const std::string& key, const std::string& val);
 
 	inline void append(bool val);
 	inline void append(const std::string& key, bool val);
 
-	inline void append(time_t val);
-	inline void append(const std::string& key, time_t val);
+	inline void append(time_t msec);
+	inline void append(const std::string& key, time_t msec);
 
 	inline void append(const xson& doc);
 	inline void append(const std::string& key, const xson& doc);

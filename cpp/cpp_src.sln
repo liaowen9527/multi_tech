@@ -35,6 +35,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mongocxx-test", "unit_test\mongocxx-test\mongocxx-test.vcxproj", "{6310E3D4-3C47-4724-B93F-DB9FA2F02367}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lw_logimpl", "src\lw_logimpl\lw_logimpl.vcxproj", "{F015DA31-C9F3-4C18-854B-5BB37AC00748}"
+	ProjectSection(ProjectDependencies) = postProject
+		{872E9B7A-9BC3-40E1-81A3-C11DDE46BB1E} = {872E9B7A-9BC3-40E1-81A3-C11DDE46BB1E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

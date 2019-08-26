@@ -3,6 +3,7 @@
 #include "std/time_helper.h"
 #include "filesystem/process.h"
 
+
 namespace lw_util {
 
 	LogEntity::LogEntity(LogLevel emLevel/* = LOG_INFO*/)
@@ -49,6 +50,42 @@ namespace lw_util {
 		ptr->m_message = msg;
 
 		return ptr;
+	}
+
+	std::string LogEntity::GetLogLevel()
+	{
+		std::string ret;
+		switch (m_level)
+		{
+		case LOG_DEBUG:
+			ret = "debug";
+			break;
+		case LOG_INFO:
+			ret = "info";
+			break;
+		case LOG_NOTICE:
+			ret = "notice";
+			break;
+		case LOG_WARN:
+			ret = "warn";
+			break;
+		case LOG_ERROR:
+			ret = "error";
+			break;
+		case LOG_CRIT:
+			ret = "crit";
+			break;
+		case LOG_ALERT:
+			ret = "alert";
+			break;
+		case LOG_EMERG:
+			ret = "emerg";
+			break;
+		default:
+			break;
+		}
+
+		return ret;
 	}
 
 	bool LogEntity::CanLog(const char* inst, LogLevel nLevel)

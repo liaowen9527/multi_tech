@@ -3,11 +3,17 @@
 
 #include "pch.h"
 #include <iostream>
+#include <time.h>
 #include "mongo/MongoDBClient.h"
 #include "xson/xson_builder.h"
 #include "mongo/MongoQuery.h"
 
-int main()
+#include <stdlib.h>
+#include <stdio.h>
+#include "redis/RedisClient.h"
+
+
+void test_mongo()
 {
 	MongoDBClient::Initialize();
 	MongoDBClient client;
@@ -23,7 +29,7 @@ int main()
 	builder.append_document("date", [&](xson_builder& builder) {
 		builder.append("$exists", true);
 	});*/
-	
+
 	std::set<std::string> setHello;
 	//setHello.insert("world");
 	setHello.insert("aaa");
@@ -33,8 +39,56 @@ int main()
 		view.get_elements([](xson_element& ele) {
 			//ele.output();
 		});
-		
+
 	});
 
+	xson_builder builder;
+	builder.append("lev", std::string("debug"));
+	builder.append("local", time(0) * 1000);
+	builder.append("pid", 123);
+	builder.append("tid", 456);
+	builder.append("func", "main");
+	builder.append("log", "aaaa");
+	builder.append_array("lable", [&](xson_builder& sub) {
+		sub.append("liaowen");
+		sub.append(time(0) * 1000);
+	});
+	builder.append_document("timeline", [&](xson_builder& sub) {
+		sub.append("$currentDate", true);
+	});
+
+	collection.InsertOne(builder.view());
+
 	MongoDBClient::Uninitialize();
+}
+
+void test_redis()
+{
+	// init socket module for windows
+	RedisClient::InitEnv();
+
+	const char* redis_addr = "10.10.0.130:6379";
+	int conn_timeout = 10, rw_timeout = 10;
+
+	// the redis client connection
+	RedisClient client(redis_addr, conn_timeout, rw_timeout);
+	client.set_password("netbrain");
+
+	const char* key = "test_key";
+
+	// test redis STRING command
+	// bind redis_string command with redis connection
+	if (client.String().set(key, "test_value"))
+	{
+		std::string strValue;
+		if (client.String().get(key, strValue))
+		{
+			std::cout << "redis value:" << strValue.c_str() << std::endl;
+		}
+	}
+}
+
+int main()
+{
+	test_redis();
 }

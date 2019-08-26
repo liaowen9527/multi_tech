@@ -79,6 +79,18 @@ void xson_builder::append(const std::string& key, double val)
 	builder->append(bsoncxx::builder::basic::kvp(key, val));
 }
 
+void xson_builder::append(const char* str)
+{
+	auto builder = to_subarray(m_builder);
+	builder->append(str);
+}
+
+void xson_builder::append(const std::string& key, const char* str)
+{
+	auto builder = to_subdocument(m_builder);
+	builder->append(bsoncxx::builder::basic::kvp(key, str));
+}
+
 void xson_builder::append(const std::string& val)
 {
 	auto builder = to_subarray(m_builder);
@@ -103,16 +115,18 @@ void xson_builder::append(const std::string& key, bool val)
 	builder->append(bsoncxx::builder::basic::kvp(key, val));
 }
 
-void xson_builder::append(time_t val)
+void xson_builder::append(time_t msec)
 {
+	std::chrono::milliseconds temp(msec);
 	auto builder = to_subarray(m_builder);
-	builder->append(val);
+	builder->append(bsoncxx::types::b_date(temp));
 }
 
-void xson_builder::append(const std::string& key, time_t val)
+void xson_builder::append(const std::string& key, time_t msec)
 {
+	std::chrono::milliseconds temp(msec);
 	auto builder = to_subdocument(m_builder);
-	builder->append(bsoncxx::builder::basic::kvp(key, val));
+	builder->append(bsoncxx::builder::basic::kvp(key, bsoncxx::types::b_date(temp)));
 }
 
 void xson_builder::append(const xson& doc)

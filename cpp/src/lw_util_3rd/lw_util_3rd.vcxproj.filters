@@ -102,6 +102,27 @@
     <ClInclude Include="mongo\MongoQuery.h">
       <Filter>mongodb</Filter>
     </ClInclude>
+    <ClInclude Include="redis\RedisClient.h">
+      <Filter>redis</Filter>
+    </ClInclude>
+    <ClInclude Include="redis\RedisClientCluster.h">
+      <Filter>redis</Filter>
+    </ClInclude>
+    <ClInclude Include="redis\RedisString.h">
+      <Filter>redis</Filter>
+    </ClInclude>
+    <ClInclude Include="redis\RedisHash.h">
+      <Filter>redis</Filter>
+    </ClInclude>
+    <ClInclude Include="redis\AclStringHelper.h">
+      <Filter>redis</Filter>
+    </ClInclude>
+    <ClInclude Include="redis\RedisList.h">
+      <Filter>redis</Filter>
+    </ClInclude>
+    <ClInclude Include="redis\RedisSet.h">
+      <Filter>redis</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -145,6 +166,27 @@
     </ClCompile>
     <ClCompile Include="mongo\MongoQuery.cpp">
       <Filter>mongodb</Filter>
+    </ClCompile>
+    <ClCompile Include="redis\RedisClient.cpp">
+      <Filter>redis</Filter>
+    </ClCompile>
+    <ClCompile Include="redis\RedisClientCluster.cpp">
+      <Filter>redis</Filter>
+    </ClCompile>
+    <ClCompile Include="redis\RedisString.cpp">
+      <Filter>redis</Filter>
+    </ClCompile>
+    <ClCompile Include="redis\RedisHash.cpp">
+      <Filter>redis</Filter>
+    </ClCompile>
+    <ClCompile Include="redis\AclStringHelper.cpp">
+      <Filter>redis</Filter>
+    </ClCompile>
+    <ClCompile Include="redis\RedisList.cpp">
+      <Filter>redis</Filter>
+    </ClCompile>
+    <ClCompile Include="redis\RedisSet.cpp">
+      <Filter>redis</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

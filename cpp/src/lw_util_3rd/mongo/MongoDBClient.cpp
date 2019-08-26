@@ -170,12 +170,12 @@ bool MongoDBCollection::FindOne(const xson_view& query, xson& doc)
 	return true;
 }
 
-bool MongoDBCollection::InsertMany(const std::vector<xson>& docs)
+bool MongoDBCollection::InsertMany(const std::vector<xson_view>& docs)
 {
 	return false;
 }
 
-bool MongoDBCollection::InsertOne(const xson& doc)
+bool MongoDBCollection::InsertOne(const xson_view& doc)
 {
 	auto temp = GetCollection();
 	if (nullptr == temp)
@@ -183,19 +183,23 @@ bool MongoDBCollection::InsertOne(const xson& doc)
 		return false;
 	}
 
-	//mongocxx::collection& collection = get_collection(temp);
+	mongocxx::collection& collection = get_collection(temp);
 
-	//collection->insert_one(xson2bson(query));
+	auto result = collection.insert_one(to_bsonview(doc));
+	if (!result)
+	{
+		return false;
+	}
 
 	return true;
 }
 
-bool MongoDBCollection::DeleteMany(const xson& query)
+bool MongoDBCollection::DeleteMany(const xson_view& query)
 {
 	return false;
 }
 
-bool MongoDBCollection::DeleteOne(const xson& query)
+bool MongoDBCollection::DeleteOne(const xson_view& query)
 {
 	return false;
 }

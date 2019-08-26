@@ -4,6 +4,7 @@
 #include "lw_util.h"
 #include <string>
 #include <memory>
+#include <set>
 
 typedef enum {
 	LOG_INVALID = -1,
@@ -30,6 +31,8 @@ namespace lw_util {
 
 		static LogEntityPtr Create(const char* inst, const char* funcName, LogLevel nLevel, const char* format, ...);
 
+		std::string GetLogLevel();
+
 	protected:
 		static bool CanLog(const char* inst, LogLevel nLevel);
 
@@ -41,7 +44,7 @@ namespace lw_util {
 		time_t m_local;	//local utc time
 
 		std::string m_inst;	//log instance
-		std::string m_keywords;	//key words for search
+		std::set<std::string> m_keywords;	//key words for search
 		std::string m_function;	//function name
 		std::string m_message;	//log message
 	};

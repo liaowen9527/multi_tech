@@ -31,6 +31,7 @@ protected:
 protected:
 	std::shared_ptr<void> m_conn;
 };
+typedef std::shared_ptr<MongoDBClient> MongoDBClientPtr;
 
 
 class LWUtil3rd_API MongoDBCollection
@@ -44,11 +45,11 @@ public:
 	bool Find(const xson_view& query, std::function<void(xson_view&)> parse_doc);
 	bool FindOne(const xson_view& query, xson& doc);
 
-	bool InsertMany(const std::vector<xson>& docs);
-	bool InsertOne(const xson& doc);
+	bool InsertMany(const std::vector<xson_view>& docs);
+	bool InsertOne(const xson_view& doc);
 
-	bool DeleteMany(const xson& query);
-	bool DeleteOne(const xson& query);
+	bool DeleteMany(const xson_view& query);
+	bool DeleteOne(const xson_view& query);
 
 protected:
 	std::shared_ptr<void> GetCollection();
