@@ -29,10 +29,13 @@ public:
 	void init(const char* addr, int conn_timeout = 60, int rw_timeout = 30, bool retry = true);
 	
 	void set_password(const char* pass);
-	void set_timeout(int conn_timeout = 60, int rw_timeout = 30, bool retry = true);
+	void set_timeout(int conn_timeout = 60, int rw_timeout = 30);
 
 public:
 	RedisString String();
+	RedisList List();
+	RedisSet Set();
+	RedisHash Hash();
 
 protected:
 	acl::redis_client* m_redis_client;

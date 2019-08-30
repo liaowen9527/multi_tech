@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "redis/RedisClient.h"
+#include "redis/RedisClientCluster.h"
 
 
 void test_mongo()
@@ -71,8 +72,11 @@ void test_redis()
 	int conn_timeout = 10, rw_timeout = 10;
 
 	// the redis client connection
-	RedisClient client(redis_addr, conn_timeout, rw_timeout);
-	client.set_password("netbrain");
+	//RedisClient client(redis_addr, conn_timeout, rw_timeout);
+	//client.set_password("netbrain");
+	RedisClientCluster client;
+	client.set(redis_addr, conn_timeout, rw_timeout);
+	client.set_password(redis_addr, "netbrain");
 
 	const char* key = "test_key";
 

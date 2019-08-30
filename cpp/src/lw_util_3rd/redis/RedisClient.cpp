@@ -36,7 +36,7 @@ void RedisClient::set_password(const char* pass)
 	m_redis_client->set_password(pass);
 }
 
-void RedisClient::set_timeout(int conn_timeout /*= 60*/, int rw_timeout /*= 30*/, bool retry /*= true*/)
+void RedisClient::set_timeout(int conn_timeout /*= 60*/, int rw_timeout /*= 30*/)
 {
 	m_redis_client->set_timeout(conn_timeout, rw_timeout);
 }
@@ -44,4 +44,19 @@ void RedisClient::set_timeout(int conn_timeout /*= 60*/, int rw_timeout /*= 30*/
 RedisString RedisClient::String()
 {
 	return RedisString(this);
+}
+
+RedisList RedisClient::List()
+{
+	return RedisList(this);
+}
+
+RedisSet RedisClient::Set()
+{
+	return RedisSet(this);
+}
+
+RedisHash RedisClient::Hash()
+{
+	return RedisHash(this);
 }
