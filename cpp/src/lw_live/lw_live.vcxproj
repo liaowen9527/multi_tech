@@ -137,6 +137,37 @@
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="vt100\chars\screen_lines.cpp" />
+    <ClCompile Include="vt100\chars\scrollback.cpp" />
+    <ClCompile Include="vt100\chars\termchar.cpp" />
+    <ClCompile Include="vt100\chars\termchar_attr.cpp" />
+    <ClCompile Include="vt100\chars\termchar_attr_decode.cpp" />
+    <ClCompile Include="vt100\chars\termline.cpp" />
+    <ClCompile Include="vt100\conf\colours.cpp" />
+    <ClCompile Include="vt100\conf\conf.cpp" />
+    <ClCompile Include="vt100\control\control.cpp" />
+    <ClCompile Include="vt100\parser\argument.cpp" />
+    <ClCompile Include="vt100\parser\osc_string.cpp" />
+    <ClCompile Include="vt100\parser\parser.cpp" />
+    <ClCompile Include="vt100\parser\parser_base.cpp" />
+    <ClCompile Include="vt100\parser\parser_c0.cpp" />
+    <ClCompile Include="vt100\parser\parser_csi.cpp" />
+    <ClCompile Include="vt100\parser\parser_esc.cpp" />
+    <ClCompile Include="vt100\parser\parser_osc.cpp" />
+    <ClCompile Include="vt100\parser\parser_osc_maybe_st.cpp" />
+    <ClCompile Include="vt100\parser\parser_osc_p.cpp" />
+    <ClCompile Include="vt100\parser\parser_osc_string.cpp" />
+    <ClCompile Include="vt100\parser\parser_osc_w.cpp" />
+    <ClCompile Include="vt100\parser\parser_toplevel.cpp" />
+    <ClCompile Include="vt100\parser\parser_vt52_bg.cpp" />
+    <ClCompile Include="vt100\parser\parser_vt52_esc.cpp" />
+    <ClCompile Include="vt100\parser\parser_vt52_fg.cpp" />
+    <ClCompile Include="vt100\parser\parser_vt52_y1.cpp" />
+    <ClCompile Include="vt100\parser\parser_vt52_y2.cpp" />
+    <ClCompile Include="vt100\screen.cpp" />
+    <ClCompile Include="vt100\terminal.cpp" />
+    <ClCompile Include="vt100\utf8\convert.cpp" />
+    <ClCompile Include="vt100\utf8\utf8_decode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lw_live.def" />
@@ -151,6 +182,39 @@
     <ClInclude Include="live_param.h" />
     <ClInclude Include="lw_live.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="vt100\chars\screen_lines.h" />
+    <ClInclude Include="vt100\chars\scrollback.h" />
+    <ClInclude Include="vt100\chars\termchar.h" />
+    <ClInclude Include="vt100\chars\termchar_attr.h" />
+    <ClInclude Include="vt100\chars\termchar_attr_decode.h" />
+    <ClInclude Include="vt100\chars\termline.h" />
+    <ClInclude Include="vt100\conf\colours.h" />
+    <ClInclude Include="vt100\conf\conf.h" />
+    <ClInclude Include="vt100\control\control.h" />
+    <ClInclude Include="vt100\parser\argument.h" />
+    <ClInclude Include="vt100\parser\osc_string.h" />
+    <ClInclude Include="vt100\parser\parser.h" />
+    <ClInclude Include="vt100\parser\parser_base.h" />
+    <ClInclude Include="vt100\parser\parser_c0.h" />
+    <ClInclude Include="vt100\parser\parser_csi.h" />
+    <ClInclude Include="vt100\parser\parser_esc.h" />
+    <ClInclude Include="vt100\parser\parser_osc.h" />
+    <ClInclude Include="vt100\parser\parser_osc_maybe_st.h" />
+    <ClInclude Include="vt100\parser\parser_osc_p.h" />
+    <ClInclude Include="vt100\parser\parser_osc_string.h" />
+    <ClInclude Include="vt100\parser\parser_osc_w.h" />
+    <ClInclude Include="vt100\parser\parser_toplevel.h" />
+    <ClInclude Include="vt100\parser\parser_vt52_bg.h" />
+    <ClInclude Include="vt100\parser\parser_vt52_esc.h" />
+    <ClInclude Include="vt100\parser\parser_vt52_fg.h" />
+    <ClInclude Include="vt100\parser\parser_vt52_y1.h" />
+    <ClInclude Include="vt100\parser\parser_vt52_y2.h" />
+    <ClInclude Include="vt100\parser\termstate.h" />
+    <ClInclude Include="vt100\screen.h" />
+    <ClInclude Include="vt100\terminal.h" />
+    <ClInclude Include="vt100\utf8\convert.h" />
+    <ClInclude Include="vt100\utf8\utf8_decode.h" />
+    <ClInclude Include="vt100\vt_type.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

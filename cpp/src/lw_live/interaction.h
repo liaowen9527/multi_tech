@@ -9,6 +9,7 @@
 #include "vtcharfilter.h"
 #include "client.h"
 #include "destination.h"
+#include "vt100/terminal.h"
 
 namespace lw_live {
 
@@ -70,6 +71,8 @@ namespace lw_live {
 	protected:
 		CVtCharFilter m_filter;
 		int m_offsetRow;
+
+		terminal m_terminal;
 
 	protected:
 		std::string m_strDataFolder;

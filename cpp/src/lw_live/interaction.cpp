@@ -161,6 +161,9 @@ namespace lw_live {
 	
 	void Interaction::WriteData(const char* str, int count)
 	{
+		m_terminal.get_parser()->parse(str, count);
+		std::wstring wstr = m_terminal.get_screen()->get_lines()->get_string();
+
 		m_filter.Parse(str, count);
 
 		int nClipLines = 0;
