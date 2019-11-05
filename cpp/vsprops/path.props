@@ -27,8 +27,8 @@
 	<redis_lib>lib_acl.lib;lib_acl_cpp.lib;Gdi32.lib;User32.lib</redis_lib>
 	
 	<!-->depends libs<-->
-    <lw_util_include></lw_util_include>
-    <lw_util_lib></lw_util_lib>
+    <lw_util_include>$(LwUtilFolder)lw_util_3rd;</lw_util_include>
+    <lw_util_lib>lw_util_3rd.lib;</lw_util_lib>
 	<lw_util_3rd_include>$(mongo_include);$(third_include)\redis</lw_util_3rd_include>
     <lw_util_3rd_lib>$(mongo_lib);$(redis_lib)</lw_util_3rd_lib>
 	<lw_putty_include>$(third_include)putty-src;$(third_include)putty-src\charset;$(third_include)putty-src\windows;$(third_include)putty-src\unix;</lw_putty_include>

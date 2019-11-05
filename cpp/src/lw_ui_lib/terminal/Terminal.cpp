@@ -15,6 +15,7 @@ namespace lw_ui
 		m_pPaintManager = new TerminalPaintManager(this);
 		m_pDelegate = NULL;
 		m_vscrollPos = 0;
+		m_bSelection = FALSE;
 	}
 
 	CTerminal::~CTerminal()

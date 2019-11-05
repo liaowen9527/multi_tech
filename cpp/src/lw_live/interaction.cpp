@@ -1,7 +1,7 @@
 #include "interaction.h"
 #include <sstream>
 #include <fstream>
-#include "log/logger_define.h"
+#include "log/easylog.h"
 #include "std/guid.h"
 #include "putty_gen.h"
 #include "live_client_handler.h"

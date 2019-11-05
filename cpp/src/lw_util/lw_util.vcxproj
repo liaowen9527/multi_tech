@@ -131,6 +131,10 @@
     <ClCompile Include="log\log_config.cpp" />
     <ClCompile Include="log\log_entity.cpp" />
     <ClCompile Include="log\logger.cpp" />
+    <ClCompile Include="net\callback.cpp" />
+    <ClCompile Include="net\config.cpp" />
+    <ClCompile Include="security\encrypter.cpp" />
+    <ClCompile Include="security\zipper.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -150,6 +154,11 @@
     <ClInclude Include="log\easylog.h" />
     <ClInclude Include="log\log_entity.h" />
     <ClInclude Include="log\logger.h" />
+    <ClInclude Include="net\callback.h" />
+    <ClInclude Include="net\config.h" />
+    <ClInclude Include="net\define.h" />
+    <ClInclude Include="security\encrypter.h" />
+    <ClInclude Include="security\zipper.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="std\find_safe_ptr.h" />
     <ClInclude Include="std\sortable_shared_ptr.h" />
@@ -160,6 +169,8 @@
     <ClInclude Include="std\tree.h" />
     <ClInclude Include="thread\multi_thread_wrapper.h" />
     <ClInclude Include="lw_util.h" />
+    <ClInclude Include="thread\safe\dictionary.hpp" />
+    <ClInclude Include="thread\safe\queue.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lw_util.def" />

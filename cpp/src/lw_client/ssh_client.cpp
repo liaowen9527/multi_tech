@@ -1,6 +1,6 @@
 #include "ssh_client.h"
 #include "ssh_client_param.h"
-#include "lw_util/log/logger_define.h"
+#include "lw_util/log/easylog.h"
 
 namespace lw_client {
 

@@ -34,6 +34,24 @@
     <Filter Include="log">
       <UniqueIdentifier>{9b882844-af86-4611-8a60-e8c26cb2da76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="net\tcp">
+      <UniqueIdentifier>{103dbc8c-3743-4808-814f-8597a53ca851}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="net\udp">
+      <UniqueIdentifier>{f4a65a9f-f05b-4ed7-8830-7b80469cd7d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="net\http">
+      <UniqueIdentifier>{3f39a8d8-78b3-49ae-b2c4-d8b8bc748621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="net\ftp">
+      <UniqueIdentifier>{cea5299b-2aba-4984-95de-77b7cde269b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="security">
+      <UniqueIdentifier>{6bdd83cc-8df9-4b8c-9715-713acb0d32be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thread\safe">
+      <UniqueIdentifier>{152fedba-eac6-4010-849c-ba3a798c0652}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="thread\multi_thread_wrapper.cpp">
@@ -54,9 +72,6 @@
     <ClCompile Include="filesystem\filelist.cpp">
       <Filter>filesystem</Filter>
     </ClCompile>
-    <ClCompile Include="std\guid.cpp">
-      <Filter>filesystem</Filter>
-    </ClCompile>
     <ClCompile Include="filesystem\interface_svr.cpp">
       <Filter>filesystem</Filter>
     </ClCompile>
@@ -74,6 +89,21 @@
     </ClCompile>
     <ClCompile Include="log\log_config.cpp">
       <Filter>log</Filter>
+    </ClCompile>
+    <ClCompile Include="security\encrypter.cpp">
+      <Filter>security</Filter>
+    </ClCompile>
+    <ClCompile Include="security\zipper.cpp">
+      <Filter>security</Filter>
+    </ClCompile>
+    <ClCompile Include="std\guid.cpp">
+      <Filter>std</Filter>
+    </ClCompile>
+    <ClCompile Include="net\config.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="net\callback.cpp">
+      <Filter>net</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,9 +126,6 @@
       <Filter>std</Filter>
     </ClInclude>
     <ClInclude Include="filesystem\filelist.h">
-      <Filter>filesystem</Filter>
-    </ClInclude>
-    <ClInclude Include="std\guid.h">
       <Filter>filesystem</Filter>
     </ClInclude>
     <ClInclude Include="filesystem\interface_svr.h">
@@ -133,6 +160,30 @@
     </ClInclude>
     <ClInclude Include="log\logger_impl.h">
       <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="security\encrypter.h">
+      <Filter>security</Filter>
+    </ClInclude>
+    <ClInclude Include="security\zipper.h">
+      <Filter>security</Filter>
+    </ClInclude>
+    <ClInclude Include="thread\safe\queue.hpp">
+      <Filter>thread\safe</Filter>
+    </ClInclude>
+    <ClInclude Include="thread\safe\dictionary.hpp">
+      <Filter>thread\safe</Filter>
+    </ClInclude>
+    <ClInclude Include="std\guid.h">
+      <Filter>std</Filter>
+    </ClInclude>
+    <ClInclude Include="net\config.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\callback.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\define.h">
+      <Filter>net</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

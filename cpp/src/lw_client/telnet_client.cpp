@@ -1,6 +1,6 @@
 #include "telnet_client.h"
 #include "telnet_client_param.h"
-#include "lw_util/log/logger_define.h"
+#include "lw_util/log/easylog.h"
 
 namespace lw_client {
 
