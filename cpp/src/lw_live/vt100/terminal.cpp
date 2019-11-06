@@ -1,4 +1,5 @@
 #include "terminal.h"
+#include <assert.h>
 
 terminal::terminal()
 {
@@ -230,7 +231,14 @@ bool terminal::find_next_tab(int from_col, int& end_col)
 
 void terminal::set_a_tab(int col, bool val)
 {
-	m_tabs[col] = val;
+	if (0 <= col && col < m_tabs.size())
+	{
+		m_tabs[col] = val;
+	}
+	else
+	{
+		assert(false);
+	}
 }
 
 bool terminal::is_support_utf()

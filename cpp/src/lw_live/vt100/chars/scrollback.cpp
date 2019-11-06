@@ -33,7 +33,7 @@ void scrollback::push_back(termline_ptr line)
 {
 	while (m_lines.size() >= m_max_lines)
 	{
-		m_lines.pop_back();
+		m_lines.pop_front();
 	}
 	
 	m_lines.push_back(line);

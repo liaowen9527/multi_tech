@@ -82,6 +82,7 @@ namespace lw_ui
 
 		CRect rcText = rcClient;
 		rcText.left += m_nLineNumLength + 4;
+		rcText.top += 3;
 		pTextProcessor->SetTextRect(rcText);
 	}
 

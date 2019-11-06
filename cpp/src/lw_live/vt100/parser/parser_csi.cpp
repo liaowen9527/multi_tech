@@ -204,6 +204,10 @@ void parser_csi::parser_0(char ch)
 		int arg = arg_list->get_arg(0, 1);
 		if (arg == 3)
 		{
+			if (!get_conf()->is_no_remote_charset())
+			{
+				m_term->clear_sb();
+			}
 		}
 		else
 		{

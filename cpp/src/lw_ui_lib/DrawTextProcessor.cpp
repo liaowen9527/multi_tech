@@ -187,7 +187,7 @@ int CDrawTextProcessor::GetColPosX(const CString& strLine, int nCol)
 		else
 		{
 			nOffsetX = pDC->GetTextExtent(strLine).cx;
-			nOffsetX += std::max<int>(GetSpaceWidth(), 8);
+			nOffsetX += std::max<int>(GetSpaceWidth(), 8) * (nCol - strLine.GetLength());
 		}
 	}
 
