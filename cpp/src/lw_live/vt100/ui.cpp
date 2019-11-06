@@ -5,6 +5,7 @@ ui::ui()
 	m_rows = 0;
 	m_cols = 0;
 	m_disptop = 0;
+	m_alt_sblines = 0;
 }
 
 ui::~ui()
@@ -40,4 +41,14 @@ int ui::get_disptop()
 void ui::set_disptop(int top)
 {
 	m_disptop = top;
+}
+
+int ui::get_alt_sblines()
+{
+	return m_alt_sblines;
+}
+
+void ui::set_alt_sblines(int lines)
+{
+	m_alt_sblines = lines;
 }

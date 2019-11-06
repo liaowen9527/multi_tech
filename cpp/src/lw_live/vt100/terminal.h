@@ -32,7 +32,7 @@ public:
 	scrollback* get_sb();
 	screen* get_screen();
 	screen* get_altscreen();
-	bool had_alt_screen();
+	bool has_alt_screen();
 	termline_ptr get_termline(int nline);
 
 	int get_sblines();
@@ -65,6 +65,7 @@ public:
 	void resize(int rows, int cols);
 	void restore_attr();
 	void swap_screen(int witch, bool reset, bool keep_cur_pos);
+	void clear_sb();
 	void preline();
 	void nextline();
 	void inset_lines(int nlines);
@@ -82,7 +83,7 @@ protected:
 
 	scrollback m_sb;
 	std::vector<screen> m_screens;
-	int m_alt_which;
+	int m_which;
 
 	ui m_ui;
 

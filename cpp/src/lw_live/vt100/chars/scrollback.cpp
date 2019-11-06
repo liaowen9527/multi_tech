@@ -46,3 +46,8 @@ termline_ptr scrollback::pop_back()
 
 	return line;
 }
+
+void scrollback::clear()
+{
+	m_lines.clear();
+}

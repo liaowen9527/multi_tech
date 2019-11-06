@@ -96,11 +96,44 @@ void control::display_graphic_char(termchar* pchr)
 {
 	screen* sc = m_term->get_screen();
 	cursor curs = sc->get_cursor();
-
 	termline_ptr line = sc->get_lines()->get_line(curs.row);
+
+	//line wrapnext
+	if (sc->is_wrap_next() && sc->can_wrap())
+	{
+		line->set_wrapnext(true);
+		m_term->nextline();
+		sc->set_curs_col(0);
+		sc->set_wrap_next(true);
+		
+		curs = sc->get_cursor();
+		line = sc->get_lines()->get_line(curs.row);
+	}
+
+	//write char
 	curs.col = copy_termchar(line.get(), curs.col, pchr);
 
-	sc->set_cursor(curs);
+	//tip you may be need wrapnext
+	int linecols = m_term->get_cols();
+	if (curs.col >= linecols)
+	{
+		curs.col = linecols - 1;
+		sc->set_cursor(curs);
+
+		sc->set_wrap_next(true);
+		if (sc->can_wrap() && get_conf()->is_vt52mode()) 
+		{
+			line->set_wrapnext(true);
+			m_term->nextline();
+			
+			sc->set_curs_col(0);
+			sc->set_wrap_next(false);
+		}
+	}
+	else
+	{
+		sc->set_cursor(curs);
+	}
 }
 
 int control::copy_termchar(termline* line, int col, termchar* pchr)

@@ -15,6 +15,7 @@ public:
 
 	void push_back(termline_ptr line);
 	termline_ptr pop_back();
+	void clear();
 
 protected:
 	std::deque<termline_ptr> m_lines;

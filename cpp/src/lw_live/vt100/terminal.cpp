@@ -3,7 +3,7 @@
 terminal::terminal()
 {
 	m_compatibility_level = VT100;
-	m_alt_which = 1;
+	m_which = 0;
 	
 	m_ctrl.set_term(this);
 	m_parser.set_term(this);	
@@ -86,17 +86,17 @@ scrollback* terminal::get_sb()
 
 screen* terminal::get_screen()
 {
-	return m_alt_which == 0 ? &m_screens[1] : &m_screens[0];
+	return &m_screens[m_which];
 }
 
 screen* terminal::get_altscreen()
 {
-	return nullptr;
+	return m_which == 1 ? &m_screens[0] : &m_screens[1];
 }
 
-bool terminal::had_alt_screen()
+bool terminal::has_alt_screen()
 {
-	return m_alt_which == 0;
+	return m_which != 0;
 }
 
 termline_ptr terminal::get_termline(int nline)
@@ -125,9 +125,9 @@ int terminal::get_sblines()
 	screen* altsc = get_altscreen();
 
 	int count = sb->get_rows();
-	if (altsc && had_alt_screen())
+	if (altsc && has_alt_screen())
 	{
-		count += altsc->get_lines()->get_rows();
+		count += m_ui.get_alt_sblines();
 	}
 
 	return count;
@@ -270,18 +270,32 @@ void terminal::restore_attr()
 
 void terminal::swap_screen(int witch, bool reset, bool keep_cur_pos)
 {
-	if (witch == m_alt_which)
+	if (witch == m_which)
 	{
 		return;
 	}
 
-	m_alt_which = witch;
+	m_which = witch;
 	if (witch == 0)
 	{
 		reset = false;
 	}
 
+	screen* sc = get_screen();
+	screen* altsc = get_altscreen();
 	
+	m_ui.set_alt_sblines(altsc->get_lines()->find_last_nonempty_line());
+	sc->swap_screen(altsc, reset, keep_cur_pos);
+
+	std::wstring str = sc->get_lines()->get_line(0)->get_string();
+	std::wstring altstr = altsc->get_lines()->get_line(0)->get_string();
+}
+
+void terminal::clear_sb()
+{
+	m_sb.clear();
+	m_ui.set_disptop(0);
+	m_ui.set_alt_sblines(0);
 }
 
 void terminal::preline()
@@ -353,7 +367,7 @@ void terminal::scroll(margin marg, int lines, bool sb)
 
 	//if magin.top is not 0, we not need to scroll
 	//if alt screen, can not save lines to scroll back
-	if (marg.top != 0 || had_alt_screen())
+	if (marg.top != 0 || has_alt_screen())
 	{
 		sb = false;
 	}

@@ -42,25 +42,25 @@ void screen::swap_screen(screen* alt_screen, bool reset, bool keep_cur_pos)
 {
 	if (reset)
 	{
-		alt_screen->m_curs = m_curs;
-		alt_screen->m_savecurs = m_savecurs;
+		m_curs = alt_screen->m_curs;
+		m_savecurs = alt_screen->m_savecurs;
 
-		alt_screen->m_marg = m_marg;
+		m_marg = alt_screen->m_marg;
 
-		alt_screen->m_utf = m_utf;
-		alt_screen->m_save_utf = m_save_utf;
-		alt_screen->m_wrap = m_wrap;
-		alt_screen->m_wrapnext = m_wrapnext;
-		alt_screen->m_save_wnext = m_save_wnext;
-		alt_screen->m_insert = m_insert;
+		m_utf = alt_screen->m_utf;
+		m_save_utf = alt_screen->m_save_utf;
+		m_wrap = alt_screen->m_wrap;
+		m_wrapnext = alt_screen->m_wrapnext;
+		m_save_wnext = alt_screen->m_save_wnext;
+		m_insert = alt_screen->m_insert;
 
-		alt_screen->m_cset = m_cset;
-		alt_screen->m_save_cset = m_save_cset;
-		alt_screen->m_save_csattr = m_save_csattr;
-		alt_screen->m_save_attr = m_save_attr;
+		m_cset = alt_screen->m_cset;
+		m_save_cset = alt_screen->m_save_cset;
+		m_save_csattr = alt_screen->m_save_csattr;
+		m_save_attr = alt_screen->m_save_attr;
 
-		alt_screen->m_sco_acs = m_sco_acs;
-		alt_screen->m_save_sco_acs = m_save_sco_acs;
+		m_sco_acs = alt_screen->m_sco_acs;
+		m_save_sco_acs = alt_screen->m_save_sco_acs;
 	}
 	else
 	{
@@ -77,16 +77,16 @@ void screen::swap_screen(screen* alt_screen, bool reset, bool keep_cur_pos)
 		
 		if (keep_cur_pos)
 		{
-			alt_screen->m_curs = m_curs;
-			alt_screen->m_savecurs = m_savecurs;
-			alt_screen->m_save_utf = m_save_utf;
-			alt_screen->m_save_wnext = m_save_wnext;
+			m_curs = alt_screen->m_curs;
+			m_savecurs = alt_screen->m_savecurs;
+			m_save_utf = alt_screen->m_save_utf;
+			m_save_wnext = alt_screen->m_save_wnext;
 
-			alt_screen->m_save_cset = m_save_cset;
-			alt_screen->m_save_csattr = m_save_csattr;
-			alt_screen->m_save_attr = m_save_attr;
+			m_save_cset = alt_screen->m_save_cset;
+			m_save_csattr = alt_screen->m_save_csattr;
+			m_save_attr = alt_screen->m_save_attr;
 
-			alt_screen->m_save_sco_acs = m_save_sco_acs;
+			m_save_sco_acs = alt_screen->m_save_sco_acs;
 		}
 		else
 		{
