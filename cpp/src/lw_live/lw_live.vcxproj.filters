@@ -156,6 +156,12 @@
     <ClCompile Include="vt100\terminal.cpp">
       <Filter>vt100</Filter>
     </ClCompile>
+    <ClCompile Include="vt100\vt_terminal.cpp">
+      <Filter>vt100</Filter>
+    </ClCompile>
+    <ClCompile Include="vt100\ui.cpp">
+      <Filter>vt100</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lw_live.def">
@@ -287,6 +293,12 @@
       <Filter>vt100</Filter>
     </ClInclude>
     <ClInclude Include="vt100\vt_type.h">
+      <Filter>vt100</Filter>
+    </ClInclude>
+    <ClInclude Include="vt100\vt_terminal.h">
+      <Filter>vt100</Filter>
+    </ClInclude>
+    <ClInclude Include="vt100\ui.h">
       <Filter>vt100</Filter>
     </ClInclude>
   </ItemGroup>

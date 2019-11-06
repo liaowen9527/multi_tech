@@ -212,6 +212,10 @@ void parser_csi::parser_0(char ch)
 			bool to_end = !!(arg & 1);
 			get_control()->erase_lots(false, from_beg, to_end);
 		}
+		if (get_conf()->is_scroll_on_disp())
+		{
+			m_term->get_ui()->set_disptop(0);
+		}
 		break;
 	}
 	case 'K':       /* EL: erase line or parts of it */

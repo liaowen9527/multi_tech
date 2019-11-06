@@ -405,6 +405,10 @@ void control::toggle_mode_1(int mode, bool state)
 		{
 			int witch = get_conf()->is_no_alt_screen() ? 0 : state;
 			m_term->swap_screen(witch, false, false);
+			if (get_conf()->is_scroll_on_disp())
+			{
+				m_term->get_ui()->set_disptop(0);
+			}
 		}
 		break;
 	case 1000:                   /* xterm mouse 1 (normal) */
@@ -420,6 +424,10 @@ void control::toggle_mode_1(int mode, bool state)
 		{
 			int witch = get_conf()->is_no_alt_screen() ? 0 : state;
 			m_term->swap_screen(witch, true, true);
+			if (get_conf()->is_scroll_on_disp())
+			{
+				m_term->get_ui()->set_disptop(0);
+			}
 		}
 		break;
 	case 1048:                   /* save/restore cursor */
@@ -446,6 +454,11 @@ void control::toggle_mode_1(int mode, bool state)
 		if (!state && !get_conf()->is_no_alt_screen())
 		{
 			save_cursor(state);
+		}
+
+		if (get_conf()->is_scroll_on_disp())
+		{
+			m_term->get_ui()->set_disptop(0);
 		}
 
 		break;

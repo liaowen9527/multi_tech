@@ -17,6 +17,9 @@ public:
 	virtual int GetTotalLines() = 0;
 
 	virtual CString GetWindowText(const CPoint& ptStart, const CPoint& ptEnd) = 0;
+	virtual void GetCursorPos(int& row, int& col) = 0;
+	virtual int GetVScrollBottom() = 0;
+	virtual void SetVScrollBottom(int bottom) = 0;
 
 public:
 	virtual bool OnChar(UINT nChar, UINT nRepCnt, UINT nFlags) { return false; }
@@ -35,6 +38,7 @@ public:
 
 	TerminalDelegate* GetDelegate();
 	void SetDelegate(TerminalDelegate* pDelegate);
+	void SyncFromDelegate();
 
 	void SetCurPos(int row, int col, BOOL bForceVisible = TRUE);
 	void SelectWords(CPoint ptStart, CPoint ptEnd);
@@ -91,6 +95,9 @@ protected:
 	CRect GetVisibleRect(CDC* pDC, int nRow, int nCol);
 	CRect GetVisibleRect(CDC* pDC, int nRow, int nCol1, int nCol2);
 
+	int GetVscrollPos();
+	void SetVscrollPos(int vpos, bool backend = true);
+
 private:
 	std::mutex m_mutex;
 
@@ -103,6 +110,7 @@ private:
 	BOOL m_bSelection;
 
 	int m_vscrollPos;
+	int m_visibleLines;
 	
 	std::map<time_t, std::function<void()>> m_jobs;
 };

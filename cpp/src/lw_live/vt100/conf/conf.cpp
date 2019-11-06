@@ -6,6 +6,7 @@ conf::conf()
 	m_use_bce = true;
 	m_vt52_mode = false;
 
+	m_scroll_on_disp = true;
 	m_blink_text = false;
 	m_blink_is_real = false;
 	m_no_remote_charset = false;
@@ -105,6 +106,11 @@ bool conf::is_cr_lf_return()
 void conf::set_cr_lf_return(bool val)
 {
 	m_cr_lf_return = val;
+}
+
+bool conf::is_scroll_on_disp()
+{
+	return m_scroll_on_disp;
 }
 
 bool conf::can_blink_text()

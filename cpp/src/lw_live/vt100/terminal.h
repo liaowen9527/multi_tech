@@ -7,6 +7,7 @@
 #include "conf/conf.h"
 #include "chars/scrollback.h"
 #include "vt_type.h"
+#include "ui.h"
 
 class terminal
 {
@@ -30,8 +31,14 @@ public:
 
 	scrollback* get_sb();
 	screen* get_screen();
+	screen* get_altscreen();
 	bool had_alt_screen();
+	termline_ptr get_termline(int nline);
 
+	int get_sblines();
+	int get_lines();
+
+	ui* get_ui();
 	int get_rows();
 	int get_cols();
 
@@ -77,8 +84,7 @@ protected:
 	std::vector<screen> m_screens;
 	int m_alt_which;
 
-	int m_rows;
-	int m_cols;
+	ui m_ui;
 
 	std::vector<bool> m_tabs;
 

@@ -15,6 +15,7 @@ namespace lw_ui
 		m_pPaintManager = new TerminalPaintManager(this);
 		m_pDelegate = NULL;
 		m_vscrollPos = 0;
+		m_visibleLines = 0;
 		m_bSelection = FALSE;
 	}
 
@@ -80,6 +81,24 @@ namespace lw_ui
 		m_pDelegate = pDelegate;
 	}
 
+
+	void CTerminal::SyncFromDelegate()
+	{
+		if (nullptr == m_pDelegate)
+		{
+			return;
+		}
+
+		int row = 0;
+		int col = 0;
+		m_pDelegate->GetCursorPos(row, col);
+		SetCurPos(row, col, FALSE);
+
+		SetVscrollPos(m_pDelegate->GetVScrollBottom() - m_visibleLines, false);
+
+		Invalidate(TRUE);
+	}
+
 	void CTerminal::SetCurPos(int row, int col, BOOL bForceVisible/* = TRUE*/)
 	{
 		m_curPos.y = row;
@@ -122,7 +141,7 @@ namespace lw_ui
 
 	void CTerminal::ScrollToLine(int nLine)
 	{
-		if (nLine == m_vscrollPos)
+		if (nLine == GetVscrollPos())
 		{
 			return;
 		}
@@ -137,9 +156,9 @@ namespace lw_ui
 		nLine = std::min<int>(nLine, info.nMax + 1 - info.nPage);
 		nLine = std::max<int>(nLine, info.nMin);
 
-		m_vscrollPos = nLine;
+		SetVscrollPos(nLine);
 
-		SetScrollPos(SB_VERT, m_vscrollPos);
+		SetScrollPos(SB_VERT, GetVscrollPos());
 
 		Invalidate();
 	}
@@ -382,7 +401,7 @@ namespace lw_ui
 		GetClientRect(&rcClient);
 
 		int nOffset = (int)zDelta * (int)info.nPage / rcClient.Height();
-		int nPos = m_vscrollPos - nOffset;
+		int nPos = GetVscrollPos() - nOffset;
 		
 		ScrollToLine(nPos);
 
@@ -405,7 +424,7 @@ namespace lw_ui
 
 		GetScrollInfo(SB_VERT, &info);
 
-		int iPos = m_vscrollPos;
+		int iPos = GetVscrollPos();
 
 		switch (nSBCode) {
 		case SB_LINEDOWN:
@@ -462,7 +481,7 @@ namespace lw_ui
 
 		GetScrollInfo(SB_VERT, &info);
 
-		int iPos = m_vscrollPos;
+		int iPos = GetVscrollPos();
 		switch (nChar)
 		{
 		case VK_UP:
@@ -503,13 +522,13 @@ namespace lw_ui
 
 	void CTerminal::GetVisibleLines(int& nFirst, int& nLast)
 	{
-		nFirst = m_vscrollPos;
+		nFirst = GetVscrollPos();
 
 		int nLines = GetVisibleRowsCount();
-		//int nMaxLine = GetMaxLines();
-		int nMaxLine = m_pDelegate->GetTotalLines();
+		int nMaxLine = GetMaxLines();
+		//int nMaxLine = m_pDelegate->GetTotalLines();
 
-		nLast = std::min<int>(m_vscrollPos + nLines, nMaxLine);
+		nLast = std::min<int>(GetVscrollPos() + nLines, nMaxLine);
 		nLast -= 1;
 	}
 
@@ -564,6 +583,7 @@ namespace lw_ui
 		int nLines = GetVisibleRowsCount(FALSE);
 		int nMaxLine = GetMaxLines();
 
+		m_visibleLines = nLines;
 		if (nMaxLine <= nLines)
 		{
 			EnableScrollBarCtrl(SB_VERT, FALSE);
@@ -581,7 +601,7 @@ namespace lw_ui
 		info.nMin = 0;
 		info.nMax = nMaxLine - 1;
 		info.nPage = nLines;
-		info.nPos = m_vscrollPos;
+		info.nPos = GetVscrollPos();
 
 		SetScrollInfo(SB_VERT, &info);
 		EnableScrollBarCtrl(SB_VERT, TRUE);
@@ -657,7 +677,7 @@ namespace lw_ui
 			return FALSE;
 		}
 
-		rnRow += m_vscrollPos;
+		rnRow += GetVscrollPos();
 
 		CString strLine = m_pDelegate->GetLineText(rnRow);
 		if (!pTextProcessor->HitTestCol(strLine, pt.x, rnCol))
@@ -673,8 +693,8 @@ namespace lw_ui
 		CDrawTextProcessor* pTextProcessor = m_pPaintManager->GetTextProcessor();
 		CRect rcText = pTextProcessor->GetTextRect();
 
-		int nFirstRow = std::max<int>(0, nRow - m_vscrollPos);
-		int nLastRow = std::max<int>(0, nRow - m_vscrollPos + nRowCount);
+		int nFirstRow = std::max<int>(0, nRow - GetVscrollPos());
+		int nLastRow = std::max<int>(0, nRow - GetVscrollPos() + nRowCount);
 		int nRowHeight = pTextProcessor->GetRowHeight();
 
 		CRect rc;
@@ -715,6 +735,20 @@ namespace lw_ui
 		rc.right = pTextProcessor->GetColPosX(strLine, nCol2);
 
 		return rc;
+	}
+
+	int CTerminal::GetVscrollPos()
+	{
+		return m_vscrollPos;
+	}
+
+	void CTerminal::SetVscrollPos(int vpos, bool backend /*= true*/)
+	{
+		m_vscrollPos = std::max<int>(0, vpos);
+		if (backend && m_pDelegate)
+		{
+			m_pDelegate->SetVScrollBottom(vpos + m_visibleLines);
+		}
 	}
 
 }

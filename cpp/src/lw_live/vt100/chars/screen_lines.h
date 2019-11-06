@@ -10,6 +10,7 @@ public:
 
 public:
 	void resize(int rows, int cols);
+	int get_rows();
 
 	termline_ptr get_line(int row);
 	termline_ptr front();

@@ -33,6 +33,7 @@ public:
 	void set_cr_lf_return(bool val);
 
 public:
+	bool is_scroll_on_disp();
 	bool can_blink_text();
 
 	bool is_crhaslf();
@@ -53,6 +54,7 @@ protected:
 	bool m_no_alt_screen;
 	bool m_erase_to_scrollback;
 
+	bool m_scroll_on_disp;
 	bool m_blink_text;
 	bool m_blink_is_real;
 	bool m_no_remote_charset;

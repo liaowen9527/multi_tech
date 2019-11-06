@@ -41,6 +41,11 @@ namespace lw_live {
 		m_displayPtr = displayPtr;
 	}
 
+	vt_terminal* Interaction::GetTerminal()
+	{
+		return &m_terminal;
+	}
+
 	DestinationPtr Interaction::GetDestination()
 	{
 		return m_destPtr;
@@ -161,8 +166,8 @@ namespace lw_live {
 	
 	void Interaction::WriteData(const char* str, int count)
 	{
-		m_terminal.get_parser()->parse(str, count);
-		std::wstring wstr = m_terminal.get_screen()->get_lines()->get_string();
+		m_terminal.parse(str, count);
+		std::wstring wstr = m_terminal.get_all_text();
 
 		m_filter.Parse(str, count);
 

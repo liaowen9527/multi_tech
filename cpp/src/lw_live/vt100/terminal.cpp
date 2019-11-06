@@ -7,6 +7,7 @@ terminal::terminal()
 	
 	m_ctrl.set_term(this);
 	m_parser.set_term(this);	
+	
 	resize(24, 80);
 }
 
@@ -88,19 +89,71 @@ screen* terminal::get_screen()
 	return m_alt_which == 0 ? &m_screens[1] : &m_screens[0];
 }
 
+screen* terminal::get_altscreen()
+{
+	return nullptr;
+}
+
 bool terminal::had_alt_screen()
 {
 	return m_alt_which == 0;
 }
 
+termline_ptr terminal::get_termline(int nline)
+{
+	screen* sc = get_screen();
+	if (nline >= 0)
+	{
+		return sc->get_lines()->get_line(nline);
+	}
+
+	screen* alt_screen = get_altscreen();
+	int n = get_sblines() + nline;
+	int sbrows = m_sb.get_rows();
+	if (n < sbrows)
+	{
+		return m_sb.get_line(n);
+	}
+
+	n -= sbrows;
+	return alt_screen->get_lines()->get_line(n);
+}
+
+int terminal::get_sblines()
+{
+	scrollback* sb = get_sb();
+	screen* altsc = get_altscreen();
+
+	int count = sb->get_rows();
+	if (altsc && had_alt_screen())
+	{
+		count += altsc->get_lines()->get_rows();
+	}
+
+	return count;
+}
+
+int terminal::get_lines()
+{
+	screen* sc = get_screen();
+	int count = sc->get_lines()->get_rows();
+
+	return count + get_sblines();
+}
+
+ui* terminal::get_ui()
+{
+	return &m_ui;
+}
+
 int terminal::get_rows()
 {
-	return m_rows;
+	return m_ui.get_rows();
 }
 
 int terminal::get_cols()
 {
-	return m_cols;
+	return m_ui.get_cols();
 }
 
 int terminal::get_charset(int index)
@@ -192,8 +245,8 @@ void terminal::support_utf(bool val)
 
 void terminal::resize(int rows, int cols)
 {
-	m_rows = rows;
-	m_cols = cols;
+	m_ui.set_rows(rows);
+	m_ui.set_cols(cols);
 
 	margin marg;
 	marg.top = 0;
@@ -318,6 +371,13 @@ void terminal::scroll(margin marg, int lines, bool sb)
 		if (sb)
 		{
 			m_sb.push_back(line);
+		}
+
+		int disptop = m_ui.get_disptop();
+		int max_sbrows = get_sb()->get_maxrows();
+		if (disptop > -max_sbrows && disptop < 0)
+		{
+			m_ui.set_disptop(disptop - 1);
 		}
 	}
 }

@@ -9,6 +9,10 @@ public:
 	~scrollback();
 
 public:
+	int get_rows();
+	int get_maxrows();
+	termline_ptr get_line(int nline);
+
 	void push_back(termline_ptr line);
 	termline_ptr pop_back();
 

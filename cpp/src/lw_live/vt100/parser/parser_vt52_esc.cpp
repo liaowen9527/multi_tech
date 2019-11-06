@@ -57,6 +57,10 @@ void parser_vt52_esc::parse()
 	}
 	case 'J':
 		get_control()->erase_lots(false, false, true);
+		if (get_conf()->is_scroll_on_disp())
+		{
+			m_term->get_ui()->set_disptop(0);
+		}
 		break;
 	case 'K':
 		get_control()->erase_lots(true, false, true);
@@ -80,6 +84,10 @@ void parser_vt52_esc::parse()
 	case 'E':
 		get_control()->move_cursor(0, 0, 0);
 		get_control()->erase_lots(false, false, true);
+		if (get_conf()->is_scroll_on_disp())
+		{
+			m_term->get_ui()->set_disptop(0);
+		}
 		break;
 	case 'L':
 		m_term->inset_lines(1);
@@ -95,6 +103,10 @@ void parser_vt52_esc::parse()
 		break;
 	case 'd':
 		get_control()->erase_lots(false, true, false);
+		if (get_conf()->is_scroll_on_disp())
+		{
+			m_term->get_ui()->set_disptop(0);
+		}
 		break;
 	case 'e':
 		get_conf()->set_cursor_on(true);

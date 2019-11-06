@@ -29,8 +29,17 @@ void screen_lines::resize(int rows, int cols)
 	}
 }
 
+int screen_lines::get_rows()
+{
+	return m_lines.size();
+}
+
 termline_ptr screen_lines::get_line(int row)
 {
+	if (row >= m_lines.size())
+	{
+		return nullptr;
+	}
 	return m_lines.at(row);
 }
 

@@ -2,12 +2,31 @@
 
 scrollback::scrollback()
 {
-
+	m_max_lines = 1024;
 }
 
 scrollback::~scrollback()
 {
 
+}
+
+int scrollback::get_rows()
+{
+	return m_lines.size();
+}
+
+int scrollback::get_maxrows()
+{
+	return m_max_lines;
+}
+
+termline_ptr scrollback::get_line(int nline)
+{
+	if (nline < 0 || nline >= m_lines.size())
+	{
+		return nullptr;
+	}
+	return m_lines[nline];
 }
 
 void scrollback::push_back(termline_ptr line)

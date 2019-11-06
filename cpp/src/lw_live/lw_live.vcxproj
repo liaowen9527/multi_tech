@@ -166,8 +166,10 @@
     <ClCompile Include="vt100\parser\parser_vt52_y2.cpp" />
     <ClCompile Include="vt100\screen.cpp" />
     <ClCompile Include="vt100\terminal.cpp" />
+    <ClCompile Include="vt100\ui.cpp" />
     <ClCompile Include="vt100\utf8\convert.cpp" />
     <ClCompile Include="vt100\utf8\utf8_decode.cpp" />
+    <ClCompile Include="vt100\vt_terminal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lw_live.def" />
@@ -212,8 +214,10 @@
     <ClInclude Include="vt100\parser\termstate.h" />
     <ClInclude Include="vt100\screen.h" />
     <ClInclude Include="vt100\terminal.h" />
+    <ClInclude Include="vt100\ui.h" />
     <ClInclude Include="vt100\utf8\convert.h" />
     <ClInclude Include="vt100\utf8\utf8_decode.h" />
+    <ClInclude Include="vt100\vt_terminal.h" />
     <ClInclude Include="vt100\vt_type.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
