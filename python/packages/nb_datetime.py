@@ -2,7 +2,6 @@ import datetime
 import time
 
 
-
 class nb_datetime:
     @staticmethod
     def get_current_time(utc = True):
@@ -28,12 +27,12 @@ class nb_datetime:
 
     @staticmethod
     #"2020-02-07 13:13:41"
-    def to_string(param):
-        return param.strftime('%Y-%m-%d %H:%M:%S')
+    def to_string(param, fmt='%Y-%m-%d %H:%M:%S'):
+        return param.strftime(fmt)
 
     @staticmethod
-    def from_string(param):
-        return datetime.datetime.strptime(param, "%Y-%m-%d %H:%M:%S") 
+    def from_string(param, fmt='%Y-%m-%d %H:%M:%S'):
+        return datetime.datetime.strptime(param, fmt) 
 
     #ISODate("2020-02-07T13:13:41Z")
     #ISODate("2020-02-07T13:13:41.158Z")
@@ -63,6 +62,30 @@ class nb_datetime:
         #.158Z")
         msec_str = param[len_pre + len_date + 1 : len_str - len_end]
         return date1 + datetime.timedelta(milliseconds=int(msec_str))
+
+    @staticmethod
+    def duration(s):
+        m, s = divmod(s, 60)
+        h, m = divmod(m, 60)
+        return ("%02d:%02d:%02d" % (h, m, s))
+
+    @staticmethod
+    def duration_ms(ms):
+        m, s = divmod(ms / 1000, 60)
+        h, m = divmod(m, 60)
+        return ("%02d:%02d:%02d %03d" % (h, m, s, ms%1000))
+
+    @staticmethod
+    def cost(dt1, dt2):
+        datetime_diff = dt1.timestamp() - dt2.timestamp()
+        
+        return round(datetime_diff)
+
+    @staticmethod
+    def cost_ms(dt1, dt2):
+        datetime_diff = dt1.timestamp() - dt2.timestamp()
+        
+        return round(datetime_diff * 1000)
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ import threading
 import traceback
 import datetime
 import time
-import nb_process
+from packages import nb_process
 
 class NBRequest:
     def __init__(self, endpoint, url, header, body):
@@ -11,8 +11,9 @@ class NBRequest:
         self.url = url
         self.header = header
         self.body = body
-        self.timeout = 600
         self.proxies = {}
+        self.timeout = 600
+
         self.can_merge = True
 
         self.regist_time = None
@@ -99,7 +100,7 @@ class NbRequestMgr:
         self.req_merge = NbMergeRequst()
 
         self.utc_time = True
-        self.max_request = 1
+        self.max_request = 10
         self.req_index = {}
 
     def post(self, req):
