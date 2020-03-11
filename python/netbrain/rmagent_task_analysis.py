@@ -38,16 +38,16 @@ class RMAgentTaskAnalysis:
         print("performance statistics:")
         tree = self.build_tree()
 
+        fo = open(self.output_dir + '\\summary.txt', "w")
         for r in tree.root.children:
-            print("\r\n\r\n")
-            print("root_taskid", r._data.self_taskid)
+            fo.write("\n\n")
+            fo.write("root_taskid %s\n" % (r._data.self_taskid))
             for node in NbTreePreOrder(r):
                 #print(node._data.to_dict())
                 t = node._data 
-                print("%s %d %s %s" % (t.begin_utc_time, t.worker_pid, t.task_type, t.cost_s()))
-                
+                fo.write("%s %d %s %s\n" % (t.begin_utc_time, t.worker_pid, t.task_type, t.cost_s()))
 
-
+        fo.close()
 
     def build_tree(self):
         tree = NbTree()
@@ -72,16 +72,16 @@ class RMAgentTaskAnalysis:
     
 if __name__ == "__main__":
     print(sys.argv)
-    #sys.argv.append(r"E:\thoubleshooting\case\SCVMPWNETBN04 02192020\NetBrain_logs\Worker Server\log")
+    sys.argv.append(r"E:\thoubleshooting\case\SCVMPWNETBN04 02192020\NetBrain_logs\Worker Server\log")
     if len(sys.argv) < 2:
         print("must need folder and rmagent file name.")
         exit(0)
 
     analysis = RMAgentTaskAnalysis()
     analysis.log_dir = sys.argv[1]
-    analysis.output_dir = 'output'
+    analysis.output_dir = os.path.join(analysis.log_dir, 'output')
 
-    #analysis.save_db()
+    analysis.save_db()
     analysis.performance()
 
     print("succeed.")

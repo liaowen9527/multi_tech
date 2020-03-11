@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import *
 
 
 class NbDBFeled:
@@ -99,15 +100,22 @@ class NbDBTable:
         arr_v = []
         for k, v in dict_.items():
             arr_f.append(k)
+            if isinstance(v, datetime):
+                arr_v.append(v.strftime('%Y-%m-%d %H:%M:%S'))
+            else:
+                arr_v.append(v)
+            continue
 
             if isinstance(v, int) or isinstance(v, float):
                 arr_v.append(str(v))
             else:
+                temp = str(v).replace('"', '""')
                 arr_v.append(str('"%s"' % str(v)))
 
-        sql = str('INSERT INTO %s(%s) VALUES(%s)' % (self.name, ','.join(arr_f), ','.join(arr_v)) )
+        arr_o = ['?' for i in range(len(arr_f))]
+        sql = str('INSERT INTO %s(%s) VALUES(%s)' % (self.name, ','.join(arr_f), ','.join(arr_o)) )
         
-        cursor.execute(sql)
+        cursor.execute(sql, arr_v)
 
     def update(self, obj):
         pass

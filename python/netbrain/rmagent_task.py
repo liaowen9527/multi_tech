@@ -158,39 +158,3 @@ def find_rmagent(dir_):
     return ""
 
 
-if __name__ == "__main__":
-    print(sys.argv)
-    #sys.argv.append(r"E:\thoubleshooting\case\SCVMPWNETBN04 02192020\NetBrain_logs\Worker Server\log")
-    if len(sys.argv) < 3:
-        print("must need folder and rmagent file name.")
-        exit(0)
-
-    analysis = LogAnalysis()
-    analysis.log_dir = sys.argv[1]
-    analysis.logfilename = find_rmagent(analysis.log_dir)
-    analysis.output_dir = r'output'
-
-    analysis.log_parser = RMAgentLogParser()
-    analysis.analysis()
-
-    arr = []
-    for id_, task in analysis.log_parser.tasks.items():
-        arr.append(task.to_dict())
-
-    if len(arr) > 0:
-        #save db
-        dao = NbDBTable()
-        dao.dbpath = analysis.output_dir + '\\RMTask.db'
-        if os.path.exists(dao.dbpath):
-            os.remove(dao.dbpath)
-
-        dao.name = 'RMTask'
-        dao.set_pk_field('taskid')
-        dao.init_fields_by_dict(arr[0])
-
-        dao.insert_many(arr)
-
-    print("succeed.")
-
-
-    

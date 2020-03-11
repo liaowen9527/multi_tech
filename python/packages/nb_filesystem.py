@@ -5,6 +5,9 @@ from packages import nb_string
 def get_current_path():
     return __file__
 
+def get_filename(path):
+    return os.path.basename(path)
+
 def get_dir(path):
     return os.path.abspath(os.path.dirname(path))
 
