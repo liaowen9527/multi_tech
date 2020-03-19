@@ -1,5 +1,5 @@
 import sqlite3
-from datetime import *
+from packages.nb_datetime import *
 
 
 class NbDBFeled:
@@ -100,8 +100,8 @@ class NbDBTable:
         arr_v = []
         for k, v in dict_.items():
             arr_f.append(k)
-            if isinstance(v, datetime):
-                arr_v.append(v.strftime('%Y-%m-%d %H:%M:%S'))
+            if isinstance(v, datetime.datetime):
+                arr_v.append(nb_datetime.to_ms_string(v))
             else:
                 arr_v.append(v)
             continue

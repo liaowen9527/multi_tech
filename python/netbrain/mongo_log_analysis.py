@@ -93,6 +93,7 @@ class MongoLogAnalysis:
             self.done_conns = []
 
         #save opening connections
+        print('save opening conns into db')
         self.save_conns_todb(self.conns_temp.values())
 
     def load_file(self, filename):
@@ -110,9 +111,9 @@ class MongoLogAnalysis:
         if len(conns) == 0:
             return
 
-        print('save conns into db, count:%d' % (len(self.done_conns)))
         #save db
         dao = self.get_dao()
+        print('save conns into db, count:%d, dbpath:%s' % (len(self.conns), dao.dbpath))
 
         arr = []
         arr_details = []
@@ -179,7 +180,7 @@ class MongoLogAnalysis:
 
 
 if __name__ == '__main__':
-    sys.argv.append(r'E:\thoubleshooting\case\USAA\mongo_log_2\mongo.log')
+    #sys.argv.append(r'E:\thoubleshooting\case\USAA\mongo_log_2\mongo.log')
     if len(sys.argv) < 2:
         print("must need folder and rmagent file name.")
         exit(0)
@@ -190,7 +191,7 @@ if __name__ == '__main__':
     tool = MongoLogAnalysis()
     tool.log_folder = os.path.abspath(os.path.dirname(filepath))
     tool.filename = os.path.basename(filepath)
-    tool.output_dir = os.path.join(tool.log_folder, 'output')
+    tool.output_dir = tool.log_folder
     tool.savedb()
 
     

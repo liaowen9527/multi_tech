@@ -77,6 +77,11 @@ class RMAgentLogParser(LogParser):
         self.tasks = {}
 
     def get_workshell_pid(self, line):
+        #print(line)
+        ret = self.get_workshell_pid_2(line)
+        if ret > 0:
+            return ret
+
         key = "in WorkerShell"
         p1 = line.find(key)
         if p1 == -1:
@@ -87,11 +92,33 @@ class RMAgentLogParser(LogParser):
             return -1
 
         begin = p1 + len(key)
-        end = line.find("(selfTaskId")
+        end = line.find("(selfTaskId", begin)
+        
         line_temp = line[begin : end]
         line_temp = line_temp.strip()
 
         return int(line_temp)
+    
+    def get_workshell_pid_2(self, line):
+        key = "in WorkerShell(PID="
+        p1 = line.find(key)
+        if p1 == -1:
+            key = "EVShellCSharp(PID="
+            p1 = line.find(key)
+
+        if p1 == -1:
+            return -1
+        
+        begin = p1 + len(key)
+        end = line.find(")", begin)
+        
+        line_temp = line[begin : end]
+        line_temp = line_temp.strip()
+
+        #print("p1:%d, b:%d, e:%d, temp:%s" % (p1, begin, end, line_temp))
+
+        return int(line_temp)
+
 
     def get_task_type(self, line):
         key = "task ("
