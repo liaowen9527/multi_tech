@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+
+    </style>
+    <script type="text/javascript" src="../3rd/goJS/go.js"></script>
+    <script type="text/javascript" src="../3rd/goJS/Figures.js"></script>
+    <script type="text/javascript">
+        go.licenseKey =
+            '73f047e0b11c28c702d90776423d6bf919a17564cf841ba30b0414f3ed086006329fe82804d2dc9382a81bfe137dc389d8c03c20c349563de730d4db4ae083aab73221e5120b1089f45626969eff2bf1ae6a61f497e571a288288de0fbabc29c54f7f3d557c80e';
+    </script>
+    <style>
+        .gshHeader {
+            border-color: #8bdcf6;
+            font-size: 10;
+            margin-bottom: 11;
+        }
+    </style>
+</head>
+<body onload="onload()">
+    <div id="container"></div>
+    <div id="tools-wrap">
+        <div id="tools-left" style="margin-top: 20px;">
+            <input id="txtFilepath"></input>
+            <button id="btnOpen">open file</button>
+        </div>
+        <div id="tools-search" style="margin-top: 20px;">
+            <span>From Device</span><input id="txtFrom"></input>
+            <span>To Device</span><input id="txtTo"></input>
+            <button id="btnPath" style="margin-left: 20px;">Path</button>
+            <button id="btnClear" style="margin-left: 20px;">Clear</button>
+        </div>
+        <div id="tools-bottom" style="margin-top: 20px;">
+            <img id="mapPicture" height="40%">
+        </div>
+    </div>
+    <div id="myDiagramDiv" style="background: white; border: solid 1px black; width: 100%; height: 800px"></div>
+    <script type="text/javascript" src="../3rd/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../3rd/angular/angular.min.js"></script>
+
+    <script type="text/javascript">
+        var NetBrain = window.NetBrain || {};
+        window.NetBrain = NetBrain;
+        NetBrain.Map = {}
+
+        var self = {}
+
+        async function onload() {
+            init_gojs();
+            doOpen(null);
+        }
+
+        function init_gojs() {
+            if (self.myDiagram) {
+                return
+            }
+            var $ = go.GraphObject.make;
+
+            self.myDiagram = $(go.Diagram, "myDiagramDiv",
+                {
+                    //"linkingTool.direction": go.LinkingTool.ForwardsOnly,
+                    //"undoManager.isEnabled": true,
+                    layout: $(go.ForceDirectedLayout),
+                }
+            );
+
+            function get_pic(devType){
+                if (!devType) devType = "NE";
+                return "../img/1.jpg";
+            }
+
+            //self.myDiagram.nodeTemplateMap.add("Device", NetBrain.Map.GoNodeImage);
+            //self.myDiagram.linkTemplateMap.add("L2Topo", NetBrain.Map.GoTopoLink);
+            self.myDiagram.nodeTemplate = NetBrain.Map.GoNodeImage.getMapTemplate();
+            self.myDiagram.linkTemplate = NetBrain.Map.GoTopoLink.getMapTemplate();
+        }
+
+        function doOpen(contents) {
+            self.data = [
+                {dev: 'liaowen', intf: "aa", nbr_dev: 'www', nbr_intf: "bb"},
+                {dev: 'liaowen', intf: "aa", nbr_dev: 'h2', nbr_intf: "bb"}
+            ]
+            self.data = JSON.parse(contents) || []
+            self.nodes = new Set()
+            self.links = new Set()
+            self.myDiagram.model.nodeDataArray = []
+            self.myDiagram.model.linkDataArray = []
+
+            for (var l of self.data) {
+                addLink({hostname: l.dev, port: l.intf}, {hostname: l.nbr_dev, port: l.nbr_intf})
+            }
+        }
+
+        function addLink(from, to){
+            function _convert(n) {
+                n.name = n.hostname
+                n.key = n.name
+                n.icon = "../img/1.jpg"
+            }
+
+            function _add_device(dev) {
+                if (self.nodes.has(dev.hostname))
+                    return;
+                
+                self.nodes.add(dev.hostname)
+
+                _convert(dev);
+                self.myDiagram.model.addNodeData(dev);
+            }
+            function _get_link_o(p1, p2) {
+                need_revise = p1.hostname > p2.hostname;
+                if (!need_revise && p1.hostname == p2.hostname) {
+                    need_revise = p1.port > p2.port;
+                }
+
+                if (need_revise) {
+                    return {from: p2.hostname, src: p2.port, to: p1.hostname, dest: p1.port}
+                }
+                return {from: p1.hostname, src: p1.port, to: p2.hostname, dest: p2.port}
+            }
+            function _add_link(p1, p2) {
+                l = _get_link_o(p1, p2)
+                l_s = JSON.stringify(l)
+                if (self.links.has(l_s))
+                    return;
+
+                self.links.add(l_s)
+                self.myDiagram.model.addLinkData(l);
+            }
+
+            _add_device(from);
+            _add_device(to);
+
+            _add_link(from, to)
+        }
+
+        $('#btnOpen').on('click', function () {
+            let input = document.createElement('input');
+            input.type = 'file';
+            input.onchange = _ => {
+                // you can use this method to get file and perform respective operations
+                let files = Array.from(input.files);
+                console.log(files);
+                if (!files){
+                    return
+                }
+
+                $('#txtFilepath').attr("value", files[0].name)
+
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var contents = e.target.result;
+                    doOpen(contents);
+                };
+                reader.readAsText(files[0]);
+
+            };
+            input.click();
+        });
+
+        $('#btnPath').on('click', function () {
+            
+        });
+
+        $('#btnClear').on('click', function () {
+            
+        });
+
+        $('#btnDraw').show();
+    </script>
+    <script type="text/javascript" src="../3rd/goJS/template/node/image.js"></script>
+    <script type="text/javascript" src="../3rd/goJS/template/link/topolink.js"></script>
+</body>
+</html>

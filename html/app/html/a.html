@@ -1,0 +1,9 @@
+<div>
+    名: <input type="text" ng-model="inst.data.firstName"><br>
+    姓: <input type="text" ng-model="inst.data.lastName"><br>
+    <br>
+    姓名: {{inst.getFullName()}}
+    
+</div>
+
+<nb-c-directive data = "inst.getData()"></nb-c-directive>

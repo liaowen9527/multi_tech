@@ -154,19 +154,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="json\autolink.h" />
-    <ClInclude Include="json\config.h" />
-    <ClInclude Include="json\features.h" />
-    <ClInclude Include="json\forwards.h" />
-    <ClInclude Include="json\json.h" />
-    <ClInclude Include="json\json_batchallocator.h" />
-    <ClInclude Include="json\reader.h" />
-    <ClInclude Include="json\value.h" />
-    <ClInclude Include="json\writer.h" />
+    <ClInclude Include="json\LWJson.h" />
+    <ClInclude Include="json\LWJsoncpp.h" />
+    <ClInclude Include="json\LWJsonImpl.h" />
     <ClInclude Include="lw_util_3rd.h" />
     <ClInclude Include="mongo\MongoDBClient.h" />
-    <ClInclude Include="mongo\MongoQuery.h" />
-    <ClInclude Include="mongo\MongoUri.h" />
+    <ClInclude Include="mongo\MongoDBClientPool.h" />
+    <ClInclude Include="mongo\MongoDBCollection.h" />
+    <ClInclude Include="mongo\MongoDBManager.h" />
+    <ClInclude Include="mongo\MongoDBResult.h" />
+    <ClInclude Include="mongo\MongoDBUri.h" />
     <ClInclude Include="redis\AclStringHelper.h" />
     <ClInclude Include="redis\RedisClient.h" />
     <ClInclude Include="redis\RedisClientCluster.h" />
@@ -178,20 +175,16 @@
     <ClInclude Include="sqlite\sqlite3.h" />
     <ClInclude Include="sqlite\sqlite3ext.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="xson\xson.h" />
-    <ClInclude Include="xson\xson_bson.h" />
-    <ClInclude Include="xson\xson_builder.h" />
-    <ClInclude Include="xson\xson_element.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="json\json_reader.cpp" />
-    <ClCompile Include="json\json_value.cpp" />
-    <ClCompile Include="json\json_writer.cpp" />
+    <ClCompile Include="json\LWJson.cpp" />
+    <ClCompile Include="json\LWJsoncpp.cpp" />
     <ClCompile Include="lw_util_3rd.cpp" />
     <ClCompile Include="mongo\MongoDBClient.cpp" />
-    <ClCompile Include="mongo\MongoQuery.cpp" />
-    <ClCompile Include="mongo\MongoUri.cpp" />
-    <ClCompile Include="mongo\testmongo.cpp" />
+    <ClCompile Include="mongo\MongoDBClientPool.cpp" />
+    <ClCompile Include="mongo\MongoDBCollection.cpp" />
+    <ClCompile Include="mongo\MongoDBManager.cpp" />
+    <ClCompile Include="mongo\MongoDBUri.cpp" />
     <ClCompile Include="redis\AclStringHelper.cpp" />
     <ClCompile Include="redis\RedisClient.cpp" />
     <ClCompile Include="redis\RedisClientCluster.cpp" />
@@ -207,15 +200,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="xson\xson.cpp" />
-    <ClCompile Include="xson\xson_builder.cpp" />
-    <ClCompile Include="xson\xson_element.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="json\json_internalarray.inl" />
-    <None Include="json\json_internalmap.inl" />
-    <None Include="json\json_valueiterator.inl" />
-    <None Include="json\sconscript" />
     <None Include="lw_util_3rd.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

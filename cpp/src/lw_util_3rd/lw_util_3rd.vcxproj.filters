@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="jsoncpp">
-      <UniqueIdentifier>{fc8d3f41-772e-4462-be95-a39f761888b3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="dll_export">
       <UniqueIdentifier>{eeb7aed7-272a-49d4-9fe5-6b693cd13d31}</UniqueIdentifier>
     </Filter>
@@ -34,40 +31,19 @@
     <Filter Include="mongodb">
       <UniqueIdentifier>{7bc9a2b9-e46f-49b9-a084-51c10b8a8467}</UniqueIdentifier>
     </Filter>
-    <Filter Include="xson">
+    <Filter Include="json">
       <UniqueIdentifier>{db074ddf-62fa-43f5-aa0a-cda485342408}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="json\impl">
+      <UniqueIdentifier>{7d36af36-6c68-44ca-b1e8-5e6222c5cf90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mongodb\impl">
+      <UniqueIdentifier>{9ff02776-efe8-4b3d-9075-5b94531ac3e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json\autolink.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="json\config.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="json\features.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="json\forwards.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="json\json.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="json\json_batchallocator.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="json\reader.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="json\value.h">
-      <Filter>jsoncpp</Filter>
-    </ClInclude>
-    <ClInclude Include="json\writer.h">
-      <Filter>jsoncpp</Filter>
     </ClInclude>
     <ClInclude Include="lw_util_3rd.h">
       <Filter>dll_export</Filter>
@@ -80,27 +56,6 @@
     </ClInclude>
     <ClInclude Include="sqlite\sqlite3ext.h">
       <Filter>sqlite</Filter>
-    </ClInclude>
-    <ClInclude Include="xson\xson.h">
-      <Filter>xson</Filter>
-    </ClInclude>
-    <ClInclude Include="mongo\MongoDBClient.h">
-      <Filter>mongodb</Filter>
-    </ClInclude>
-    <ClInclude Include="mongo\MongoUri.h">
-      <Filter>mongodb</Filter>
-    </ClInclude>
-    <ClInclude Include="xson\xson_bson.h">
-      <Filter>xson</Filter>
-    </ClInclude>
-    <ClInclude Include="xson\xson_element.h">
-      <Filter>xson</Filter>
-    </ClInclude>
-    <ClInclude Include="xson\xson_builder.h">
-      <Filter>xson</Filter>
-    </ClInclude>
-    <ClInclude Include="mongo\MongoQuery.h">
-      <Filter>mongodb</Filter>
     </ClInclude>
     <ClInclude Include="redis\RedisClient.h">
       <Filter>redis</Filter>
@@ -123,19 +78,37 @@
     <ClInclude Include="redis\RedisSet.h">
       <Filter>redis</Filter>
     </ClInclude>
+    <ClInclude Include="json\LWJson.h">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="mongo\MongoDBManager.h">
+      <Filter>mongodb</Filter>
+    </ClInclude>
+    <ClInclude Include="mongo\MongoDBUri.h">
+      <Filter>mongodb</Filter>
+    </ClInclude>
+    <ClInclude Include="mongo\MongoDBClient.h">
+      <Filter>mongodb\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="mongo\MongoDBClientPool.h">
+      <Filter>mongodb\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="mongo\MongoDBCollection.h">
+      <Filter>mongodb</Filter>
+    </ClInclude>
+    <ClInclude Include="mongo\MongoDBResult.h">
+      <Filter>mongodb</Filter>
+    </ClInclude>
+    <ClInclude Include="json\LWJsonImpl.h">
+      <Filter>json\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="json\LWJsoncpp.h">
+      <Filter>json\impl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="json\json_reader.cpp">
-      <Filter>jsoncpp</Filter>
-    </ClCompile>
-    <ClCompile Include="json\json_value.cpp">
-      <Filter>jsoncpp</Filter>
-    </ClCompile>
-    <ClCompile Include="json\json_writer.cpp">
-      <Filter>jsoncpp</Filter>
     </ClCompile>
     <ClCompile Include="lw_util_3rd.cpp">
       <Filter>dll_export</Filter>
@@ -145,27 +118,6 @@
     </ClCompile>
     <ClCompile Include="sqlite\sqlite3.c">
       <Filter>sqlite</Filter>
-    </ClCompile>
-    <ClCompile Include="mongo\testmongo.cpp">
-      <Filter>mongodb</Filter>
-    </ClCompile>
-    <ClCompile Include="xson\xson.cpp">
-      <Filter>xson</Filter>
-    </ClCompile>
-    <ClCompile Include="mongo\MongoDBClient.cpp">
-      <Filter>mongodb</Filter>
-    </ClCompile>
-    <ClCompile Include="mongo\MongoUri.cpp">
-      <Filter>mongodb</Filter>
-    </ClCompile>
-    <ClCompile Include="xson\xson_element.cpp">
-      <Filter>xson</Filter>
-    </ClCompile>
-    <ClCompile Include="xson\xson_builder.cpp">
-      <Filter>xson</Filter>
-    </ClCompile>
-    <ClCompile Include="mongo\MongoQuery.cpp">
-      <Filter>mongodb</Filter>
     </ClCompile>
     <ClCompile Include="redis\RedisClient.cpp">
       <Filter>redis</Filter>
@@ -188,20 +140,29 @@
     <ClCompile Include="redis\RedisSet.cpp">
       <Filter>redis</Filter>
     </ClCompile>
+    <ClCompile Include="json\LWJson.cpp">
+      <Filter>json</Filter>
+    </ClCompile>
+    <ClCompile Include="mongo\MongoDBManager.cpp">
+      <Filter>mongodb</Filter>
+    </ClCompile>
+    <ClCompile Include="mongo\MongoDBUri.cpp">
+      <Filter>mongodb</Filter>
+    </ClCompile>
+    <ClCompile Include="mongo\MongoDBClient.cpp">
+      <Filter>mongodb\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="mongo\MongoDBClientPool.cpp">
+      <Filter>mongodb\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="mongo\MongoDBCollection.cpp">
+      <Filter>mongodb</Filter>
+    </ClCompile>
+    <ClCompile Include="json\LWJsoncpp.cpp">
+      <Filter>json\impl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="json\json_internalarray.inl">
-      <Filter>jsoncpp</Filter>
-    </None>
-    <None Include="json\json_internalmap.inl">
-      <Filter>jsoncpp</Filter>
-    </None>
-    <None Include="json\json_valueiterator.inl">
-      <Filter>jsoncpp</Filter>
-    </None>
-    <None Include="json\sconscript">
-      <Filter>jsoncpp</Filter>
-    </None>
     <None Include="lw_util_3rd.def">
       <Filter>dll_export</Filter>
     </None>

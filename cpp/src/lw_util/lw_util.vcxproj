@@ -101,7 +101,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;LWUtil_DLL;JSON_DLL_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;LWUtil_DLL;JSON_DLL_BUILD;BOOST_DEBUG_PYTHON;BOOST_LINKING_PYTHON;BOOST_ALL_DYN_LINK;BOOST_THREAD_PROVIDES_GENERIC_SHARED_MUTEX_ON_WIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(lw_util_include);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
@@ -124,53 +124,50 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="filesystem\filelist.cpp" />
-    <ClCompile Include="filesystem\file_system.cpp" />
+    <ClCompile Include="filesystem\LWFileSystem.cpp" />
     <ClCompile Include="filesystem\interface_svr.cpp" />
     <ClCompile Include="filesystem\process.cpp" />
-    <ClCompile Include="log\log_config.cpp" />
-    <ClCompile Include="log\log_entity.cpp" />
-    <ClCompile Include="log\logger.cpp" />
+    <ClCompile Include="log\LWLog.cpp" />
+    <ClCompile Include="log\LWLogInstance.cpp" />
+    <ClCompile Include="LWHelper.cpp" />
     <ClCompile Include="net\callback.cpp" />
     <ClCompile Include="net\config.cpp" />
-    <ClCompile Include="security\encrypter.cpp" />
-    <ClCompile Include="security\zipper.cpp" />
+    <ClCompile Include="security\LWEncrypt.cpp" />
+    <ClCompile Include="security\LWZipper.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="std\guid.cpp" />
-    <ClCompile Include="std\string_convert.cpp" />
-    <ClCompile Include="std\time_helper.cpp" />
-    <ClCompile Include="thread\multi_thread_wrapper.cpp" />
+    <ClCompile Include="std\LWException.cpp" />
+    <ClCompile Include="std\LWGuid.cpp" />
+    <ClCompile Include="std\StringConvert.cpp" />
+    <ClCompile Include="std\TimeHelper.cpp" />
     <ClCompile Include="lw_util.cpp" />
+    <ClCompile Include="thread\thread_wrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="filesystem\filelist.h" />
-    <ClInclude Include="filesystem\file_system.h" />
+    <ClInclude Include="filesystem\LWFileSystem.h" />
     <ClInclude Include="filesystem\interface_svr.h" />
     <ClInclude Include="filesystem\process.h" />
-    <ClInclude Include="log\logger_impl.h" />
-    <ClInclude Include="log\log_config.h" />
-    <ClInclude Include="log\easylog.h" />
-    <ClInclude Include="log\log_entity.h" />
-    <ClInclude Include="log\logger.h" />
+    <ClInclude Include="log\LWLog.h" />
+    <ClInclude Include="log\LWLogInstance.h" />
+    <ClInclude Include="LWHelper.h" />
     <ClInclude Include="net\callback.h" />
     <ClInclude Include="net\config.h" />
     <ClInclude Include="net\define.h" />
-    <ClInclude Include="security\encrypter.h" />
-    <ClInclude Include="security\zipper.h" />
+    <ClInclude Include="security\LWEncrypt.h" />
+    <ClInclude Include="security\LWZipper.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="std\find_safe_ptr.h" />
+    <ClInclude Include="std\LWErrorCode.h" />
+    <ClInclude Include="std\LWException.h" />
     <ClInclude Include="std\sortable_shared_ptr.h" />
-    <ClInclude Include="std\strhelper.h" />
-    <ClInclude Include="std\guid.h" />
-    <ClInclude Include="std\string_convert.h" />
-    <ClInclude Include="std\time_helper.h" />
+    <ClInclude Include="std\StringHelper.h" />
+    <ClInclude Include="std\LWGuid.h" />
+    <ClInclude Include="std\StringConvert.h" />
+    <ClInclude Include="std\TimeHelper.h" />
     <ClInclude Include="std\tree.h" />
-    <ClInclude Include="thread\multi_thread_wrapper.h" />
     <ClInclude Include="lw_util.h" />
-    <ClInclude Include="thread\safe\dictionary.hpp" />
-    <ClInclude Include="thread\safe\queue.hpp" />
+    <ClInclude Include="thread\thread_wrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lw_util.def" />

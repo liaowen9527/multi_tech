@@ -1,17 +1,20 @@
-#include "TestThread.hpp"
-#include "mongo/MongoDBClient.h"
+#include "std/LWException.h"
+#include <iostream>
 
 int main(void)
 {
-// 	TestThread test;
-// 	test.Test();
-
-	MongoDBClient::Initialize();
-
-	MongoUri uri("127.0.0.1");
-
-	MongoDBClient client;
-	client.ConnectTo(uri.to_string());
-
-	
+	try
+	{
+		LWException ex;
+		ex.SetErrorCode(1, "aaa");
+		throw ex;
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	catch (...)
+	{
+		std::cout << "..." << std::endl;
+	}
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="3rd/angular/angular.min.js"></script>
+<script src="app/app.js"></script>
+</head>
+<body>
+    <div ng-app="nb" ng-controller="nbBCtrl">
+        <nb-a-directive data = "in_data"></nb-a-directive>
+        <br>
+        new--姓名: {{getFullName()}}
+    </div>
+</body>
+</html>

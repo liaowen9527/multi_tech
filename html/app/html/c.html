@@ -1,0 +1,10 @@
+<div>
+    名: <input type="text" ng-model="inst.data.firstName"><br>
+    姓: <input type="text" ng-model="inst.data.lastName"><br>
+    <span title="liaowen  "><a href="javascript:;" ng-click="inst.onExport()" class="ng-binding ng-scope"> Export</a></span>
+    <span><a href="javascript:;" ng-click="inst.onExport(this)" class="ng-binding ng-scope"> aaa</a></span>
+    <input type="button" value="button" ng-click="inst.onExport($ng-scope)"></input>
+    <br>
+    姓名: {{inst.getFullName()}}
+    
+</div>

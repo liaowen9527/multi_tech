@@ -49,17 +49,11 @@
     <Filter Include="security">
       <UniqueIdentifier>{6bdd83cc-8df9-4b8c-9715-713acb0d32be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="thread\safe">
-      <UniqueIdentifier>{152fedba-eac6-4010-849c-ba3a798c0652}</UniqueIdentifier>
+    <Filter Include="log\impl">
+      <UniqueIdentifier>{79ebf8ee-b9c2-4d42-ad9d-68847e59fd0c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="thread\multi_thread_wrapper.cpp">
-      <Filter>thread</Filter>
-    </ClCompile>
-    <ClCompile Include="filesystem\file_system.cpp">
-      <Filter>filesystem</Filter>
-    </ClCompile>
     <ClCompile Include="lw_util.cpp">
       <Filter>dll_export</Filter>
     </ClCompile>
@@ -69,35 +63,8 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="filesystem\filelist.cpp">
-      <Filter>filesystem</Filter>
-    </ClCompile>
     <ClCompile Include="filesystem\interface_svr.cpp">
       <Filter>filesystem</Filter>
-    </ClCompile>
-    <ClCompile Include="std\time_helper.cpp">
-      <Filter>std</Filter>
-    </ClCompile>
-    <ClCompile Include="std\string_convert.cpp">
-      <Filter>std</Filter>
-    </ClCompile>
-    <ClCompile Include="log\logger.cpp">
-      <Filter>log</Filter>
-    </ClCompile>
-    <ClCompile Include="log\log_entity.cpp">
-      <Filter>log</Filter>
-    </ClCompile>
-    <ClCompile Include="log\log_config.cpp">
-      <Filter>log</Filter>
-    </ClCompile>
-    <ClCompile Include="security\encrypter.cpp">
-      <Filter>security</Filter>
-    </ClCompile>
-    <ClCompile Include="security\zipper.cpp">
-      <Filter>security</Filter>
-    </ClCompile>
-    <ClCompile Include="std\guid.cpp">
-      <Filter>std</Filter>
     </ClCompile>
     <ClCompile Include="net\config.cpp">
       <Filter>net</Filter>
@@ -105,16 +72,43 @@
     <ClCompile Include="net\callback.cpp">
       <Filter>net</Filter>
     </ClCompile>
+    <ClCompile Include="log\LWLogInstance.cpp">
+      <Filter>log\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="LWHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="log\LWLog.cpp">
+      <Filter>log\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="filesystem\LWFileSystem.cpp">
+      <Filter>filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="thread\thread_wrapper.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="std\StringConvert.cpp">
+      <Filter>std</Filter>
+    </ClCompile>
+    <ClCompile Include="std\TimeHelper.cpp">
+      <Filter>std</Filter>
+    </ClCompile>
+    <ClCompile Include="std\LWGuid.cpp">
+      <Filter>std</Filter>
+    </ClCompile>
+    <ClCompile Include="security\LWEncrypt.cpp">
+      <Filter>security</Filter>
+    </ClCompile>
+    <ClCompile Include="security\LWZipper.cpp">
+      <Filter>security</Filter>
+    </ClCompile>
+    <ClCompile Include="std\LWException.cpp">
+      <Filter>std</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="thread\multi_thread_wrapper.h">
-      <Filter>thread</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filesystem\file_system.h">
-      <Filter>filesystem</Filter>
     </ClInclude>
     <ClInclude Include="lw_util.h">
       <Filter>dll_export</Filter>
@@ -125,55 +119,13 @@
     <ClInclude Include="std\sortable_shared_ptr.h">
       <Filter>std</Filter>
     </ClInclude>
-    <ClInclude Include="filesystem\filelist.h">
-      <Filter>filesystem</Filter>
-    </ClInclude>
     <ClInclude Include="filesystem\interface_svr.h">
       <Filter>filesystem</Filter>
-    </ClInclude>
-    <ClInclude Include="std\time_helper.h">
-      <Filter>std</Filter>
-    </ClInclude>
-    <ClInclude Include="std\string_convert.h">
-      <Filter>std</Filter>
-    </ClInclude>
-    <ClInclude Include="std\strhelper.h">
-      <Filter>std</Filter>
     </ClInclude>
     <ClInclude Include="std\tree.h">
       <Filter>std</Filter>
     </ClInclude>
     <ClInclude Include="std\find_safe_ptr.h">
-      <Filter>std</Filter>
-    </ClInclude>
-    <ClInclude Include="log\easylog.h">
-      <Filter>log</Filter>
-    </ClInclude>
-    <ClInclude Include="log\logger.h">
-      <Filter>log</Filter>
-    </ClInclude>
-    <ClInclude Include="log\log_config.h">
-      <Filter>log</Filter>
-    </ClInclude>
-    <ClInclude Include="log\log_entity.h">
-      <Filter>log</Filter>
-    </ClInclude>
-    <ClInclude Include="log\logger_impl.h">
-      <Filter>log</Filter>
-    </ClInclude>
-    <ClInclude Include="security\encrypter.h">
-      <Filter>security</Filter>
-    </ClInclude>
-    <ClInclude Include="security\zipper.h">
-      <Filter>security</Filter>
-    </ClInclude>
-    <ClInclude Include="thread\safe\queue.hpp">
-      <Filter>thread\safe</Filter>
-    </ClInclude>
-    <ClInclude Include="thread\safe\dictionary.hpp">
-      <Filter>thread\safe</Filter>
-    </ClInclude>
-    <ClInclude Include="std\guid.h">
       <Filter>std</Filter>
     </ClInclude>
     <ClInclude Include="net\config.h">
@@ -184,6 +136,45 @@
     </ClInclude>
     <ClInclude Include="net\define.h">
       <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="log\LWLog.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\LWLogInstance.h">
+      <Filter>log\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="LWHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="filesystem\LWFileSystem.h">
+      <Filter>filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="thread\thread_wrapper.h">
+      <Filter>thread</Filter>
+    </ClInclude>
+    <ClInclude Include="std\StringConvert.h">
+      <Filter>std</Filter>
+    </ClInclude>
+    <ClInclude Include="std\TimeHelper.h">
+      <Filter>std</Filter>
+    </ClInclude>
+    <ClInclude Include="std\StringHelper.h">
+      <Filter>std</Filter>
+    </ClInclude>
+    <ClInclude Include="std\LWGuid.h">
+      <Filter>std</Filter>
+    </ClInclude>
+    <ClInclude Include="security\LWEncrypt.h">
+      <Filter>security</Filter>
+    </ClInclude>
+    <ClInclude Include="security\LWZipper.h">
+      <Filter>security</Filter>
+    </ClInclude>
+    <ClInclude Include="std\LWException.h">
+      <Filter>std</Filter>
+    </ClInclude>
+    <ClInclude Include="std\LWErrorCode.h">
+      <Filter>std</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

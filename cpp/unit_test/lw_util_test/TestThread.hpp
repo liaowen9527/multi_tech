@@ -1,11 +1,9 @@
 #include <iostream>
 
-#include "lw_util/thread/multi_thread_wrapper.h"
+#include "lw_util/thread/thread_wrapper.h"
 
 
-using namespace lwutil;
-
-class TestThread : public multi_thread_wrapper
+class TestThread : public thread_wrapper
 {
 public:
 	TestThread() {}
@@ -17,7 +15,7 @@ public:
 		std::cout << "begin thread." << std::endl;
 
 		//sleep 3s
-		run(2, true, 3000);
+		run("test", 2, true, 3000);
 
 		//sleep 4s
 		std::this_thread::sleep_for(std::chrono::seconds(4));

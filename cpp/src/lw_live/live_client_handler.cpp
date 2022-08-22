@@ -48,7 +48,7 @@ namespace lw_live {
 			DisplayPtr displayPtr = m_interaction->GetDisplay();
 			if (displayPtr)
 			{
-				displayPtr->OnDisconnected(nErrCode, StringConverter::utf_to_utf(err_msg));
+				displayPtr->OnDisconnected(nErrCode, StringConvert::utf_to_utf(err_msg));
 			}
 		}
 	}

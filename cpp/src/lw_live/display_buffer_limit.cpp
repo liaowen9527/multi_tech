@@ -60,7 +60,7 @@ namespace lw_live {
 			m_fileCache.open(strFilePath.c_str(), std::ios_base::out | std::ios_base::trunc | std::ios::binary);
 		}
 
-		std::string strLines = StringConverter::utf_to_utf(wstr);
+		std::string strLines = StringConvert::utf_to_utf(wstr);
 		m_fileCache.write(strLines.c_str(), strLines.length());
 
 		m_fileCache.flush();
@@ -74,7 +74,7 @@ namespace lw_live {
 		std::wstring wstr;
 		Read(0, 0, row, col, wstr);
 
-		str = StringConverter::utf_to_utf(wstr);
+		str = StringConvert::utf_to_utf(wstr);
 	}
 
 	void DisplayBufferLimit::SaveToFile()

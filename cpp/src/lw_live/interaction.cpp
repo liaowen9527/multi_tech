@@ -2,7 +2,7 @@
 #include <sstream>
 #include <fstream>
 #include "log/easylog.h"
-#include "std/guid.h"
+#include "std/LWGuid.h"
 #include "putty_gen.h"
 #include "live_client_handler.h"
 #include "client_factory.h"
@@ -216,7 +216,7 @@ namespace lw_live {
 			return;
 		}
 
-		GUID guid(true);
+		LWGuid guid(true);
 		std::string strFileName = guid.ToString();
 		std::string strFilePath = m_strDataFolder + strFileName;
 
